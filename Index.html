@@ -1,0 +1,3277 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>آموزش جامع فرمول‌های اکسل | ExcelLand</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0c11; --panel:#12151d; --panel2:#191d27; --panel3:#1f2431; --border:#252b3a;
+    --accent:#22c55e; --accent-dim:#14532d; --accent2:#5b8cff; --amber:#f0a83c;
+    --text:#e8eaf0; --muted:#8992a8; --code:#080a0f; --warn:#f0a83c; --danger:#f0715c;
+    --radius:14px; --radius-sm:9px;
+    --shadow:0 8px 24px -8px rgba(0,0,0,.5);
+  }
+  [data-theme="light"]{
+    --bg:#f3f4f7; --panel:#ffffff; --panel2:#f3f5f9; --panel3:#eaedf4; --border:#e1e5ee;
+    --accent:#0f9d58; --accent-dim:#d7f3e3; --accent2:#3060e8; --amber:#c67a10;
+    --text:#151823; --muted:#6a7186; --code:#f4f6fb; --warn:#c67a10; --danger:#d9503c;
+    --shadow:0 8px 24px -10px rgba(30,40,70,.18);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:
+      radial-gradient(1200px 500px at 15% -10%, color-mix(in srgb, var(--accent) 7%, transparent), transparent),
+      var(--bg);
+    color:var(--text);font-family:'Vazirmatn','Segoe UI',Tahoma,sans-serif;transition:background-color .25s,color .25s;}
+  h1,h2,h3{font-family:'Vazirmatn',sans-serif;letter-spacing:-.01em;}
+
+  #creatorBar{background:var(--panel2);border-bottom:1px solid var(--border);padding:8px 22px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;font-size:12.5px;position:sticky;top:0;z-index:21;}
+  #creatorBar .creator-info{display:flex;flex-wrap:wrap;align-items:center;gap:14px;color:var(--muted);}
+  #creatorBar .creator-name{color:var(--text);font-weight:700;}
+  #creatorBar .creator-link{color:var(--muted);text-decoration:none;transition:.12s;}
+  #creatorBar .creator-link:hover{color:var(--accent2);}
+  #creatorBar .creator-social{display:flex;gap:8px;flex-wrap:wrap;}
+  #creatorBar .social-link{text-decoration:none;color:var(--text);background:var(--panel3);border:1px solid var(--border);padding:4px 11px;border-radius:20px;font-size:12px;transition:.15s;}
+  #creatorBar .social-link:hover{transform:translateY(-1px);box-shadow:var(--shadow);}
+  #creatorBar .social-link.tg:hover{color:#38a5ea;border-color:#38a5ea;}
+  #creatorBar .social-link.bale:hover{color:#f6b52c;border-color:#f6b52c;}
+  #creatorBar .social-link.ig:hover{color:#e1306c;border-color:#e1306c;}
+  header{position:sticky;top:37px;z-index:20;background:color-mix(in srgb, var(--panel) 92%, transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--border);padding:14px 22px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
+    background-image:linear-gradient(var(--border) 1px, transparent 1px),linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size:26px 26px;background-position:center; background-blend-mode:overlay; }
+  [data-theme="light"] header{background-blend-mode:normal;}
+  @media(max-width:700px){
+    #creatorBar{position:static;justify-content:center;text-align:center;}
+    header{top:0;}
+  }
+  header h1{font-size:19px;margin:0;display:flex;align-items:center;gap:10px;font-weight:800;}
+  header h1 .cellmark{font-family:'JetBrains Mono',monospace;background:var(--panel3);border:1px solid var(--border);color:var(--accent);font-size:11px;padding:3px 7px;border-radius:6px;font-weight:700;}
+  header h1 span.badge{background:linear-gradient(135deg,var(--accent),#0ea55a);color:#052e16;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:.02em;box-shadow:0 2px 8px -2px color-mix(in srgb, var(--accent) 60%, transparent);}
+  .controls{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  button, select, input{font-family:inherit;}
+  .btn{background:var(--panel2);border:1px solid var(--border);color:var(--text);padding:8px 13px;border-radius:var(--radius-sm);cursor:pointer;font-size:13px;transition:.15s;}
+  .btn:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow);}
+  .btn:active{transform:translateY(0);}
+  .btn.active{background:var(--accent);color:#052e16;border-color:var(--accent);font-weight:700;}
+  #searchWrap{position:relative;}
+  #searchBox{width:260px;padding:9px 34px 9px 12px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--panel2);color:var(--text);font-size:14px;transition:.15s;}
+  #searchBox:focus{outline:none;border-color:var(--accent2);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent2) 22%, transparent);}
+  .kbd-hint{position:absolute;left:8px;top:50%;transform:translateY(-50%);font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:1px 5px;pointer-events:none;}
+  #statBar{max-width:1400px;margin:14px auto 0;padding:0 16px;display:flex;gap:10px;flex-wrap:wrap;}
+  .stat-chip{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:8px 14px;font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:7px;}
+  .stat-chip b{color:var(--text);font-family:'JetBrains Mono',monospace;font-size:13.5px;}
+  .stat-chip.accent b{color:var(--accent);}
+  main{display:flex;max-width:1400px;margin:0 auto;gap:16px;padding:16px;align-items:flex-start;}
+  #sidebarToggle{display:none;}
+  aside{width:236px;flex-shrink:0;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:14px;position:sticky;top:130px;max-height:calc(100vh - 150px);overflow-y:auto;}
+  aside h3{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin:4px 6px 10px;}
+  .cat-item{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;border-radius:8px;cursor:pointer;font-size:13.5px;margin-bottom:2px;border-right:3px solid transparent;transition:.12s;}
+  [data-theme="light"] .cat-item{border-right:3px solid transparent;}
+  .cat-item:hover{background:var(--panel2);}
+  .cat-item.active{background:var(--panel2);border-right-color:var(--accent);color:var(--accent);font-weight:700;}
+  .cat-item span.count{color:var(--muted);font-size:11px;font-family:'JetBrains Mono',monospace;background:var(--panel3);padding:1px 7px;border-radius:20px;}
+  .cat-item.active span.count{color:var(--accent);}
+  #results{flex:1;min-width:0;}
+  #resultInfo{color:var(--muted);font-size:13px;margin:4px 4px 12px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px;}
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);padding:16px;transition:.18s;position:relative;overflow:hidden;animation:cardIn .35s ease both;}
+  .card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));opacity:0;transition:.18s;}
+  .card:hover{border-color:var(--accent2);transform:translateY(-2px);box-shadow:var(--shadow);}
+  .card:hover::before{opacity:1;}
+  @keyframes cardIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion:reduce){.card{animation:none;}.card:hover{transform:none;}}
+  .card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px;}
+  .fname{font-family:'JetBrains Mono',monospace;font-size:16px;font-weight:700;color:var(--accent2);direction:ltr;text-align:left;}
+  .tag{font-size:10.5px;background:var(--panel2);color:var(--muted);padding:3px 8px;border-radius:20px;border:1px solid var(--border);white-space:nowrap;}
+  .icon-btn{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:7px;padding:4px 7px;font-size:12px;cursor:pointer;flex-shrink:0;line-height:1;transition:.12s;}
+  .icon-btn:hover{border-color:var(--accent2);color:var(--accent2);}
+  .icon-btn.starred{color:var(--amber);border-color:var(--amber);}
+  .icon-btn.copied{color:var(--accent);border-color:var(--accent);}
+  .syntax{background:var(--code);border-radius:var(--radius-sm);padding:8px 10px;font-family:'JetBrains Mono',monospace;font-size:12.5px;direction:ltr;text-align:left;color:#8fc4ff;margin-bottom:10px;overflow-x:auto;white-space:pre;border:1px solid var(--border);}
+  .desc{font-size:13.5px;line-height:1.9;margin-bottom:10px;}
+  .desc.en{direction:ltr;text-align:left;font-family:'Segoe UI',sans-serif;color:var(--text);}
+  .desc.fa{direction:rtl;text-align:right;}
+  .example{background:var(--panel2);border-radius:var(--radius-sm);padding:10px 12px;font-size:12.5px;border-right:3px solid var(--accent);}
+  [data-theme="light"] .example{border-right:3px solid var(--accent);}
+  .example .lbl{color:var(--accent);font-weight:700;font-size:11px;margin-bottom:4px;display:flex;align-items:center;justify-content:space-between;gap:8px;}
+  .ex-copy-icon{background:transparent;border:1px solid var(--border);color:var(--accent);border-radius:6px;padding:2px 7px;font-size:11px;cursor:pointer;line-height:1.4;flex-shrink:0;transition:.12s;}
+  .ex-copy-icon:hover{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 14%, transparent);}
+  .ex-copy-icon:active{background:color-mix(in srgb, var(--accent) 24%, transparent);}
+  .ex-copy-icon.copied{color:var(--accent);border-color:var(--accent);background:color-mix(in srgb, var(--accent) 22%, transparent);}
+  .example code{direction:ltr;display:block;text-align:left;font-family:'JetBrains Mono',monospace;color:var(--accent2);margin-top:2px;cursor:pointer;border-radius:6px;padding:3px 5px;margin-right:-5px;margin-left:-5px;transition:background-color .15s,color .15s;}
+  .example code:hover{background:color-mix(in srgb, var(--accent2) 14%, transparent);}
+  .example code:active{background:color-mix(in srgb, var(--accent2) 24%, transparent);}
+  .example code.copied-flash{background:color-mix(in srgb, var(--accent) 22%, transparent);color:var(--accent);}
+  .lang-block{margin-bottom:10px;}
+  .lang-title{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px;}
+  .lang-title.fa{text-transform:none;letter-spacing:normal;}
+  .no-results{text-align:center;padding:60px 20px;color:var(--muted);}
+  #langMode.mode-both .only-fa, #langMode.mode-both .only-en{display:block;}
+  #langMode.mode-fa .only-en{display:none;}
+  #langMode.mode-en .only-fa{display:none;}
+  footer{text-align:center;color:var(--muted);font-size:12px;padding:30px 10px;}
+  ::-webkit-scrollbar{width:8px;height:8px;}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:8px;}
+  :focus-visible{outline:2px solid var(--accent2);outline-offset:2px;}
+  @media(max-width:900px){
+    main{flex-direction:column;}
+    aside{width:100%;position:static;max-height:none;display:none;}
+    aside.open{display:block;}
+    #sidebarToggle{display:inline-flex;}
+    #searchBox{width:180px;}
+  }
+
+  .xl-slide-btn{background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:6px;padding:4px 8px;font-size:12px;cursor:pointer;flex-shrink:0;transition:.12s;}
+  .xl-slide-btn:hover{border-color:var(--accent2);color:var(--accent2);}
+
+  #xlOverlay{position:fixed;inset:0;background:rgba(4,6,10,.78);backdrop-filter:blur(2px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px;}
+  #xlOverlay.open{display:flex;}
+  .xl-modal{background:var(--panel);border-radius:16px;max-width:820px;width:100%;max-height:92vh;overflow:auto;box-shadow:0 24px 70px rgba(0,0,0,.55);border:1px solid var(--border);}
+  .xl-modal-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--border);}
+  .xl-modal-head .xl-title{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--accent2);font-size:17px;direction:ltr;}
+  .xl-close{background:none;border:none;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;padding:2px 6px;border-radius:6px;}
+  .xl-close:hover{color:var(--danger);background:var(--panel2);}
+
+  /* ---- Exportable bilingual formula slide (captured via html2canvas) ---- */
+  #slideExportRoot{position:fixed;left:-99999px;top:0;width:1080px;}
+  .fx-slide{width:1080px;min-height:1350px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(900px 500px at 85% -8%, rgba(34,197,94,.35), transparent),
+      radial-gradient(700px 420px at -5% 105%, rgba(91,140,255,.30), transparent),
+      linear-gradient(160deg,#0a0c11 0%,#12151d 55%,#0a0c11 100%);
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+      radial-gradient(900px 500px at 85% -8%, rgba(34,197,94,.35), transparent),
+      radial-gradient(700px 420px at -5% 105%, rgba(91,140,255,.30), transparent),
+      linear-gradient(160deg,#0a0c11 0%,#12151d 55%,#0a0c11 100%);
+    background-size:36px 36px,36px 36px,auto,auto,auto;
+    font-family:'Vazirmatn',sans-serif;color:#e8eaf0;padding:64px 64px 50px;box-sizing:border-box;}
+  .fx-slide .fx-brand{display:flex;align-items:center;justify-content:space-between;margin-bottom:46px;}
+  .fx-slide .fx-brand-mark{display:flex;align-items:center;gap:14px;}
+  .fx-slide .fx-brand-badge{width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#22c55e,#0ea55a);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;color:#052e16;font-size:22px;box-shadow:0 8px 24px -6px rgba(34,197,94,.5);}
+  .fx-slide .fx-brand-name{font-size:22px;font-weight:800;letter-spacing:-.01em;}
+  .fx-slide .fx-brand-tag{font-size:14px;color:#8992a8;background:#191d27;border:1px solid #252b3a;padding:8px 16px;border-radius:20px;}
+  .fx-slide .fx-fname{font-family:'JetBrains Mono',monospace;font-weight:800;font-size:64px;color:#5b8cff;direction:ltr;text-align:left;line-height:1.1;margin-bottom:14px;text-shadow:0 0 40px rgba(91,140,255,.35);}
+  .fx-slide .fx-cat{display:inline-block;font-size:15px;color:#8992a8;background:#191d27;border:1px solid #252b3a;padding:6px 16px;border-radius:20px;margin-bottom:32px;}
+  .fx-slide .fx-syntax{font-family:'JetBrains Mono',monospace;font-size:22px;color:#8fc4ff;direction:ltr;text-align:left;background:#080a0f;border:1px solid #252b3a;border-radius:14px;padding:20px 24px;margin-bottom:34px;white-space:pre-wrap;word-break:break-word;}
+  .fx-slide .fx-block{background:#12151d;border:1px solid #252b3a;border-radius:16px;padding:26px 28px;margin-bottom:22px;}
+  .fx-slide .fx-block .fx-lbl{font-size:14px;color:#22c55e;font-weight:700;margin-bottom:10px;}
+  .fx-slide .fx-block.en .fx-lbl{color:#5b8cff;letter-spacing:.06em;text-transform:uppercase;}
+  .fx-slide .fx-block .fx-desc{font-size:24px;line-height:1.9;}
+  .fx-slide .fx-block.fa .fx-desc{direction:rtl;text-align:right;}
+  .fx-slide .fx-block.en .fx-desc{direction:ltr;text-align:left;font-family:'Segoe UI',sans-serif;}
+  .fx-slide .fx-example{background:#191d27;border-right:4px solid #22c55e;border-radius:14px;padding:20px 24px;margin-bottom:16px;}
+  .fx-slide .fx-example.en{border-right:none;border-left:4px solid #5b8cff;}
+  .fx-slide .fx-example .fx-ex-lbl{font-size:13px;color:#f0a83c;font-weight:700;margin-bottom:8px;}
+  .fx-slide .fx-example code{display:block;direction:ltr;text-align:left;font-family:'JetBrains Mono',monospace;font-size:20px;color:#e8eaf0;}
+  .fx-slide .fx-footer{position:absolute;bottom:0;left:0;right:0;padding:26px 64px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid #252b3a;font-size:14px;color:#8992a8;}
+  .fx-slide .fx-footer b{color:#22c55e;}
+  .xl-modal-body{padding:16px 18px;}
+
+  .xl-window{border:1px solid #3a3f4b;border-radius:8px;overflow:hidden;background:#fff;direction:ltr;}
+  .xl-titlebar{background:#217346;color:#fff;font-size:12.5px;padding:6px 10px;display:flex;align-items:center;gap:6px;}
+  .xl-ribbon{background:#f3f2f1;border-bottom:1px solid #d6d6d6;padding:5px 8px;display:flex;gap:14px;font-size:11px;color:#444;}
+  .xl-ribbon span{padding:2px 4px;}
+  .xl-ribbon span.active{color:#217346;font-weight:700;border-bottom:2px solid #217346;}
+  .xl-formulabar{display:flex;align-items:center;gap:6px;background:#fff;border-bottom:1px solid #d6d6d6;padding:5px 8px;font-size:12.5px;}
+  .xl-cellref{background:#f3f2f1;border:1px solid #d6d6d6;border-radius:3px;padding:2px 8px;font-weight:700;color:#217346;font-family:Consolas,monospace;min-width:38px;text-align:center;font-size:11.5px;}
+  .xl-fx{color:#217346;font-weight:700;font-style:italic;font-family:Georgia,serif;font-size:13px;}
+  .xl-formulatext{flex:1;font-family:Consolas,monospace;font-size:12.5px;color:#1a1a1a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .xl-gridwrap{overflow-x:auto;}
+  table.xl-table{border-collapse:collapse;width:100%;font-family:Calibri,Arial,sans-serif;font-size:12px;}
+  table.xl-table th{background:#f3f2f1;border:1px solid #d6d6d6;color:#555;font-weight:600;padding:3px 2px;min-width:58px;position:sticky;top:0;}
+  table.xl-table th.rownum{min-width:26px;background:#f3f2f1;}
+  table.xl-table td{border:1px solid #e2e2e2;padding:3px 6px;color:#1a1a1a;text-align:right;white-space:nowrap;height:20px;}
+  table.xl-table td.rownum{background:#f3f2f1;color:#555;text-align:center;font-weight:600;}
+  table.xl-table td.xl-ref{background:#eef6ff;color:#1a1a1a;}
+  table.xl-table td.xl-target{background:#e8f5e9;outline:2px solid #217346;outline-offset:-2px;color:#0b5e20;font-weight:700;position:relative;}
+  table.xl-table td.xl-target::after{content:"";position:absolute;right:-1px;bottom:-1px;width:6px;height:6px;background:#217346;}
+  table.xl-table td.xl-crit{background:#fff3cd;color:#7a4a00;font-weight:700;outline:1px dashed #f59e0b;outline-offset:-2px;}
+  .xl-caption{margin-top:12px;font-size:13.5px;line-height:1.9;color:var(--text);background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:12px 14px;}
+  .xl-caption b{color:var(--accent2);}
+  .xl-syntax-mini{font-family:Consolas,monospace;font-size:12.5px;color:var(--muted);direction:ltr;text-align:left;margin-top:6px;}
+  .xl-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap;}
+  .xl-nav-btns{display:flex;gap:8px;align-items:center;}
+  .xl-counter{color:var(--muted);font-size:12.5px;}
+</style>
+</head>
+<body data-theme="dark">
+<div id="creatorBar">
+  <div class="creator-info">
+    <span class="creator-name">👤 محسن صفری</span>
+    <a class="creator-link" href="mailto:mohsensafari250@yahoo.com">✉️ mohsensafari250@yahoo.com</a>
+    <a class="creator-link" href="tel:+989390445724" dir="ltr">📞 989390445724+</a>
+  </div>
+  <div class="creator-social">
+    <a class="social-link tg" href="https://t.me/+i2q6wJtmo55lMzM0" target="_blank" rel="noopener">📣 تلگرام</a>
+    <a class="social-link bale" href="https://ble.ir/join/7ctyBimRCi" target="_blank" rel="noopener">💬 بله</a>
+    <a class="social-link ig" href="https://www.instagram.com/excelland251/" target="_blank" rel="noopener">📷 اینستاگرام</a>
+  </div>
+</div>
+<header>
+  <h1>📊 آموزش فرمول‌های اکسل <span class="cellmark">fx</span><span class="badge">ExcelLand</span></h1>
+  <div class="controls">
+    <button class="btn" id="sidebarToggle">📂 دسته‌ها</button>
+    <div id="searchWrap">
+      <input id="searchBox" type="text" placeholder="🔍 جستجو بر اساس نام یا توضیحات...">
+      <span class="kbd-hint">/</span>
+    </div>
+    <button class="btn" id="langToggle" data-mode="both">🌐 فارسی+انگلیسی</button>
+    <button class="btn" id="favToggle">⭐ موردعلاقه‌ها</button>
+    <button class="btn" id="themeToggle">🌙 تیره</button>
+    <button class="btn" id="exportBtn">📥 خروجی اکسل (دوزبانه)</button>
+    <button class="btn" id="slideshowBtn">🖥️ اسلایدشو محیط اکسل</button>
+  </div>
+</header>
+<div id="statBar"></div>
+
+<div id="xlOverlay">
+  <div class="xl-modal">
+    <div class="xl-modal-head">
+      <div class="xl-title" id="xlTitle">SUM</div>
+      <button class="xl-close" id="xlClose">×</button>
+    </div>
+    <div class="xl-modal-body">
+      <div class="xl-window">
+        <div class="xl-titlebar">📗 <span id="xlWinTitle">Book1 - Excel</span></div>
+        <div class="xl-ribbon"><span>File</span><span class="active">Home</span><span>Insert</span><span>Page Layout</span><span>Formulas</span><span>Data</span><span>Review</span><span>View</span></div>
+        <div class="xl-formulabar">
+          <div class="xl-cellref" id="xlCellRef">A1</div>
+          <div class="xl-fx">fx</div>
+          <div class="xl-formulatext" id="xlFormulaText">=SUM(A1:A10)</div>
+        </div>
+        <div class="xl-gridwrap">
+          <table class="xl-table" id="xlTable"></table>
+        </div>
+      </div>
+      <div class="xl-caption" id="xlCaption"></div>
+      <div class="xl-syntax-mini" id="xlSyntaxMini"></div>
+      <div class="xl-nav">
+        <div class="xl-nav-btns">
+          <button class="btn" id="xlPrev">◀ قبلی</button>
+          <button class="btn" id="xlAutoplay">▶️ خودکار</button>
+          <button class="btn" id="xlNext">بعدی ▶</button>
+          <button class="btn" id="xlSaveSlide">💾 ذخیره اسلاید</button>
+        </div>
+        <div class="xl-counter" id="xlCounter">1 / 1</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<main>
+  <aside id="catList"></aside>
+  <div id="results">
+    <div id="resultInfo"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</main>
+
+<div id="slideExportRoot">
+  <div class="fx-slide" id="fxSlide">
+    <div class="fx-brand">
+      <div class="fx-brand-mark">
+        <div class="fx-brand-badge">fx</div>
+        <div class="fx-brand-name">📊 ExcelLand</div>
+      </div>
+      <div class="fx-brand-tag" id="fxCat">دسته‌بندی</div>
+    </div>
+    <div class="fx-fname" id="fxName">SUM</div>
+    <div class="fx-syntax" id="fxSyntax">=SUM(number1, [number2], ...)</div>
+    <div class="fx-block fa">
+      <div class="fx-lbl">توضیح فارسی</div>
+      <div class="fx-desc" id="fxDescFa"></div>
+    </div>
+    <div class="fx-block en">
+      <div class="fx-lbl">English</div>
+      <div class="fx-desc" id="fxDescEn"></div>
+    </div>
+    <div class="fx-example fa">
+      <div class="fx-ex-lbl">مثال</div>
+      <code id="fxExFa"></code>
+    </div>
+    <div class="fx-example en">
+      <div class="fx-ex-lbl">Example</div>
+      <code id="fxExEn"></code>
+    </div>
+    <div class="fx-footer">
+      <span>آموزش جامع فرمول‌های اکسل، دوزبانه</span>
+      <span><b>ExcelLand</b> · fx</span>
+    </div>
+  </div>
+</div>
+
+<div id="toast" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--panel);border:1px solid var(--border);color:var(--text);padding:12px 20px;border-radius:10px;font-size:13.5px;box-shadow:var(--shadow);z-index:200;opacity:0;pointer-events:none;transition:.25s;"></div>
+
+<footer>ابزار آموزشی ExcelLand — مجموعه فرمول‌های اکسل با مثال و توضیح دوزبانه</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+/* ================= DATA ================= */
+const CATS = {
+  math: "ریاضی و مثلثات / Math & Trig",
+  text: "متنی / Text",
+  logical: "منطقی / Logical",
+  lookup: "جستجو و مرجع / Lookup & Reference",
+  date: "تاریخ و زمان / Date & Time",
+  stat: "آماری / Statistical",
+  financial: "مالی / Financial",
+  info: "اطلاعاتی / Information",
+  engineering: "مهندسی / Engineering",
+  database: "پایگاه‌داده / Database",
+  array: "آرایه‌ای و پویا / Array & Dynamic",
+  web: "وب و متفرقه / Web & Misc"
+};
+
+const F = [
+// ---------------- MATH ----------------
+{n:"SUM",c:"math",s:"=SUM(number1, [number2], ...)",
+ fa:"مجموع یک سری عدد یا محدوده سلولی را محاسبه می‌کند.",
+ en:"Adds up all the numbers in a range or list of values.",
+ exfa:"=SUM(A1:A10) → جمع مقادیر سلول‌های A1 تا A10",
+ exen:"=SUM(A1:A10) → sums values from A1 to A10"},
+{n:"SUMIF",c:"math",s:"=SUMIF(range, criteria, [sum_range])",
+ fa:"مجموع سلول‌هایی را محاسبه می‌کند که با یک شرط مشخص مطابقت دارند.",
+ en:"Sums the cells that meet a single specified condition.",
+ exfa:"=SUMIF(B2:B10,\">100\") → جمع مقادیر بزرگتر از ۱۰۰",
+ exen:"=SUMIF(B2:B10,\">100\") → sum of values greater than 100"},
+{n:"SUMIFS",c:"math",s:"=SUMIFS(sum_range, criteria_range1, criteria1, ...)",
+ fa:"مجموع سلول‌هایی که چند شرط را همزمان برآورده می‌کنند محاسبه می‌کند.",
+ en:"Sums cells that meet multiple conditions simultaneously.",
+ exfa:"=SUMIFS(C2:C10,A2:A10,\"تهران\",B2:B10,\">50\") → جمع فروش تهران با مقدار بیش از ۵۰",
+ exen:"=SUMIFS(C2:C10,A2:A10,\"Tehran\",B2:B10,\">50\")"},
+{n:"SUMPRODUCT",c:"math",s:"=SUMPRODUCT(array1, [array2], ...)",
+ fa:"حاصل ضرب اجزای متناظر آرایه‌ها را جمع می‌زند؛ برای محاسبات شرطی پیچیده مفید است.",
+ en:"Multiplies corresponding array elements and returns the sum; useful for complex conditional math.",
+ exfa:"=SUMPRODUCT(A2:A10,B2:B10) → مجموع حاصل‌ضرب مقدار×قیمت",
+ exen:"=SUMPRODUCT(A2:A10,B2:B10) → total of quantity × price"},
+{n:"PRODUCT",c:"math",s:"=PRODUCT(number1, [number2], ...)",
+ fa:"حاصل‌ضرب همه اعداد ورودی را برمی‌گرداند.",
+ en:"Multiplies all the numbers given as arguments.",
+ exfa:"=PRODUCT(2,3,4) → 24",
+ exen:"=PRODUCT(2,3,4) → 24"},
+{n:"ROUND",c:"math",s:"=ROUND(number, num_digits)",
+ fa:"عدد را با تعداد رقم اعشار مشخص شده گرد می‌کند.",
+ en:"Rounds a number to a specified number of digits.",
+ exfa:"=ROUND(3.14159,2) → 3.14",
+ exen:"=ROUND(3.14159,2) → 3.14"},
+{n:"ROUNDUP",c:"math",s:"=ROUNDUP(number, num_digits)",
+ fa:"عدد را همیشه به سمت بالا (دور از صفر) گرد می‌کند.",
+ en:"Rounds a number up, away from zero.",
+ exfa:"=ROUNDUP(3.1,0) → 4",
+ exen:"=ROUNDUP(3.1,0) → 4"},
+{n:"ROUNDDOWN",c:"math",s:"=ROUNDDOWN(number, num_digits)",
+ fa:"عدد را همیشه به سمت پایین (به سمت صفر) گرد می‌کند.",
+ en:"Rounds a number down, toward zero.",
+ exfa:"=ROUNDDOWN(3.9,0) → 3",
+ exen:"=ROUNDDOWN(3.9,0) → 3"},
+{n:"MROUND",c:"math",s:"=MROUND(number, multiple)",
+ fa:"عدد را به نزدیک‌ترین مضرب مشخص‌شده گرد می‌کند.",
+ en:"Rounds a number to the nearest specified multiple.",
+ exfa:"=MROUND(23,5) → 25",
+ exen:"=MROUND(23,5) → 25"},
+{n:"CEILING",c:"math",s:"=CEILING(number, significance)",
+ fa:"عدد را به بالاترین مضرب مشخص‌شده گرد می‌کند.",
+ en:"Rounds a number up to the nearest multiple of significance.",
+ exfa:"=CEILING(4.2,1) → 5",
+ exen:"=CEILING(4.2,1) → 5"},
+{n:"FLOOR",c:"math",s:"=FLOOR(number, significance)",
+ fa:"عدد را به پایین‌ترین مضرب مشخص‌شده گرد می‌کند.",
+ en:"Rounds a number down to the nearest multiple of significance.",
+ exfa:"=FLOOR(4.8,1) → 4",
+ exen:"=FLOOR(4.8,1) → 4"},
+{n:"ABS",c:"math",s:"=ABS(number)",
+ fa:"قدر مطلق (مقدار مثبت) یک عدد را برمی‌گرداند.",
+ en:"Returns the absolute value of a number.",
+ exfa:"=ABS(-8) → 8",
+ exen:"=ABS(-8) → 8"},
+{n:"POWER",c:"math",s:"=POWER(number, power)",
+ fa:"عدد را به توان مشخص‌شده می‌رساند.",
+ en:"Raises a number to a given power.",
+ exfa:"=POWER(2,5) → 32",
+ exen:"=POWER(2,5) → 32"},
+{n:"SQRT",c:"math",s:"=SQRT(number)",
+ fa:"جذر (ریشه دوم) عدد را محاسبه می‌کند.",
+ en:"Returns the square root of a number.",
+ exfa:"=SQRT(81) → 9",
+ exen:"=SQRT(81) → 9"},
+{n:"MOD",c:"math",s:"=MOD(number, divisor)",
+ fa:"باقیمانده تقسیم دو عدد را برمی‌گرداند.",
+ en:"Returns the remainder after division.",
+ exfa:"=MOD(10,3) → 1",
+ exen:"=MOD(10,3) → 1"},
+{n:"QUOTIENT",c:"math",s:"=QUOTIENT(numerator, denominator)",
+ fa:"قسمت صحیح خارج‌قسمت تقسیم را برمی‌گرداند.",
+ en:"Returns the integer portion of a division.",
+ exfa:"=QUOTIENT(10,3) → 3",
+ exen:"=QUOTIENT(10,3) → 3"},
+{n:"INT",c:"math",s:"=INT(number)",
+ fa:"عدد را به پایین‌ترین عدد صحیح گرد می‌کند.",
+ en:"Rounds a number down to the nearest integer.",
+ exfa:"=INT(8.9) → 8",
+ exen:"=INT(8.9) → 8"},
+{n:"TRUNC",c:"math",s:"=TRUNC(number, [num_digits])",
+ fa:"قسمت اعشاری عدد را بدون گرد کردن حذف می‌کند.",
+ en:"Truncates a number to an integer by removing the decimal part.",
+ exfa:"=TRUNC(8.9) → 8",
+ exen:"=TRUNC(8.9) → 8"},
+{n:"SIGN",c:"math",s:"=SIGN(number)",
+ fa:"علامت عدد را برمی‌گرداند: 1 مثبت، -1 منفی، 0 صفر.",
+ en:"Returns the sign of a number: 1, -1, or 0.",
+ exfa:"=SIGN(-5) → -1",
+ exen:"=SIGN(-5) → -1"},
+{n:"EXP",c:"math",s:"=EXP(number)",
+ fa:"عدد e را به توان مشخص‌شده می‌رساند.",
+ en:"Returns e raised to the power of a given number.",
+ exfa:"=EXP(1) → 2.71828",
+ exen:"=EXP(1) → 2.71828"},
+{n:"LN",c:"math",s:"=LN(number)",
+ fa:"لگاریتم طبیعی یک عدد را محاسبه می‌کند.",
+ en:"Returns the natural logarithm of a number.",
+ exfa:"=LN(2.71828) → 1",
+ exen:"=LN(2.71828) → 1"},
+{n:"LOG",c:"math",s:"=LOG(number, [base])",
+ fa:"لگاریتم عدد را در پایه دلخواه محاسبه می‌کند.",
+ en:"Returns the logarithm of a number to a specified base.",
+ exfa:"=LOG(100,10) → 2",
+ exen:"=LOG(100,10) → 2"},
+{n:"LOG10",c:"math",s:"=LOG10(number)",
+ fa:"لگاریتم عدد در پایه ۱۰ را محاسبه می‌کند.",
+ en:"Returns the base-10 logarithm of a number.",
+ exfa:"=LOG10(1000) → 3",
+ exen:"=LOG10(1000) → 3"},
+{n:"GCD",c:"math",s:"=GCD(number1, [number2], ...)",
+ fa:"بزرگترین مقسوم‌علیه مشترک چند عدد را می‌یابد.",
+ en:"Returns the greatest common divisor of numbers.",
+ exfa:"=GCD(12,18) → 6",
+ exen:"=GCD(12,18) → 6"},
+{n:"LCM",c:"math",s:"=LCM(number1, [number2], ...)",
+ fa:"کوچکترین مضرب مشترک چند عدد را می‌یابد.",
+ en:"Returns the least common multiple of numbers.",
+ exfa:"=LCM(4,6) → 12",
+ exen:"=LCM(4,6) → 12"},
+{n:"FACT",c:"math",s:"=FACT(number)",
+ fa:"فاکتوریل عدد را محاسبه می‌کند.",
+ en:"Returns the factorial of a number.",
+ exfa:"=FACT(5) → 120",
+ exen:"=FACT(5) → 120"},
+{n:"RAND",c:"math",s:"=RAND()",
+ fa:"یک عدد اعشاری تصادفی بین صفر و یک تولید می‌کند.",
+ en:"Generates a random decimal number between 0 and 1.",
+ exfa:"=RAND() → مثلاً 0.4821",
+ exen:"=RAND() → e.g. 0.4821"},
+{n:"RANDBETWEEN",c:"math",s:"=RANDBETWEEN(bottom, top)",
+ fa:"یک عدد صحیح تصادفی بین دو مقدار تولید می‌کند.",
+ en:"Generates a random integer between two given numbers.",
+ exfa:"=RANDBETWEEN(1,100) → مثلاً 47",
+ exen:"=RANDBETWEEN(1,100) → e.g. 47"},
+{n:"PI",c:"math",s:"=PI()",
+ fa:"مقدار عدد پی (π) را با دقت بالا برمی‌گرداند.",
+ en:"Returns the value of pi (π).",
+ exfa:"=PI() → 3.14159...",
+ exen:"=PI() → 3.14159..."},
+{n:"SIN",c:"math",s:"=SIN(number)",
+ fa:"سینوس زاویه (بر حسب رادیان) را محاسبه می‌کند.",
+ en:"Returns the sine of an angle in radians.",
+ exfa:"=SIN(PI()/2) → 1",
+ exen:"=SIN(PI()/2) → 1"},
+{n:"COS",c:"math",s:"=COS(number)",
+ fa:"کسینوس زاویه (بر حسب رادیان) را محاسبه می‌کند.",
+ en:"Returns the cosine of an angle in radians.",
+ exfa:"=COS(0) → 1",
+ exen:"=COS(0) → 1"},
+{n:"TAN",c:"math",s:"=TAN(number)",
+ fa:"تانژانت زاویه (بر حسب رادیان) را محاسبه می‌کند.",
+ en:"Returns the tangent of an angle in radians.",
+ exfa:"=TAN(0) → 0",
+ exen:"=TAN(0) → 0"},
+{n:"DEGREES",c:"math",s:"=DEGREES(angle)",
+ fa:"رادیان را به درجه تبدیل می‌کند.",
+ en:"Converts radians to degrees.",
+ exfa:"=DEGREES(PI()) → 180",
+ exen:"=DEGREES(PI()) → 180"},
+{n:"RADIANS",c:"math",s:"=RADIANS(angle)",
+ fa:"درجه را به رادیان تبدیل می‌کند.",
+ en:"Converts degrees to radians.",
+ exfa:"=RADIANS(180) → 3.14159",
+ exen:"=RADIANS(180) → 3.14159"},
+{n:"SUBTOTAL",c:"math",s:"=SUBTOTAL(function_num, ref1, ...)",
+ fa:"یک عملیات تجمیعی (مثل جمع یا میانگین) روی داده‌های فیلترشده انجام می‌دهد.",
+ en:"Performs an aggregate calculation on filtered/visible data.",
+ exfa:"=SUBTOTAL(9,A2:A100) → جمع سطرهای قابل مشاهده",
+ exen:"=SUBTOTAL(9,A2:A100) → sum of visible rows only"},
+{n:"AGGREGATE",c:"math",s:"=AGGREGATE(function_num, options, ref1, ...)",
+ fa:"نسخه پیشرفته SUBTOTAL که خطاها را نیز می‌تواند نادیده بگیرد.",
+ en:"An advanced version of SUBTOTAL that can also ignore error values.",
+ exfa:"=AGGREGATE(9,6,A2:A100) → جمع با نادیده گرفتن خطاها",
+ exen:"=AGGREGATE(9,6,A2:A100) → sum ignoring errors"},
+{n:"SERIESSUM",c:"math",s:"=SERIESSUM(x, n, m, coefficients)",
+ fa:"مجموع یک سری توانی را بر اساس فرمول ریاضی محاسبه می‌کند.",
+ en:"Returns the sum of a power series based on a formula.",
+ exfa:"=SERIESSUM(2,0,1,{1,1,1}) → محاسبه سری",
+ exen:"=SERIESSUM(2,0,1,{1,1,1})"},
+
+// ---------------- TEXT ----------------
+{n:"CONCATENATE",c:"text",s:"=CONCATENATE(text1, [text2], ...)",
+ fa:"چند رشته متنی را به هم می‌چسباند (نسخه قدیمی‌تر).",
+ en:"Joins several text strings into one (legacy function).",
+ exfa:"=CONCATENATE(\"سلام \",\"دنیا\") → سلام دنیا",
+ exen:"=CONCATENATE(\"Hello \",\"World\") → Hello World"},
+{n:"CONCAT",c:"text",s:"=CONCAT(text1, [text2], ...)",
+ fa:"نسخه جدید و بهبودیافته CONCATENATE که از محدوده‌ها هم پشتیبانی می‌کند.",
+ en:"Modern replacement for CONCATENATE, also supports ranges.",
+ exfa:"=CONCAT(A1:A3) → به هم چسباندن مقادیر A1 تا A3",
+ exen:"=CONCAT(A1:A3) → joins values from A1 to A3"},
+{n:"TEXTJOIN",c:"text",s:"=TEXTJOIN(delimiter, ignore_empty, text1, ...)",
+ fa:"چند متن را با یک جداکننده مشخص به هم می‌چسباند و می‌تواند خانه‌های خالی را نادیده بگیرد.",
+ en:"Joins text with a delimiter, optionally ignoring empty cells.",
+ exfa:"=TEXTJOIN(\", \",TRUE,A1:A5) → اتصال با کاما",
+ exen:"=TEXTJOIN(\", \",TRUE,A1:A5) → joins with comma separator"},
+{n:"LEFT",c:"text",s:"=LEFT(text, [num_chars])",
+ fa:"تعداد مشخصی کاراکتر از سمت چپ متن استخراج می‌کند.",
+ en:"Extracts a given number of characters from the start of a text.",
+ exfa:"=LEFT(\"اکسل‌لند\",3) → اکس",
+ exen:"=LEFT(\"ExcelLand\",5) → Excel"},
+{n:"RIGHT",c:"text",s:"=RIGHT(text, [num_chars])",
+ fa:"تعداد مشخصی کاراکتر از سمت راست متن استخراج می‌کند.",
+ en:"Extracts a given number of characters from the end of a text.",
+ exfa:"=RIGHT(\"اکسل‌لند\",4) → لند",
+ exen:"=RIGHT(\"ExcelLand\",4) → Land"},
+{n:"MID",c:"text",s:"=MID(text, start_num, num_chars)",
+ fa:"از میان متن، از موقعیت مشخص، تعدادی کاراکتر استخراج می‌کند.",
+ en:"Extracts characters from the middle of a text string.",
+ exfa:"=MID(\"ExcelLand\",6,4) → Land",
+ exen:"=MID(\"ExcelLand\",6,4) → Land"},
+{n:"LEN",c:"text",s:"=LEN(text)",
+ fa:"تعداد کاراکترهای یک رشته متنی را برمی‌گرداند.",
+ en:"Returns the number of characters in a text string.",
+ exfa:"=LEN(\"سلام\") → 4",
+ exen:"=LEN(\"Hello\") → 5"},
+{n:"TRIM",c:"text",s:"=TRIM(text)",
+ fa:"فاصله‌های اضافی ابتدا، انتها و بین کلمات را حذف می‌کند.",
+ en:"Removes extra spaces from text, keeping single spaces between words.",
+ exfa:"=TRIM(\"  سلام   دنیا \") → سلام دنیا",
+ exen:"=TRIM(\"  Hello   World \") → Hello World"},
+{n:"UPPER",c:"text",s:"=UPPER(text)",
+ fa:"حروف انگلیسی متن را به حروف بزرگ تبدیل می‌کند.",
+ en:"Converts text to all uppercase letters.",
+ exfa:"=UPPER(\"excel\") → EXCEL",
+ exen:"=UPPER(\"excel\") → EXCEL"},
+{n:"LOWER",c:"text",s:"=LOWER(text)",
+ fa:"حروف انگلیسی متن را به حروف کوچک تبدیل می‌کند.",
+ en:"Converts text to all lowercase letters.",
+ exfa:"=LOWER(\"EXCEL\") → excel",
+ exen:"=LOWER(\"EXCEL\") → excel"},
+{n:"PROPER",c:"text",s:"=PROPER(text)",
+ fa:"حرف اول هر کلمه را بزرگ می‌کند.",
+ en:"Capitalizes the first letter of each word.",
+ exfa:"=PROPER(\"excel land\") → Excel Land",
+ exen:"=PROPER(\"excel land\") → Excel Land"},
+{n:"SUBSTITUTE",c:"text",s:"=SUBSTITUTE(text, old_text, new_text, [instance_num])",
+ fa:"یک متن مشخص را با متن دیگری در رشته جایگزین می‌کند.",
+ en:"Replaces occurrences of specific text within a string.",
+ exfa:"=SUBSTITUTE(\"1400/01/01\",\"/\",\"-\") → 1400-01-01",
+ exen:"=SUBSTITUTE(\"2021/03/21\",\"/\",\"-\") → 2021-03-21"},
+{n:"REPLACE",c:"text",s:"=REPLACE(old_text, start_num, num_chars, new_text)",
+ fa:"بخشی از متن را بر اساس موقعیت و طول با متن جدید جایگزین می‌کند.",
+ en:"Replaces part of a text string based on position and length.",
+ exfa:"=REPLACE(\"123456\",1,2,\"AB\") → AB3456",
+ exen:"=REPLACE(\"123456\",1,2,\"AB\") → AB3456"},
+{n:"FIND",c:"text",s:"=FIND(find_text, within_text, [start_num])",
+ fa:"موقعیت یک متن را درون متن دیگر پیدا می‌کند (حساس به بزرگی/کوچکی حروف).",
+ en:"Finds the position of text within another text (case-sensitive).",
+ exfa:"=FIND(\"c\",\"Excel\") → 3",
+ exen:"=FIND(\"c\",\"Excel\") → 3"},
+{n:"SEARCH",c:"text",s:"=SEARCH(find_text, within_text, [start_num])",
+ fa:"موقعیت یک متن را درون متن دیگر پیدا می‌کند (غیرحساس به بزرگی/کوچکی حروف).",
+ en:"Finds the position of text within another text (case-insensitive).",
+ exfa:"=SEARCH(\"C\",\"Excel\") → 3",
+ exen:"=SEARCH(\"C\",\"Excel\") → 3"},
+{n:"TEXT",c:"text",s:"=TEXT(value, format_text)",
+ fa:"یک عدد یا تاریخ را با فرمت دلخواه به متن تبدیل می‌کند.",
+ en:"Converts a number or date into text with a specified format.",
+ exfa:"=TEXT(1500,\"#,##0 ریال\") → 1,500 ریال",
+ exen:"=TEXT(1500,\"$#,##0\") → $1,500"},
+{n:"VALUE",c:"text",s:"=VALUE(text)",
+ fa:"متنی که نمایانگر یک عدد است را به عدد واقعی تبدیل می‌کند.",
+ en:"Converts a text string that represents a number into a real number.",
+ exfa:"=VALUE(\"123\") → 123",
+ exen:"=VALUE(\"123\") → 123"},
+{n:"NUMBERVALUE",c:"text",s:"=NUMBERVALUE(text, [decimal_sep], [group_sep])",
+ fa:"متن را با در نظر گرفتن جداکننده اعشار و هزارگان مشخص به عدد تبدیل می‌کند.",
+ en:"Converts text to number using specified decimal/group separators.",
+ exfa:"=NUMBERVALUE(\"1.234,56\",\",\",\".\") → 1234.56",
+ exen:"=NUMBERVALUE(\"1.234,56\",\",\",\".\") → 1234.56"},
+{n:"TEXTSPLIT",c:"text",s:"=TEXTSPLIT(text, col_delimiter, [row_delimiter])",
+ fa:"یک رشته متنی را بر اساس جداکننده به چند ستون/سطر تقسیم می‌کند (فرمول پویا).",
+ en:"Splits text into rows/columns using delimiters (dynamic array function).",
+ exfa:"=TEXTSPLIT(\"علی،رضا،مهدی\",\"،\") → سه سلول جدا",
+ exen:"=TEXTSPLIT(\"Ali,Reza,Mehdi\",\",\") → three separate cells"},
+{n:"TEXTBEFORE",c:"text",s:"=TEXTBEFORE(text, delimiter, [instance_num])",
+ fa:"متنِ قبل از یک جداکننده مشخص را استخراج می‌کند.",
+ en:"Extracts text that occurs before a given delimiter.",
+ exfa:"=TEXTBEFORE(\"a@b.com\",\"@\") → a",
+ exen:"=TEXTBEFORE(\"a@b.com\",\"@\") → a"},
+{n:"TEXTAFTER",c:"text",s:"=TEXTAFTER(text, delimiter, [instance_num])",
+ fa:"متنِ بعد از یک جداکننده مشخص را استخراج می‌کند.",
+ en:"Extracts text that occurs after a given delimiter.",
+ exfa:"=TEXTAFTER(\"a@b.com\",\"@\") → b.com",
+ exen:"=TEXTAFTER(\"a@b.com\",\"@\") → b.com"},
+{n:"REPT",c:"text",s:"=REPT(text, number_times)",
+ fa:"یک متن را به تعداد مشخص تکرار می‌کند.",
+ en:"Repeats text a specified number of times.",
+ exfa:"=REPT(\"*\",5) → *****",
+ exen:"=REPT(\"*\",5) → *****"},
+{n:"EXACT",c:"text",s:"=EXACT(text1, text2)",
+ fa:"دو متن را با حساسیت به بزرگی و کوچکی حروف مقایسه می‌کند.",
+ en:"Compares two text strings, case-sensitive.",
+ exfa:"=EXACT(\"Excel\",\"excel\") → FALSE",
+ exen:"=EXACT(\"Excel\",\"excel\") → FALSE"},
+{n:"CHAR",c:"text",s:"=CHAR(number)",
+ fa:"کاراکتر متناظر با کد ASCII را برمی‌گرداند.",
+ en:"Returns the character specified by a code number.",
+ exfa:"=CHAR(65) → A",
+ exen:"=CHAR(65) → A"},
+{n:"CODE",c:"text",s:"=CODE(text)",
+ fa:"کد عددی اولین کاراکتر یک متن را برمی‌گرداند.",
+ en:"Returns the numeric code of the first character in text.",
+ exfa:"=CODE(\"A\") → 65",
+ exen:"=CODE(\"A\") → 65"},
+{n:"UNICHAR",c:"text",s:"=UNICHAR(number)",
+ fa:"کاراکتر یونیکد متناظر با یک عدد را برمی‌گرداند.",
+ en:"Returns the Unicode character for a given number.",
+ exfa:"=UNICHAR(65) → A",
+ exen:"=UNICHAR(65) → A"},
+{n:"UNICODE",c:"text",s:"=UNICODE(text)",
+ fa:"عدد یونیکد اولین کاراکتر متن را برمی‌گرداند.",
+ en:"Returns the Unicode number of the first character.",
+ exfa:"=UNICODE(\"ا\") → 1575",
+ exen:"=UNICODE(\"A\") → 65"},
+{n:"CLEAN",c:"text",s:"=CLEAN(text)",
+ fa:"کاراکترهای غیرقابل چاپ را از متن حذف می‌کند.",
+ en:"Removes non-printable characters from text.",
+ exfa:"=CLEAN(text_with_breaks) → متن پاکسازی‌شده",
+ exen:"=CLEAN(text_with_breaks) → cleaned text"},
+{n:"DOLLAR",c:"text",s:"=DOLLAR(number, [decimals])",
+ fa:"عدد را با فرمت ارزی (دلار) به متن تبدیل می‌کند.",
+ en:"Converts a number to text using currency format.",
+ exfa:"=DOLLAR(1234.5,2) → $1,234.50",
+ exen:"=DOLLAR(1234.5,2) → $1,234.50"},
+{n:"FIXED",c:"text",s:"=FIXED(number, [decimals], [no_commas])",
+ fa:"عدد را با تعداد ارقام اعشار مشخص به متن با فرمت ثابت تبدیل می‌کند.",
+ en:"Formats a number as text with a fixed number of decimals.",
+ exfa:"=FIXED(1234.567,2) → 1,234.57",
+ exen:"=FIXED(1234.567,2) → 1,234.57"},
+{n:"T",c:"text",s:"=T(value)",
+ fa:"اگر مقدار متن باشد آن را برمی‌گرداند، در غیر این صورت رشته خالی.",
+ en:"Returns the text if the value is text, otherwise empty string.",
+ exfa:"=T(\"سلام\") → سلام",
+ exen:"=T(\"Hello\") → Hello"},
+{n:"ARABIC",c:"text",s:"=ARABIC(text)",
+ fa:"عدد رومی را به عدد معمولی (عربی) تبدیل می‌کند.",
+ en:"Converts a Roman numeral to an Arabic (regular) number.",
+ exfa:"=ARABIC(\"XIV\") → 14",
+ exen:"=ARABIC(\"XIV\") → 14"},
+{n:"ROMAN",c:"text",s:"=ROMAN(number, [form])",
+ fa:"عدد معمولی را به عدد رومی تبدیل می‌کند.",
+ en:"Converts an Arabic number to a Roman numeral.",
+ exfa:"=ROMAN(14) → XIV",
+ exen:"=ROMAN(14) → XIV"},
+{n:"BAHTTEXT",c:"text",s:"=BAHTTEXT(number)",
+ fa:"عدد را به متن حروفی به زبان تایلندی تبدیل می‌کند.",
+ en:"Converts a number to Thai text with a Baht currency suffix.",
+ exfa:"=BAHTTEXT(100) → หนึ่งร้อยบาทถ้วน",
+ exen:"=BAHTTEXT(100) → Thai text output"},
+
+// ---------------- LOGICAL ----------------
+{n:"IF",c:"logical",s:"=IF(logical_test, value_if_true, value_if_false)",
+ fa:"یک شرط را بررسی کرده و بر اساس درست یا غلط بودن آن، مقدار متفاوتی برمی‌گرداند.",
+ en:"Tests a condition and returns one value if true, another if false.",
+ exfa:"=IF(A1>=10,\"قبول\",\"مردود\") → بر اساس مقدار A1",
+ exen:"=IF(A1>=10,\"Pass\",\"Fail\")"},
+{n:"IFS",c:"logical",s:"=IFS(logical_test1, value1, [logical_test2, value2], ...)",
+ fa:"چند شرط را به‌ترتیب بررسی می‌کند و مقدار مرتبط با اولین شرط درست را برمی‌گرداند.",
+ en:"Checks multiple conditions in order and returns the value for the first TRUE one.",
+ exfa:"=IFS(A1>90,\"عالی\",A1>70,\"خوب\",TRUE,\"ضعیف\")",
+ exen:"=IFS(A1>90,\"Great\",A1>70,\"Good\",TRUE,\"Poor\")"},
+{n:"AND",c:"logical",s:"=AND(logical1, [logical2], ...)",
+ fa:"اگر همه شرط‌های داده‌شده درست باشند TRUE برمی‌گرداند.",
+ en:"Returns TRUE if all given conditions are true.",
+ exfa:"=AND(A1>0,A1<100) → بررسی بازه",
+ exen:"=AND(A1>0,A1<100)"},
+{n:"OR",c:"logical",s:"=OR(logical1, [logical2], ...)",
+ fa:"اگر حداقل یکی از شرط‌ها درست باشد TRUE برمی‌گرداند.",
+ en:"Returns TRUE if at least one condition is true.",
+ exfa:"=OR(A1=\"بله\",A1=\"YES\")",
+ exen:"=OR(A1=\"Yes\",A1=\"YES\")"},
+{n:"NOT",c:"logical",s:"=NOT(logical)",
+ fa:"مقدار منطقی را معکوس می‌کند (TRUE به FALSE و برعکس).",
+ en:"Reverses the logical value of its argument.",
+ exfa:"=NOT(TRUE) → FALSE",
+ exen:"=NOT(TRUE) → FALSE"},
+{n:"XOR",c:"logical",s:"=XOR(logical1, [logical2], ...)",
+ fa:"اگر تعداد فرد شرط‌ها درست باشند TRUE برمی‌گرداند (یای انحصاری).",
+ en:"Returns TRUE if an odd number of conditions are true (exclusive OR).",
+ exfa:"=XOR(TRUE,FALSE) → TRUE",
+ exen:"=XOR(TRUE,FALSE) → TRUE"},
+{n:"IFERROR",c:"logical",s:"=IFERROR(value, value_if_error)",
+ fa:"اگر فرمول خطا داشته باشد، مقدار جایگزین را برمی‌گرداند.",
+ en:"Returns an alternative value if a formula results in an error.",
+ exfa:"=IFERROR(A1/B1,\"خطا در تقسیم\")",
+ exen:"=IFERROR(A1/B1,\"Division error\")"},
+{n:"IFNA",c:"logical",s:"=IFNA(value, value_if_na)",
+ fa:"اگر نتیجه فرمول خطای #N/A باشد، مقدار جایگزین را برمی‌گرداند.",
+ en:"Returns an alternative value specifically for #N/A errors.",
+ exfa:"=IFNA(VLOOKUP(...),\"یافت نشد\")",
+ exen:"=IFNA(VLOOKUP(...),\"Not found\")"},
+{n:"TRUE",c:"logical",s:"=TRUE()",
+ fa:"مقدار منطقی TRUE را برمی‌گرداند.",
+ en:"Returns the logical value TRUE.",
+ exfa:"=TRUE() → TRUE",
+ exen:"=TRUE() → TRUE"},
+{n:"FALSE",c:"logical",s:"=FALSE()",
+ fa:"مقدار منطقی FALSE را برمی‌گرداند.",
+ en:"Returns the logical value FALSE.",
+ exfa:"=FALSE() → FALSE",
+ exen:"=FALSE() → FALSE"},
+{n:"SWITCH",c:"logical",s:"=SWITCH(expression, value1, result1, ..., [default])",
+ fa:"یک مقدار را با چند حالت مقایسه کرده و نتیجه متناظر را برمی‌گرداند.",
+ en:"Compares an expression against a list of values and returns the matching result.",
+ exfa:"=SWITCH(A1,1,\"دوشنبه\",2,\"سه‌شنبه\",\"نامعتبر\")",
+ exen:"=SWITCH(A1,1,\"Monday\",2,\"Tuesday\",\"Invalid\")"},
+{n:"LET",c:"logical",s:"=LET(name1, value1, [name2, value2, ...], calculation)",
+ fa:"امکان تعریف متغیر داخل فرمول برای خوانایی و کارایی بیشتر را می‌دهد.",
+ en:"Defines named variables inside a formula for readability and performance.",
+ exfa:"=LET(x,A1*2,x+10)",
+ exen:"=LET(x,A1*2,x+10)"},
+{n:"LAMBDA",c:"logical",s:"=LAMBDA(parameter1, ..., calculation)",
+ fa:"یک تابع سفارشی و قابل استفاده مجدد تعریف می‌کند.",
+ en:"Creates a custom, reusable function within Excel.",
+ exfa:"=LAMBDA(x,y,x+y)(3,4) → 7",
+ exen:"=LAMBDA(x,y,x+y)(3,4) → 7"},
+
+// ---------------- LOOKUP & REFERENCE ----------------
+{n:"VLOOKUP",c:"lookup",s:"=VLOOKUP(lookup_value, table_array, col_index_num, [range_lookup])",
+ fa:"مقداری را در ستون اول یک جدول جستجو کرده و مقدار متناظر از ستون دیگر را برمی‌گرداند.",
+ en:"Searches for a value in the first column of a table and returns a value from another column.",
+ exfa:"=VLOOKUP(A1,B2:D100,3,FALSE) → جستجوی دقیق",
+ exen:"=VLOOKUP(A1,B2:D100,3,FALSE) → exact match search"},
+{n:"HLOOKUP",c:"lookup",s:"=HLOOKUP(lookup_value, table_array, row_index_num, [range_lookup])",
+ fa:"مقداری را در سطر اول یک جدول جستجو کرده و مقدار متناظر از سطر دیگر را برمی‌گرداند.",
+ en:"Searches for a value in the first row of a table and returns a value from another row.",
+ exfa:"=HLOOKUP(A1,B1:F10,3,FALSE)",
+ exen:"=HLOOKUP(A1,B1:F10,3,FALSE)"},
+{n:"XLOOKUP",c:"lookup",s:"=XLOOKUP(lookup_value, lookup_array, return_array, [if_not_found], [match_mode], [search_mode])",
+ fa:"جایگزین قدرتمند VLOOKUP که جستجو در هر جهت و بازگشت چند ستونی را پشتیبانی می‌کند.",
+ en:"A powerful replacement for VLOOKUP supporting search in any direction and multi-column returns.",
+ exfa:"=XLOOKUP(A1,B:B,C:C,\"یافت نشد\")",
+ exen:"=XLOOKUP(A1,B:B,C:C,\"Not found\")"},
+{n:"LOOKUP",c:"lookup",s:"=LOOKUP(lookup_value, lookup_vector, [result_vector])",
+ fa:"ساده‌ترین تابع جستجو که در یک بردار مرتب‌شده جستجو می‌کند.",
+ en:"A simple lookup function that searches a sorted vector.",
+ exfa:"=LOOKUP(A1,B2:B10,C2:C10)",
+ exen:"=LOOKUP(A1,B2:B10,C2:C10)"},
+{n:"INDEX",c:"lookup",s:"=INDEX(array, row_num, [column_num])",
+ fa:"مقدار موجود در یک سطر و ستون مشخص از یک محدوده را برمی‌گرداند.",
+ en:"Returns a value at a given row and column intersection in a range.",
+ exfa:"=INDEX(A1:C10,3,2) → مقدار سطر ۳، ستون ۲",
+ exen:"=INDEX(A1:C10,3,2) → value at row 3, col 2"},
+{n:"MATCH",c:"lookup",s:"=MATCH(lookup_value, lookup_array, [match_type])",
+ fa:"موقعیت (شماره ردیف) یک مقدار را در یک محدوده پیدا می‌کند.",
+ en:"Returns the relative position of a value within a range.",
+ exfa:"=MATCH(\"علی\",A1:A10,0) → موقعیت علی",
+ exen:"=MATCH(\"Ali\",A1:A10,0) → position of Ali"},
+{n:"INDEX+MATCH",c:"lookup",s:"=INDEX(range, MATCH(lookup_value, lookup_range, 0))",
+ fa:"ترکیب INDEX و MATCH جایگزین انعطاف‌پذیری برای VLOOKUP است که در دو جهت کار می‌کند.",
+ en:"Combining INDEX and MATCH gives a flexible two-way alternative to VLOOKUP.",
+ exfa:"=INDEX(C:C,MATCH(A1,B:B,0))",
+ exen:"=INDEX(C:C,MATCH(A1,B:B,0))"},
+{n:"CHOOSE",c:"lookup",s:"=CHOOSE(index_num, value1, [value2], ...)",
+ fa:"بر اساس یک شماره ایندکس، مقدار متناظر را از یک لیست انتخاب می‌کند.",
+ en:"Selects a value from a list based on an index number.",
+ exfa:"=CHOOSE(2,\"شنبه\",\"یکشنبه\",\"دوشنبه\") → یکشنبه",
+ exen:"=CHOOSE(2,\"Sat\",\"Sun\",\"Mon\") → Sun"},
+{n:"OFFSET",c:"lookup",s:"=OFFSET(reference, rows, cols, [height], [width])",
+ fa:"یک محدوده جدید را با فاصله مشخص از یک سلول مرجع برمی‌گرداند.",
+ en:"Returns a reference offset from a starting cell by a given number of rows/columns.",
+ exfa:"=OFFSET(A1,2,1) → مقدار دو سطر پایین‌تر و یک ستون سمت راست A1",
+ exen:"=OFFSET(A1,2,1) → value 2 rows down, 1 column right of A1"},
+{n:"INDIRECT",c:"lookup",s:"=INDIRECT(ref_text, [a1])",
+ fa:"یک رشته متنی را به عنوان آدرس سلول تفسیر کرده و مقدار آن را برمی‌گرداند.",
+ en:"Converts a text string into a cell reference and returns its value.",
+ exfa:"=INDIRECT(\"A\"&1) → مقدار سلول A1",
+ exen:"=INDIRECT(\"A\"&1) → value of cell A1"},
+{n:"ADDRESS",c:"lookup",s:"=ADDRESS(row_num, column_num, [abs_num], [a1], [sheet_text])",
+ fa:"آدرس یک سلول را بر اساس شماره سطر و ستون به صورت متن برمی‌گرداند.",
+ en:"Returns the cell address as text, given row and column numbers.",
+ exfa:"=ADDRESS(2,3) → $C$2",
+ exen:"=ADDRESS(2,3) → $C$2"},
+{n:"ROW",c:"lookup",s:"=ROW([reference])",
+ fa:"شماره سطر یک سلول یا محدوده را برمی‌گرداند.",
+ en:"Returns the row number of a reference.",
+ exfa:"=ROW(A5) → 5",
+ exen:"=ROW(A5) → 5"},
+{n:"COLUMN",c:"lookup",s:"=COLUMN([reference])",
+ fa:"شماره ستون یک سلول یا محدوده را برمی‌گرداند.",
+ en:"Returns the column number of a reference.",
+ exfa:"=COLUMN(C1) → 3",
+ exen:"=COLUMN(C1) → 3"},
+{n:"ROWS",c:"lookup",s:"=ROWS(array)",
+ fa:"تعداد سطرهای یک محدوده یا آرایه را می‌شمارد.",
+ en:"Counts the number of rows in a range or array.",
+ exfa:"=ROWS(A1:A10) → 10",
+ exen:"=ROWS(A1:A10) → 10"},
+{n:"COLUMNS",c:"lookup",s:"=COLUMNS(array)",
+ fa:"تعداد ستون‌های یک محدوده یا آرایه را می‌شمارد.",
+ en:"Counts the number of columns in a range or array.",
+ exfa:"=COLUMNS(A1:D1) → 4",
+ exen:"=COLUMNS(A1:D1) → 4"},
+{n:"AREAS",c:"lookup",s:"=AREAS(reference)",
+ fa:"تعداد نواحی (محدوده‌های جداگانه) در یک مرجع را می‌شمارد.",
+ en:"Returns the number of areas in a reference.",
+ exfa:"=AREAS((A1:B2,C3:D4)) → 2",
+ exen:"=AREAS((A1:B2,C3:D4)) → 2"},
+{n:"TRANSPOSE",c:"lookup",s:"=TRANSPOSE(array)",
+ fa:"جهت سطرها و ستون‌های یک محدوده را جابه‌جا می‌کند.",
+ en:"Switches the rows and columns of a given range.",
+ exfa:"=TRANSPOSE(A1:C1) → تبدیل افقی به عمودی",
+ exen:"=TRANSPOSE(A1:C1) → converts horizontal to vertical"},
+{n:"GETPIVOTDATA",c:"lookup",s:"=GETPIVOTDATA(data_field, pivot_table, [field1, item1], ...)",
+ fa:"داده مشخصی را از یک جدول محوری (PivotTable) استخراج می‌کند.",
+ en:"Extracts specific data stored in a PivotTable.",
+ exfa:"=GETPIVOTDATA(\"فروش\",A3,\"شهر\",\"تهران\")",
+ exen:"=GETPIVOTDATA(\"Sales\",A3,\"City\",\"Tehran\")"},
+{n:"HYPERLINK",c:"lookup",s:"=HYPERLINK(link_location, [friendly_name])",
+ fa:"یک لینک قابل‌کلیک به فایل، صفحه وب یا مکان دیگر ایجاد می‌کند.",
+ en:"Creates a clickable link to a file, webpage, or another location.",
+ exfa:"=HYPERLINK(\"https://excel.com\",\"سایت اکسل\")",
+ exen:"=HYPERLINK(\"https://excel.com\",\"Excel Site\")"},
+{n:"FILTER",c:"array",s:"=FILTER(array, include, [if_empty])",
+ fa:"داده‌ها را بر اساس یک یا چند شرط فیلتر کرده و به صورت پویا برمی‌گرداند.",
+ en:"Filters a range of data based on criteria you define, dynamically.",
+ exfa:"=FILTER(A2:C100,B2:B100=\"تهران\")",
+ exen:"=FILTER(A2:C100,B2:B100=\"Tehran\")"},
+{n:"SORT",c:"array",s:"=SORT(array, [sort_index], [sort_order], [by_col])",
+ fa:"محتویات یک محدوده را به‌صورت پویا مرتب می‌کند.",
+ en:"Sorts the contents of a range dynamically.",
+ exfa:"=SORT(A2:A100,1,-1) → نزولی",
+ exen:"=SORT(A2:A100,1,-1) → descending"},
+{n:"SORTBY",c:"array",s:"=SORTBY(array, by_array1, [sort_order1], ...)",
+ fa:"یک محدوده را بر اساس مقادیر یک محدوده دیگر مرتب می‌کند.",
+ en:"Sorts a range based on values in another corresponding range.",
+ exfa:"=SORTBY(A2:A10,B2:B10,-1)",
+ exen:"=SORTBY(A2:A10,B2:B10,-1)"},
+{n:"UNIQUE",c:"array",s:"=UNIQUE(array, [by_col], [exactly_once])",
+ fa:"مقادیر یکتا (بدون تکرار) یک محدوده را استخراج می‌کند.",
+ en:"Extracts the unique (non-duplicate) values from a range.",
+ exfa:"=UNIQUE(A2:A100)",
+ exen:"=UNIQUE(A2:A100)"},
+{n:"SEQUENCE",c:"array",s:"=SEQUENCE(rows, [columns], [start], [step])",
+ fa:"یک آرایه از اعداد متوالی با گام دلخواه تولید می‌کند.",
+ en:"Generates an array of sequential numbers with a chosen step.",
+ exfa:"=SEQUENCE(5,1,1,1) → {1;2;3;4;5}",
+ exen:"=SEQUENCE(5,1,1,1) → {1;2;3;4;5}"},
+{n:"RANDARRAY",c:"array",s:"=RANDARRAY([rows], [columns], [min], [max], [integer])",
+ fa:"یک آرایه از اعداد تصادفی با ابعاد و بازه دلخواه تولید می‌کند.",
+ en:"Generates an array of random numbers with chosen size and range.",
+ exfa:"=RANDARRAY(3,3,1,100,TRUE)",
+ exen:"=RANDARRAY(3,3,1,100,TRUE)"},
+{n:"XMATCH",c:"lookup",s:"=XMATCH(lookup_value, lookup_array, [match_mode], [search_mode])",
+ fa:"نسخه پیشرفته MATCH با انعطاف بیشتر در حالت جستجو و تطبیق.",
+ en:"An advanced version of MATCH with more flexible search and match modes.",
+ exfa:"=XMATCH(A1,B2:B100,0,-1) → جستجوی معکوس",
+ exen:"=XMATCH(A1,B2:B100,0,-1) → reverse search"},
+{n:"FORMULATEXT",c:"lookup",s:"=FORMULATEXT(reference)",
+ fa:"فرمول موجود در یک سلول را به صورت متن نمایش می‌دهد.",
+ en:"Displays the formula in a given cell as text.",
+ exfa:"=FORMULATEXT(A1) → =SUM(B1:B5)",
+ exen:"=FORMULATEXT(A1) → =SUM(B1:B5)"},
+
+// ---------------- DATE & TIME ----------------
+{n:"TODAY",c:"date",s:"=TODAY()",
+ fa:"تاریخ امروز سیستم را برمی‌گرداند (بدون ساعت).",
+ en:"Returns today's date from the system clock (no time component).",
+ exfa:"=TODAY() → 2026/07/11",
+ exen:"=TODAY() → 2026-07-11"},
+{n:"NOW",c:"date",s:"=NOW()",
+ fa:"تاریخ و ساعت جاری سیستم را برمی‌گرداند.",
+ en:"Returns the current date and time from the system clock.",
+ exfa:"=NOW() → 2026/07/11 14:30",
+ exen:"=NOW() → 2026-07-11 14:30"},
+{n:"DATE",c:"date",s:"=DATE(year, month, day)",
+ fa:"از سه مقدار سال، ماه و روز یک تاریخ معتبر می‌سازد.",
+ en:"Creates a valid date from year, month, and day values.",
+ exfa:"=DATE(2026,7,11) → 2026/07/11",
+ exen:"=DATE(2026,7,11) → 2026-07-11"},
+{n:"DATEVALUE",c:"date",s:"=DATEVALUE(date_text)",
+ fa:"متنی که نمایانگر یک تاریخ است را به عدد سریال تاریخ تبدیل می‌کند.",
+ en:"Converts a date stored as text into a date serial number.",
+ exfa:"=DATEVALUE(\"2026/07/11\")",
+ exen:"=DATEVALUE(\"2026-07-11\")"},
+{n:"DAY",c:"date",s:"=DAY(serial_number)",
+ fa:"روز ماه (بین ۱ تا ۳۱) را از یک تاریخ استخراج می‌کند.",
+ en:"Extracts the day of the month (1-31) from a date.",
+ exfa:"=DAY(\"2026/07/11\") → 11",
+ exen:"=DAY(\"2026-07-11\") → 11"},
+{n:"MONTH",c:"date",s:"=MONTH(serial_number)",
+ fa:"شماره ماه (بین ۱ تا ۱۲) را از یک تاریخ استخراج می‌کند.",
+ en:"Extracts the month number (1-12) from a date.",
+ exfa:"=MONTH(\"2026/07/11\") → 7",
+ exen:"=MONTH(\"2026-07-11\") → 7"},
+{n:"YEAR",c:"date",s:"=YEAR(serial_number)",
+ fa:"سال را از یک تاریخ استخراج می‌کند.",
+ en:"Extracts the year from a date.",
+ exfa:"=YEAR(\"2026/07/11\") → 2026",
+ exen:"=YEAR(\"2026-07-11\") → 2026"},
+{n:"WEEKDAY",c:"date",s:"=WEEKDAY(serial_number, [return_type])",
+ fa:"روز هفته متناظر با یک تاریخ را به صورت عدد برمی‌گرداند.",
+ en:"Returns the day of the week for a date as a number.",
+ exfa:"=WEEKDAY(\"2026/07/11\",2) → عدد روز هفته",
+ exen:"=WEEKDAY(\"2026-07-11\",2)"},
+{n:"WEEKNUM",c:"date",s:"=WEEKNUM(serial_number, [return_type])",
+ fa:"شماره هفته سال متناظر با یک تاریخ را برمی‌گرداند.",
+ en:"Returns the week number of the year for a given date.",
+ exfa:"=WEEKNUM(\"2026/07/11\")",
+ exen:"=WEEKNUM(\"2026-07-11\")"},
+{n:"DATEDIF",c:"date",s:"=DATEDIF(start_date, end_date, unit)",
+ fa:"فاصله بین دو تاریخ را بر حسب روز، ماه یا سال محاسبه می‌کند.",
+ en:"Calculates the difference between two dates in days, months, or years.",
+ exfa:"=DATEDIF(A1,B1,\"Y\") → اختلاف به سال",
+ exen:"=DATEDIF(A1,B1,\"Y\") → difference in years"},
+{n:"DAYS",c:"date",s:"=DAYS(end_date, start_date)",
+ fa:"تعداد روزهای بین دو تاریخ را محاسبه می‌کند.",
+ en:"Returns the number of days between two dates.",
+ exfa:"=DAYS(\"2026/12/31\",\"2026/01/01\") → 364",
+ exen:"=DAYS(\"2026-12-31\",\"2026-01-01\") → 364"},
+{n:"DAYS360",c:"date",s:"=DAYS360(start_date, end_date, [method])",
+ fa:"تعداد روز بین دو تاریخ را بر اساس سال ۳۶۰ روزه (مالی) محاسبه می‌کند.",
+ en:"Calculates days between dates using a 360-day (financial) year.",
+ exfa:"=DAYS360(\"2026/01/01\",\"2026/12/31\")",
+ exen:"=DAYS360(\"2026-01-01\",\"2026-12-31\")"},
+{n:"NETWORKDAYS",c:"date",s:"=NETWORKDAYS(start_date, end_date, [holidays])",
+ fa:"تعداد روزهای کاری بین دو تاریخ (بدون تعطیلات آخر هفته) را محاسبه می‌کند.",
+ en:"Calculates the number of working days between two dates, excluding weekends.",
+ exfa:"=NETWORKDAYS(A1,B1)",
+ exen:"=NETWORKDAYS(A1,B1)"},
+{n:"NETWORKDAYS.INTL",c:"date",s:"=NETWORKDAYS.INTL(start_date, end_date, [weekend], [holidays])",
+ fa:"مانند NETWORKDAYS اما امکان تعریف روزهای تعطیل هفته را می‌دهد.",
+ en:"Like NETWORKDAYS but allows custom weekend days.",
+ exfa:"=NETWORKDAYS.INTL(A1,B1,\"0000011\")",
+ exen:"=NETWORKDAYS.INTL(A1,B1,\"0000011\")"},
+{n:"WORKDAY",c:"date",s:"=WORKDAY(start_date, days, [holidays])",
+ fa:"تاریخ بعد از تعداد مشخصی روز کاری (بدون تعطیلات) را محاسبه می‌کند.",
+ en:"Returns the date after a given number of working days.",
+ exfa:"=WORKDAY(TODAY(),10)",
+ exen:"=WORKDAY(TODAY(),10)"},
+{n:"WORKDAY.INTL",c:"date",s:"=WORKDAY.INTL(start_date, days, [weekend], [holidays])",
+ fa:"مانند WORKDAY اما امکان تعریف روزهای تعطیل هفته را می‌دهد.",
+ en:"Like WORKDAY but allows custom weekend days.",
+ exfa:"=WORKDAY.INTL(TODAY(),10,\"0000011\")",
+ exen:"=WORKDAY.INTL(TODAY(),10,\"0000011\")"},
+{n:"EOMONTH",c:"date",s:"=EOMONTH(start_date, months)",
+ fa:"تاریخ آخرین روز ماه، چند ماه قبل یا بعد از تاریخ داده‌شده را برمی‌گرداند.",
+ en:"Returns the last day of the month, a given number of months before/after a date.",
+ exfa:"=EOMONTH(TODAY(),1) → آخرین روز ماه بعد",
+ exen:"=EOMONTH(TODAY(),1) → last day of next month"},
+{n:"EDATE",c:"date",s:"=EDATE(start_date, months)",
+ fa:"تاریخی چند ماه قبل یا بعد از تاریخ مبدا را برمی‌گرداند.",
+ en:"Returns a date that is a given number of months before/after a start date.",
+ exfa:"=EDATE(TODAY(),3) → سه ماه بعد",
+ exen:"=EDATE(TODAY(),3) → three months later"},
+{n:"HOUR",c:"date",s:"=HOUR(serial_number)",
+ fa:"ساعت (بین ۰ تا ۲۳) را از یک مقدار زمانی استخراج می‌کند.",
+ en:"Extracts the hour (0-23) from a time value.",
+ exfa:"=HOUR(\"14:30\") → 14",
+ exen:"=HOUR(\"14:30\") → 14"},
+{n:"MINUTE",c:"date",s:"=MINUTE(serial_number)",
+ fa:"دقیقه را از یک مقدار زمانی استخراج می‌کند.",
+ en:"Extracts the minute from a time value.",
+ exfa:"=MINUTE(\"14:30\") → 30",
+ exen:"=MINUTE(\"14:30\") → 30"},
+{n:"SECOND",c:"date",s:"=SECOND(serial_number)",
+ fa:"ثانیه را از یک مقدار زمانی استخراج می‌کند.",
+ en:"Extracts the second from a time value.",
+ exfa:"=SECOND(\"14:30:45\") → 45",
+ exen:"=SECOND(\"14:30:45\") → 45"},
+{n:"TIME",c:"date",s:"=TIME(hour, minute, second)",
+ fa:"از سه مقدار ساعت، دقیقه و ثانیه یک زمان معتبر می‌سازد.",
+ en:"Creates a valid time value from hour, minute, and second.",
+ exfa:"=TIME(14,30,0) → 14:30:00",
+ exen:"=TIME(14,30,0) → 14:30:00"},
+{n:"TIMEVALUE",c:"date",s:"=TIMEVALUE(time_text)",
+ fa:"متنی که نمایانگر یک زمان است را به عدد سریال زمان تبدیل می‌کند.",
+ en:"Converts a time stored as text into a time serial number.",
+ exfa:"=TIMEVALUE(\"14:30\")",
+ exen:"=TIMEVALUE(\"14:30\")"},
+{n:"YEARFRAC",c:"date",s:"=YEARFRAC(start_date, end_date, [basis])",
+ fa:"کسری از سال که بین دو تاریخ می‌گذرد را محاسبه می‌کند.",
+ en:"Calculates the fraction of a year between two dates.",
+ exfa:"=YEARFRAC(\"2026/01/01\",\"2026/07/11\")",
+ exen:"=YEARFRAC(\"2026-01-01\",\"2026-07-11\")"},
+{n:"ISOWEEKNUM",c:"date",s:"=ISOWEEKNUM(date)",
+ fa:"شماره هفته را بر اساس استاندارد بین‌المللی ISO برمی‌گرداند.",
+ en:"Returns the ISO week number of a given date.",
+ exfa:"=ISOWEEKNUM(\"2026/07/11\")",
+ exen:"=ISOWEEKNUM(\"2026-07-11\")"},
+
+// ---------------- STATISTICAL ----------------
+{n:"AVERAGE",c:"stat",s:"=AVERAGE(number1, [number2], ...)",
+ fa:"میانگین حسابی مجموعه‌ای از اعداد را محاسبه می‌کند.",
+ en:"Calculates the arithmetic mean of a set of numbers.",
+ exfa:"=AVERAGE(A1:A10)",
+ exen:"=AVERAGE(A1:A10)"},
+{n:"AVERAGEIF",c:"stat",s:"=AVERAGEIF(range, criteria, [average_range])",
+ fa:"میانگین سلول‌هایی که یک شرط را برآورده می‌کنند محاسبه می‌کند.",
+ en:"Calculates the average of cells that meet a single condition.",
+ exfa:"=AVERAGEIF(B2:B10,\">50\")",
+ exen:"=AVERAGEIF(B2:B10,\">50\")"},
+{n:"AVERAGEIFS",c:"stat",s:"=AVERAGEIFS(average_range, criteria_range1, criteria1, ...)",
+ fa:"میانگین سلول‌هایی که چند شرط را همزمان برآورده می‌کنند محاسبه می‌کند.",
+ en:"Calculates the average of cells that meet multiple conditions.",
+ exfa:"=AVERAGEIFS(C2:C10,A2:A10,\"تهران\",B2:B10,\">50\")",
+ exen:"=AVERAGEIFS(C2:C10,A2:A10,\"Tehran\",B2:B10,\">50\")"},
+{n:"MEDIAN",c:"stat",s:"=MEDIAN(number1, [number2], ...)",
+ fa:"میانه (عدد میانی) یک مجموعه داده را برمی‌گرداند.",
+ en:"Returns the median (middle value) of a set of numbers.",
+ exfa:"=MEDIAN(A1:A10)",
+ exen:"=MEDIAN(A1:A10)"},
+{n:"MODE.SNGL",c:"stat",s:"=MODE.SNGL(number1, [number2], ...)",
+ fa:"پرتکرارترین مقدار در یک مجموعه داده را برمی‌گرداند.",
+ en:"Returns the most frequently occurring value in a data set.",
+ exfa:"=MODE.SNGL(A1:A10)",
+ exen:"=MODE.SNGL(A1:A10)"},
+{n:"COUNT",c:"stat",s:"=COUNT(value1, [value2], ...)",
+ fa:"تعداد سلول‌های حاوی عدد را می‌شمارد.",
+ en:"Counts the number of cells that contain numbers.",
+ exfa:"=COUNT(A1:A10)",
+ exen:"=COUNT(A1:A10)"},
+{n:"COUNTA",c:"stat",s:"=COUNTA(value1, [value2], ...)",
+ fa:"تعداد سلول‌های غیرخالی (متن یا عدد) را می‌شمارد.",
+ en:"Counts the number of non-empty cells (text or numbers).",
+ exfa:"=COUNTA(A1:A10)",
+ exen:"=COUNTA(A1:A10)"},
+{n:"COUNTBLANK",c:"stat",s:"=COUNTBLANK(range)",
+ fa:"تعداد سلول‌های خالی در یک محدوده را می‌شمارد.",
+ en:"Counts the number of empty cells within a range.",
+ exfa:"=COUNTBLANK(A1:A10)",
+ exen:"=COUNTBLANK(A1:A10)"},
+{n:"COUNTIF",c:"stat",s:"=COUNTIF(range, criteria)",
+ fa:"تعداد سلول‌هایی که با یک شرط مطابقت دارند را می‌شمارد.",
+ en:"Counts the cells that meet a single specified condition.",
+ exfa:"=COUNTIF(A1:A10,\">50\")",
+ exen:"=COUNTIF(A1:A10,\">50\")"},
+{n:"COUNTIFS",c:"stat",s:"=COUNTIFS(criteria_range1, criteria1, ...)",
+ fa:"تعداد سلول‌هایی که چند شرط را همزمان برآورده می‌کنند می‌شمارد.",
+ en:"Counts cells that meet multiple conditions simultaneously.",
+ exfa:"=COUNTIFS(A2:A10,\"تهران\",B2:B10,\">50\")",
+ exen:"=COUNTIFS(A2:A10,\"Tehran\",B2:B10,\">50\")"},
+{n:"MAX",c:"stat",s:"=MAX(number1, [number2], ...)",
+ fa:"بزرگترین مقدار در یک مجموعه داده را برمی‌گرداند.",
+ en:"Returns the largest value in a set of numbers.",
+ exfa:"=MAX(A1:A10)",
+ exen:"=MAX(A1:A10)"},
+{n:"MIN",c:"stat",s:"=MIN(number1, [number2], ...)",
+ fa:"کوچکترین مقدار در یک مجموعه داده را برمی‌گرداند.",
+ en:"Returns the smallest value in a set of numbers.",
+ exfa:"=MIN(A1:A10)",
+ exen:"=MIN(A1:A10)"},
+{n:"MAXIFS",c:"stat",s:"=MAXIFS(max_range, criteria_range1, criteria1, ...)",
+ fa:"بزرگترین مقدار سلول‌هایی که چند شرط را برآورده می‌کنند برمی‌گرداند.",
+ en:"Returns the max value among cells meeting multiple conditions.",
+ exfa:"=MAXIFS(C2:C10,A2:A10,\"تهران\")",
+ exen:"=MAXIFS(C2:C10,A2:A10,\"Tehran\")"},
+{n:"MINIFS",c:"stat",s:"=MINIFS(min_range, criteria_range1, criteria1, ...)",
+ fa:"کوچکترین مقدار سلول‌هایی که چند شرط را برآورده می‌کنند برمی‌گرداند.",
+ en:"Returns the min value among cells meeting multiple conditions.",
+ exfa:"=MINIFS(C2:C10,A2:A10,\"تهران\")",
+ exen:"=MINIFS(C2:C10,A2:A10,\"Tehran\")"},
+{n:"LARGE",c:"stat",s:"=LARGE(array, k)",
+ fa:"kامین بزرگترین مقدار در یک مجموعه داده را برمی‌گرداند.",
+ en:"Returns the k-th largest value in a data set.",
+ exfa:"=LARGE(A1:A10,2) → دومین مقدار بزرگ",
+ exen:"=LARGE(A1:A10,2) → 2nd largest value"},
+{n:"SMALL",c:"stat",s:"=SMALL(array, k)",
+ fa:"kامین کوچکترین مقدار در یک مجموعه داده را برمی‌گرداند.",
+ en:"Returns the k-th smallest value in a data set.",
+ exfa:"=SMALL(A1:A10,2) → دومین مقدار کوچک",
+ exen:"=SMALL(A1:A10,2) → 2nd smallest value"},
+{n:"RANK.EQ",c:"stat",s:"=RANK.EQ(number, ref, [order])",
+ fa:"رتبه یک عدد را در یک لیست از اعداد مشخص می‌کند.",
+ en:"Returns the rank of a number within a list of numbers.",
+ exfa:"=RANK.EQ(A2,A2:A10,0) → رتبه نزولی",
+ exen:"=RANK.EQ(A2,A2:A10,0) → descending rank"},
+{n:"STDEV.S",c:"stat",s:"=STDEV.S(number1, [number2], ...)",
+ fa:"انحراف معیار یک نمونه از جامعه آماری را محاسبه می‌کند.",
+ en:"Estimates standard deviation based on a sample.",
+ exfa:"=STDEV.S(A1:A10)",
+ exen:"=STDEV.S(A1:A10)"},
+{n:"STDEV.P",c:"stat",s:"=STDEV.P(number1, [number2], ...)",
+ fa:"انحراف معیار کل جامعه آماری را محاسبه می‌کند.",
+ en:"Calculates standard deviation based on the entire population.",
+ exfa:"=STDEV.P(A1:A10)",
+ exen:"=STDEV.P(A1:A10)"},
+{n:"VAR.S",c:"stat",s:"=VAR.S(number1, [number2], ...)",
+ fa:"واریانس یک نمونه از جامعه آماری را محاسبه می‌کند.",
+ en:"Estimates variance based on a sample.",
+ exfa:"=VAR.S(A1:A10)",
+ exen:"=VAR.S(A1:A10)"},
+{n:"VAR.P",c:"stat",s:"=VAR.P(number1, [number2], ...)",
+ fa:"واریانس کل جامعه آماری را محاسبه می‌کند.",
+ en:"Calculates variance based on the entire population.",
+ exfa:"=VAR.P(A1:A10)",
+ exen:"=VAR.P(A1:A10)"},
+{n:"CORREL",c:"stat",s:"=CORREL(array1, array2)",
+ fa:"ضریب همبستگی بین دو مجموعه داده را محاسبه می‌کند.",
+ en:"Calculates the correlation coefficient between two data sets.",
+ exfa:"=CORREL(A1:A10,B1:B10)",
+ exen:"=CORREL(A1:A10,B1:B10)"},
+{n:"TREND",c:"stat",s:"=TREND(known_ys, [known_xs], [new_xs])",
+ fa:"مقادیر روند خطی را بر اساس داده‌های موجود پیش‌بینی می‌کند.",
+ en:"Predicts values along a linear trend using existing data.",
+ exfa:"=TREND(B2:B10,A2:A10,A11)",
+ exen:"=TREND(B2:B10,A2:A10,A11)"},
+{n:"FORECAST.LINEAR",c:"stat",s:"=FORECAST.LINEAR(x, known_ys, known_xs)",
+ fa:"با استفاده از رگرسیون خطی، یک مقدار آینده را پیش‌بینی می‌کند.",
+ en:"Predicts a future value using linear regression.",
+ exfa:"=FORECAST.LINEAR(2027,B2:B10,A2:A10)",
+ exen:"=FORECAST.LINEAR(2027,B2:B10,A2:A10)"},
+{n:"PERCENTILE.INC",c:"stat",s:"=PERCENTILE.INC(array, k)",
+ fa:"صدک kام یک مجموعه داده را محاسبه می‌کند.",
+ en:"Returns the k-th percentile of values in a data set.",
+ exfa:"=PERCENTILE.INC(A1:A10,0.9) → صدک ۹۰",
+ exen:"=PERCENTILE.INC(A1:A10,0.9) → 90th percentile"},
+{n:"QUARTILE.INC",c:"stat",s:"=QUARTILE.INC(array, quart)",
+ fa:"چارک مشخص‌شده از یک مجموعه داده را برمی‌گرداند.",
+ en:"Returns the specified quartile of a data set.",
+ exfa:"=QUARTILE.INC(A1:A10,1) → چارک اول",
+ exen:"=QUARTILE.INC(A1:A10,1) → 1st quartile"},
+{n:"COUNTUNIQUE",c:"stat",s:"=SUM(1/COUNTIF(range,range)) [array]",
+ fa:"تعداد مقادیر یکتا (بدون تکرار) در یک محدوده را محاسبه می‌کند (فرمول آرایه‌ای).",
+ en:"Counts the number of unique values in a range (array formula pattern).",
+ exfa:"=SUMPRODUCT(1/COUNTIF(A1:A10,A1:A10))",
+ exen:"=SUMPRODUCT(1/COUNTIF(A1:A10,A1:A10))"},
+{n:"GEOMEAN",c:"stat",s:"=GEOMEAN(number1, [number2], ...)",
+ fa:"میانگین هندسی یک مجموعه داده را محاسبه می‌کند.",
+ en:"Calculates the geometric mean of a data set.",
+ exfa:"=GEOMEAN(A1:A10)",
+ exen:"=GEOMEAN(A1:A10)"},
+{n:"HARMEAN",c:"stat",s:"=HARMEAN(number1, [number2], ...)",
+ fa:"میانگین هارمونیک یک مجموعه داده را محاسبه می‌کند.",
+ en:"Calculates the harmonic mean of a data set.",
+ exfa:"=HARMEAN(A1:A10)",
+ exen:"=HARMEAN(A1:A10)"},
+{n:"SKEW",c:"stat",s:"=SKEW(number1, [number2], ...)",
+ fa:"میزان چولگی (عدم تقارن) توزیع داده‌ها را محاسبه می‌کند.",
+ en:"Calculates the skewness of a data distribution.",
+ exfa:"=SKEW(A1:A10)",
+ exen:"=SKEW(A1:A10)"},
+{n:"KURT",c:"stat",s:"=KURT(number1, [number2], ...)",
+ fa:"کشیدگی (Kurtosis) توزیع داده‌ها را محاسبه می‌کند.",
+ en:"Calculates the kurtosis of a data distribution.",
+ exfa:"=KURT(A1:A10)",
+ exen:"=KURT(A1:A10)"},
+{n:"NORM.DIST",c:"stat",s:"=NORM.DIST(x, mean, standard_dev, cumulative)",
+ fa:"مقدار تابع توزیع نرمال را برای یک عدد محاسبه می‌کند.",
+ en:"Returns the normal distribution value for a specified mean and standard deviation.",
+ exfa:"=NORM.DIST(70,60,10,TRUE)",
+ exen:"=NORM.DIST(70,60,10,TRUE)"},
+{n:"NORM.INV",c:"stat",s:"=NORM.INV(probability, mean, standard_dev)",
+ fa:"معکوس تابع توزیع نرمال تجمعی را محاسبه می‌کند.",
+ en:"Returns the inverse of the normal cumulative distribution.",
+ exfa:"=NORM.INV(0.9,60,10)",
+ exen:"=NORM.INV(0.9,60,10)"},
+{n:"CONFIDENCE.NORM",c:"stat",s:"=CONFIDENCE.NORM(alpha, standard_dev, size)",
+ fa:"بازه اطمینان برای میانگین جامعه آماری با توزیع نرمال را محاسبه می‌کند.",
+ en:"Returns the confidence interval for a population mean, normal distribution.",
+ exfa:"=CONFIDENCE.NORM(0.05,10,50)",
+ exen:"=CONFIDENCE.NORM(0.05,10,50)"},
+{n:"TTEST / T.TEST",c:"stat",s:"=T.TEST(array1, array2, tails, type)",
+ fa:"احتمال مرتبط با آزمون تی استیودنت را محاسبه می‌کند.",
+ en:"Returns the probability associated with a Student's t-Test.",
+ exfa:"=T.TEST(A1:A10,B1:B10,2,2)",
+ exen:"=T.TEST(A1:A10,B1:B10,2,2)"},
+{n:"CHISQ.TEST",c:"stat",s:"=CHISQ.TEST(actual_range, expected_range)",
+ fa:"آزمون خی‌دو برای استقلال بین دو مجموعه داده انجام می‌دهد.",
+ en:"Performs a chi-square test for independence between two data sets.",
+ exfa:"=CHISQ.TEST(A1:B5,C1:D5)",
+ exen:"=CHISQ.TEST(A1:B5,C1:D5)"},
+{n:"BINOM.DIST",c:"stat",s:"=BINOM.DIST(number_s, trials, probability_s, cumulative)",
+ fa:"احتمال توزیع دوجمله‌ای را محاسبه می‌کند.",
+ en:"Returns the individual term binomial distribution probability.",
+ exfa:"=BINOM.DIST(6,10,0.5,FALSE)",
+ exen:"=BINOM.DIST(6,10,0.5,FALSE)"},
+{n:"POISSON.DIST",c:"stat",s:"=POISSON.DIST(x, mean, cumulative)",
+ fa:"احتمال توزیع پواسون را محاسبه می‌کند.",
+ en:"Returns the Poisson distribution probability.",
+ exfa:"=POISSON.DIST(3,2,FALSE)",
+ exen:"=POISSON.DIST(3,2,FALSE)"},
+
+// ---------------- FINANCIAL ----------------
+{n:"PMT",c:"financial",s:"=PMT(rate, nper, pv, [fv], [type])",
+ fa:"مبلغ قسط دوره‌ای یک وام یا سرمایه‌گذاری را محاسبه می‌کند.",
+ en:"Calculates the periodic payment for a loan or investment.",
+ exfa:"=PMT(5%/12,60,-100000000) → قسط ماهانه وام",
+ exen:"=PMT(5%/12,60,-100000) → monthly loan payment"},
+{n:"FV",c:"financial",s:"=FV(rate, nper, pmt, [pv], [type])",
+ fa:"ارزش آتی یک سرمایه‌گذاری را بر اساس پرداخت‌های دوره‌ای ثابت محاسبه می‌کند.",
+ en:"Calculates the future value of an investment with regular payments.",
+ exfa:"=FV(5%/12,60,-2000)",
+ exen:"=FV(5%/12,60,-2000)"},
+{n:"PV",c:"financial",s:"=PV(rate, nper, pmt, [fv], [type])",
+ fa:"ارزش فعلی یک سری پرداخت‌های آتی را محاسبه می‌کند.",
+ en:"Calculates the present value of a series of future payments.",
+ exfa:"=PV(5%/12,60,-2000)",
+ exen:"=PV(5%/12,60,-2000)"},
+{n:"NPER",c:"financial",s:"=NPER(rate, pmt, pv, [fv], [type])",
+ fa:"تعداد دوره‌های پرداخت لازم برای یک وام یا سرمایه‌گذاری را محاسبه می‌کند.",
+ en:"Calculates the number of payment periods for a loan or investment.",
+ exfa:"=NPER(5%/12,-2000,100000)",
+ exen:"=NPER(5%/12,-2000,100000)"},
+{n:"RATE",c:"financial",s:"=RATE(nper, pmt, pv, [fv], [type], [guess])",
+ fa:"نرخ بهره دوره‌ای یک وام یا سرمایه‌گذاری را محاسبه می‌کند.",
+ en:"Calculates the periodic interest rate of a loan or investment.",
+ exfa:"=RATE(60,-2000,100000)",
+ exen:"=RATE(60,-2000,100000)"},
+{n:"NPV",c:"financial",s:"=NPV(rate, value1, [value2], ...)",
+ fa:"ارزش فعلی خالص یک سری جریان‌های نقدی آتی را محاسبه می‌کند.",
+ en:"Calculates the net present value of a series of future cash flows.",
+ exfa:"=NPV(10%,-50000,15000,18000,21000)",
+ exen:"=NPV(10%,-50000,15000,18000,21000)"},
+{n:"IRR",c:"financial",s:"=IRR(values, [guess])",
+ fa:"نرخ بازده داخلی یک سری جریان‌های نقدی را محاسبه می‌کند.",
+ en:"Calculates the internal rate of return for a series of cash flows.",
+ exfa:"=IRR(A1:A5)",
+ exen:"=IRR(A1:A5)"},
+{n:"XIRR",c:"financial",s:"=XIRR(values, dates, [guess])",
+ fa:"نرخ بازده داخلی جریان‌های نقدی با فواصل زمانی نامنظم را محاسبه می‌کند.",
+ en:"Calculates the IRR for cash flows that occur at irregular intervals.",
+ exfa:"=XIRR(A1:A5,B1:B5)",
+ exen:"=XIRR(A1:A5,B1:B5)"},
+{n:"XNPV",c:"financial",s:"=XNPV(rate, values, dates)",
+ fa:"ارزش فعلی خالص جریان‌های نقدی با فواصل زمانی نامنظم را محاسبه می‌کند.",
+ en:"Calculates NPV for cash flows that occur at irregular intervals.",
+ exfa:"=XNPV(10%,A1:A5,B1:B5)",
+ exen:"=XNPV(10%,A1:A5,B1:B5)"},
+{n:"IPMT",c:"financial",s:"=IPMT(rate, per, nper, pv, [fv], [type])",
+ fa:"بخش بهره از قسط پرداختی در یک دوره مشخص را محاسبه می‌کند.",
+ en:"Calculates the interest portion of a payment for a given period.",
+ exfa:"=IPMT(5%/12,1,60,100000)",
+ exen:"=IPMT(5%/12,1,60,100000)"},
+{n:"PPMT",c:"financial",s:"=PPMT(rate, per, nper, pv, [fv], [type])",
+ fa:"بخش اصل پول از قسط پرداختی در یک دوره مشخص را محاسبه می‌کند.",
+ en:"Calculates the principal portion of a payment for a given period.",
+ exfa:"=PPMT(5%/12,1,60,100000)",
+ exen:"=PPMT(5%/12,1,60,100000)"},
+{n:"SLN",c:"financial",s:"=SLN(cost, salvage, life)",
+ fa:"استهلاک خطی (یکنواخت) یک دارایی را محاسبه می‌کند.",
+ en:"Calculates straight-line depreciation of an asset.",
+ exfa:"=SLN(10000,1000,5)",
+ exen:"=SLN(10000,1000,5)"},
+{n:"DB",c:"financial",s:"=DB(cost, salvage, life, period, [month])",
+ fa:"استهلاک با روش مانده نزولی ثابت را محاسبه می‌کند.",
+ en:"Calculates depreciation using the fixed-declining balance method.",
+ exfa:"=DB(10000,1000,5,1)",
+ exen:"=DB(10000,1000,5,1)"},
+{n:"DDB",c:"financial",s:"=DDB(cost, salvage, life, period, [factor])",
+ fa:"استهلاک با روش مانده نزولی مضاعف را محاسبه می‌کند.",
+ en:"Calculates depreciation using the double-declining balance method.",
+ exfa:"=DDB(10000,1000,5,1)",
+ exen:"=DDB(10000,1000,5,1)"},
+{n:"SYD",c:"financial",s:"=SYD(cost, salvage, life, per)",
+ fa:"استهلاک با روش مجموع ارقام سنوات را محاسبه می‌کند.",
+ en:"Calculates depreciation using the sum-of-years' digits method.",
+ exfa:"=SYD(10000,1000,5,1)",
+ exen:"=SYD(10000,1000,5,1)"},
+{n:"EFFECT",c:"financial",s:"=EFFECT(nominal_rate, npery)",
+ fa:"نرخ بهره مؤثر سالانه را از روی نرخ اسمی محاسبه می‌کند.",
+ en:"Calculates the effective annual interest rate from the nominal rate.",
+ exfa:"=EFFECT(10%,12)",
+ exen:"=EFFECT(10%,12)"},
+{n:"NOMINAL",c:"financial",s:"=NOMINAL(effect_rate, npery)",
+ fa:"نرخ بهره اسمی سالانه را از روی نرخ مؤثر محاسبه می‌کند.",
+ en:"Calculates the nominal annual interest rate from the effective rate.",
+ exfa:"=NOMINAL(10.47%,12)",
+ exen:"=NOMINAL(10.47%,12)"},
+{n:"CUMIPMT",c:"financial",s:"=CUMIPMT(rate, nper, pv, start_period, end_period, type)",
+ fa:"مجموع بهره پرداختی بین دو دوره مشخص از یک وام را محاسبه می‌کند.",
+ en:"Calculates cumulative interest paid between two periods of a loan.",
+ exfa:"=CUMIPMT(5%/12,60,100000,1,12,0)",
+ exen:"=CUMIPMT(5%/12,60,100000,1,12,0)"},
+{n:"CUMPRINC",c:"financial",s:"=CUMPRINC(rate, nper, pv, start_period, end_period, type)",
+ fa:"مجموع اصل پول پرداختی بین دو دوره مشخص از یک وام را محاسبه می‌کند.",
+ en:"Calculates cumulative principal paid between two periods of a loan.",
+ exfa:"=CUMPRINC(5%/12,60,100000,1,12,0)",
+ exen:"=CUMPRINC(5%/12,60,100000,1,12,0)"},
+
+// ---------------- INFORMATION ----------------
+{n:"ISNUMBER",c:"info",s:"=ISNUMBER(value)",
+ fa:"بررسی می‌کند که آیا مقدار داده‌شده عدد است یا خیر.",
+ en:"Checks whether a given value is a number.",
+ exfa:"=ISNUMBER(A1) → TRUE/FALSE",
+ exen:"=ISNUMBER(A1) → TRUE/FALSE"},
+{n:"ISTEXT",c:"info",s:"=ISTEXT(value)",
+ fa:"بررسی می‌کند که آیا مقدار داده‌شده متن است یا خیر.",
+ en:"Checks whether a given value is text.",
+ exfa:"=ISTEXT(A1)",
+ exen:"=ISTEXT(A1)"},
+{n:"ISBLANK",c:"info",s:"=ISBLANK(value)",
+ fa:"بررسی می‌کند که آیا سلول خالی است یا خیر.",
+ en:"Checks whether a given cell is empty.",
+ exfa:"=ISBLANK(A1)",
+ exen:"=ISBLANK(A1)"},
+{n:"ISERROR",c:"info",s:"=ISERROR(value)",
+ fa:"بررسی می‌کند که آیا مقدار حاصل از فرمول، خطا است یا خیر.",
+ en:"Checks whether a value is an error of any type.",
+ exfa:"=ISERROR(A1/B1)",
+ exen:"=ISERROR(A1/B1)"},
+{n:"ISNA",c:"info",s:"=ISNA(value)",
+ fa:"بررسی می‌کند که آیا مقدار برابر با خطای #N/A است.",
+ en:"Checks whether a value is the #N/A error.",
+ exfa:"=ISNA(VLOOKUP(...))",
+ exen:"=ISNA(VLOOKUP(...))"},
+{n:"ISLOGICAL",c:"info",s:"=ISLOGICAL(value)",
+ fa:"بررسی می‌کند که آیا مقدار از نوع منطقی (TRUE/FALSE) است.",
+ en:"Checks whether a value is a logical (TRUE/FALSE) value.",
+ exfa:"=ISLOGICAL(TRUE)",
+ exen:"=ISLOGICAL(TRUE)"},
+{n:"ISEVEN",c:"info",s:"=ISEVEN(number)",
+ fa:"بررسی می‌کند که آیا عدد زوج است.",
+ en:"Checks whether a number is even.",
+ exfa:"=ISEVEN(4) → TRUE",
+ exen:"=ISEVEN(4) → TRUE"},
+{n:"ISODD",c:"info",s:"=ISODD(number)",
+ fa:"بررسی می‌کند که آیا عدد فرد است.",
+ en:"Checks whether a number is odd.",
+ exfa:"=ISODD(3) → TRUE",
+ exen:"=ISODD(3) → TRUE"},
+{n:"ISFORMULA",c:"info",s:"=ISFORMULA(reference)",
+ fa:"بررسی می‌کند که آیا سلول حاوی فرمول است.",
+ en:"Checks whether a cell contains a formula.",
+ exfa:"=ISFORMULA(A1)",
+ exen:"=ISFORMULA(A1)"},
+{n:"ISREF",c:"info",s:"=ISREF(value)",
+ fa:"بررسی می‌کند که آیا مقدار یک ارجاع معتبر به سلول است.",
+ en:"Checks whether a value is a valid cell reference.",
+ exfa:"=ISREF(A1)",
+ exen:"=ISREF(A1)"},
+{n:"N",c:"info",s:"=N(value)",
+ fa:"مقدار را به عدد تبدیل می‌کند (اعداد بدون تغییر، متن صفر).",
+ en:"Converts a value to a number (numbers unchanged, text becomes 0).",
+ exfa:"=N(TRUE) → 1",
+ exen:"=N(TRUE) → 1"},
+{n:"NA",c:"info",s:"=NA()",
+ fa:"مقدار خطای #N/A را برمی‌گرداند (برای علامت‌گذاری داده نامعتبر).",
+ en:"Returns the #N/A error value, useful for marking missing data.",
+ exfa:"=NA() → #N/A",
+ exen:"=NA() → #N/A"},
+{n:"CELL",c:"info",s:"=CELL(info_type, [reference])",
+ fa:"اطلاعاتی درباره قالب‌بندی، موقعیت یا محتوای یک سلول برمی‌گرداند.",
+ en:"Returns information about the formatting, location, or content of a cell.",
+ exfa:"=CELL(\"address\",A1) → $A$1",
+ exen:"=CELL(\"address\",A1) → $A$1"},
+{n:"TYPE",c:"info",s:"=TYPE(value)",
+ fa:"نوع داده (عدد، متن، منطقی و ...) یک مقدار را برمی‌گرداند.",
+ en:"Returns a number indicating the data type of a value.",
+ exfa:"=TYPE(\"متن\") → 2",
+ exen:"=TYPE(\"text\") → 2"},
+{n:"SHEET",c:"info",s:"=SHEET([value])",
+ fa:"شماره صفحه یک برگه مشخص را برمی‌گرداند.",
+ en:"Returns the sheet number of a specified sheet.",
+ exfa:"=SHEET(\"Sheet2\")",
+ exen:"=SHEET(\"Sheet2\")"},
+{n:"SHEETS",c:"info",s:"=SHEETS([reference])",
+ fa:"تعداد کل برگه‌های موجود در یک فایل یا مرجع را برمی‌گرداند.",
+ en:"Returns the total number of sheets in a reference or workbook.",
+ exfa:"=SHEETS()",
+ exen:"=SHEETS()"},
+{n:"ERROR.TYPE",c:"info",s:"=ERROR.TYPE(error_val)",
+ fa:"یک عدد متناظر با نوع خطای موجود را برمی‌گرداند.",
+ en:"Returns a number corresponding to a specific error type.",
+ exfa:"=ERROR.TYPE(#N/A) → 7",
+ exen:"=ERROR.TYPE(#N/A) → 7"},
+
+// ---------------- ENGINEERING ----------------
+{n:"CONVERT",c:"engineering",s:"=CONVERT(number, from_unit, to_unit)",
+ fa:"عدد را از یک واحد اندازه‌گیری به واحد دیگر تبدیل می‌کند.",
+ en:"Converts a number from one measurement unit to another.",
+ exfa:"=CONVERT(1,\"kg\",\"lbm\") → پوند",
+ exen:"=CONVERT(1,\"kg\",\"lbm\") → pounds"},
+{n:"DEC2BIN",c:"engineering",s:"=DEC2BIN(number, [places])",
+ fa:"عدد دهدهی را به مبنای دودویی (باینری) تبدیل می‌کند.",
+ en:"Converts a decimal number to binary.",
+ exfa:"=DEC2BIN(9) → 1001",
+ exen:"=DEC2BIN(9) → 1001"},
+{n:"BIN2DEC",c:"engineering",s:"=BIN2DEC(number)",
+ fa:"عدد دودویی را به مبنای دهدهی تبدیل می‌کند.",
+ en:"Converts a binary number to decimal.",
+ exfa:"=BIN2DEC(1001) → 9",
+ exen:"=BIN2DEC(1001) → 9"},
+{n:"DEC2HEX",c:"engineering",s:"=DEC2HEX(number, [places])",
+ fa:"عدد دهدهی را به مبنای شانزده‌شانزدهی (هگزادسیمال) تبدیل می‌کند.",
+ en:"Converts a decimal number to hexadecimal.",
+ exfa:"=DEC2HEX(255) → FF",
+ exen:"=DEC2HEX(255) → FF"},
+{n:"HEX2DEC",c:"engineering",s:"=HEX2DEC(number)",
+ fa:"عدد هگزادسیمال را به مبنای دهدهی تبدیل می‌کند.",
+ en:"Converts a hexadecimal number to decimal.",
+ exfa:"=HEX2DEC(\"FF\") → 255",
+ exen:"=HEX2DEC(\"FF\") → 255"},
+{n:"DEC2OCT",c:"engineering",s:"=DEC2OCT(number, [places])",
+ fa:"عدد دهدهی را به مبنای هشت (اکتال) تبدیل می‌کند.",
+ en:"Converts a decimal number to octal.",
+ exfa:"=DEC2OCT(8) → 10",
+ exen:"=DEC2OCT(8) → 10"},
+{n:"OCT2DEC",c:"engineering",s:"=OCT2DEC(number)",
+ fa:"عدد اکتال را به مبنای دهدهی تبدیل می‌کند.",
+ en:"Converts an octal number to decimal.",
+ exfa:"=OCT2DEC(10) → 8",
+ exen:"=OCT2DEC(10) → 8"},
+{n:"COMPLEX",c:"engineering",s:"=COMPLEX(real_num, i_num, [suffix])",
+ fa:"بخش حقیقی و موهومی را به یک عدد مختلط تبدیل می‌کند.",
+ en:"Converts real and imaginary coefficients into a complex number.",
+ exfa:"=COMPLEX(3,4) → 3+4i",
+ exen:"=COMPLEX(3,4) → 3+4i"},
+{n:"IMSUM",c:"engineering",s:"=IMSUM(inumber1, [inumber2], ...)",
+ fa:"مجموع چند عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the sum of complex numbers.",
+ exfa:"=IMSUM(\"3+4i\",\"1-2i\") → 4+2i",
+ exen:"=IMSUM(\"3+4i\",\"1-2i\") → 4+2i"},
+{n:"IMABS",c:"engineering",s:"=IMABS(inumber)",
+ fa:"قدر مطلق (مدول) یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the absolute value (modulus) of a complex number.",
+ exfa:"=IMABS(\"3+4i\") → 5",
+ exen:"=IMABS(\"3+4i\") → 5"},
+{n:"BITAND",c:"engineering",s:"=BITAND(number1, number2)",
+ fa:"عملیات منطقی AND را بین بیت‌های دو عدد انجام می‌دهد.",
+ en:"Performs a bitwise AND operation on two numbers.",
+ exfa:"=BITAND(5,3) → 1",
+ exen:"=BITAND(5,3) → 1"},
+{n:"BITOR",c:"engineering",s:"=BITOR(number1, number2)",
+ fa:"عملیات منطقی OR را بین بیت‌های دو عدد انجام می‌دهد.",
+ en:"Performs a bitwise OR operation on two numbers.",
+ exfa:"=BITOR(5,3) → 7",
+ exen:"=BITOR(5,3) → 7"},
+{n:"BITXOR",c:"engineering",s:"=BITXOR(number1, number2)",
+ fa:"عملیات منطقی XOR را بین بیت‌های دو عدد انجام می‌دهد.",
+ en:"Performs a bitwise XOR operation on two numbers.",
+ exfa:"=BITXOR(5,3) → 6",
+ exen:"=BITXOR(5,3) → 6"},
+{n:"BESSELJ",c:"engineering",s:"=BESSELJ(x, n)",
+ fa:"مقدار تابع بسل نوع اول را محاسبه می‌کند (کاربرد در مهندسی).",
+ en:"Returns the Bessel function of the first kind (used in engineering).",
+ exfa:"=BESSELJ(1.5,1)",
+ exen:"=BESSELJ(1.5,1)"},
+{n:"ERF",c:"engineering",s:"=ERF(lower_limit, [upper_limit])",
+ fa:"مقدار تابع خطا (Error Function) را محاسبه می‌کند.",
+ en:"Returns the error function integrated between limits.",
+ exfa:"=ERF(0.5)",
+ exen:"=ERF(0.5)"},
+
+// ---------------- DATABASE ----------------
+{n:"DSUM",c:"database",s:"=DSUM(database, field, criteria)",
+ fa:"مجموع مقادیر یک ستون در یک پایگاه‌داده که با شرایط مشخصی مطابقت دارند را محاسبه می‌کند.",
+ en:"Sums values in a database field that meet specified criteria.",
+ exfa:"=DSUM(A1:D20,\"فروش\",F1:F2)",
+ exen:"=DSUM(A1:D20,\"Sales\",F1:F2)"},
+{n:"DAVERAGE",c:"database",s:"=DAVERAGE(database, field, criteria)",
+ fa:"میانگین مقادیر یک ستون در یک پایگاه‌داده که با شرایط مشخصی مطابقت دارند را محاسبه می‌کند.",
+ en:"Averages values in a database field that meet specified criteria.",
+ exfa:"=DAVERAGE(A1:D20,\"فروش\",F1:F2)",
+ exen:"=DAVERAGE(A1:D20,\"Sales\",F1:F2)"},
+{n:"DCOUNT",c:"database",s:"=DCOUNT(database, field, criteria)",
+ fa:"تعداد سلول‌های عددی در یک ستون پایگاه‌داده که با شرط مطابقت دارند را می‌شمارد.",
+ en:"Counts numeric cells in a database field that meet specified criteria.",
+ exfa:"=DCOUNT(A1:D20,\"سن\",F1:F2)",
+ exen:"=DCOUNT(A1:D20,\"Age\",F1:F2)"},
+{n:"DCOUNTA",c:"database",s:"=DCOUNTA(database, field, criteria)",
+ fa:"تعداد سلول‌های غیرخالی در یک ستون پایگاه‌داده که با شرط مطابقت دارند را می‌شمارد.",
+ en:"Counts non-empty cells in a database field that meet specified criteria.",
+ exfa:"=DCOUNTA(A1:D20,\"نام\",F1:F2)",
+ exen:"=DCOUNTA(A1:D20,\"Name\",F1:F2)"},
+{n:"DMAX",c:"database",s:"=DMAX(database, field, criteria)",
+ fa:"بزرگترین مقدار یک ستون در پایگاه‌داده که با شرط مطابقت دارد را برمی‌گرداند.",
+ en:"Returns the maximum value in a database field that meets criteria.",
+ exfa:"=DMAX(A1:D20,\"قیمت\",F1:F2)",
+ exen:"=DMAX(A1:D20,\"Price\",F1:F2)"},
+{n:"DMIN",c:"database",s:"=DMIN(database, field, criteria)",
+ fa:"کوچکترین مقدار یک ستون در پایگاه‌داده که با شرط مطابقت دارد را برمی‌گرداند.",
+ en:"Returns the minimum value in a database field that meets criteria.",
+ exfa:"=DMIN(A1:D20,\"قیمت\",F1:F2)",
+ exen:"=DMIN(A1:D20,\"Price\",F1:F2)"},
+{n:"DGET",c:"database",s:"=DGET(database, field, criteria)",
+ fa:"یک مقدار منحصربه‌فرد را از پایگاه‌داده بر اساس شرط استخراج می‌کند.",
+ en:"Extracts a single value from a database that matches criteria.",
+ exfa:"=DGET(A1:D20,\"نام\",F1:F2)",
+ exen:"=DGET(A1:D20,\"Name\",F1:F2)"},
+{n:"DPRODUCT",c:"database",s:"=DPRODUCT(database, field, criteria)",
+ fa:"حاصل‌ضرب مقادیر یک ستون در پایگاه‌داده که با شرط مطابقت دارند را محاسبه می‌کند.",
+ en:"Multiplies values in a database field that meet specified criteria.",
+ exfa:"=DPRODUCT(A1:D20,\"ضریب\",F1:F2)",
+ exen:"=DPRODUCT(A1:D20,\"Factor\",F1:F2)"},
+{n:"DSTDEV",c:"database",s:"=DSTDEV(database, field, criteria)",
+ fa:"انحراف معیار نمونه از یک ستون پایگاه‌داده که با شرط مطابقت دارد را محاسبه می‌کند.",
+ en:"Estimates standard deviation based on a sample from a database field.",
+ exfa:"=DSTDEV(A1:D20,\"نمره\",F1:F2)",
+ exen:"=DSTDEV(A1:D20,\"Score\",F1:F2)"},
+{n:"DVAR",c:"database",s:"=DVAR(database, field, criteria)",
+ fa:"واریانس نمونه از یک ستون پایگاه‌داده که با شرط مطابقت دارد را محاسبه می‌کند.",
+ en:"Estimates variance based on a sample from a database field.",
+ exfa:"=DVAR(A1:D20,\"نمره\",F1:F2)",
+ exen:"=DVAR(A1:D20,\"Score\",F1:F2)"},
+
+// ---------------- WEB & MISC ----------------
+{n:"ENCODEURL",c:"web",s:"=ENCODEURL(text)",
+ fa:"یک رشته متنی را برای استفاده در آدرس URL کدگذاری می‌کند.",
+ en:"Encodes a text string for use in a URL.",
+ exfa:"=ENCODEURL(\"سلام دنیا\")",
+ exen:"=ENCODEURL(\"Hello World\")"},
+{n:"WEBSERVICE",c:"web",s:"=WEBSERVICE(url)",
+ fa:"داده‌ای را از یک آدرس وب (سرویس وب) دریافت می‌کند.",
+ en:"Retrieves data from a web service at a given URL.",
+ exfa:"=WEBSERVICE(\"https://api.example.com/data\")",
+ exen:"=WEBSERVICE(\"https://api.example.com/data\")"},
+{n:"FILTERXML",c:"web",s:"=FILTERXML(xml, xpath)",
+ fa:"داده مشخصی را با استفاده از XPath از یک محتوای XML استخراج می‌کند.",
+ en:"Extracts specific data from XML content using XPath queries.",
+ exfa:"=FILTERXML(xml_data,\"//title\")",
+ exen:"=FILTERXML(xml_data,\"//title\")"},
+{n:"STOCKHISTORY",c:"web",s:"=STOCKHISTORY(stock, start_date, [end_date], [interval], [headers], ...)",
+ fa:"تاریخچه قیمت یک سهام را از منابع داده آنلاین بازیابی می‌کند.",
+ en:"Retrieves historical stock price data from online sources.",
+ exfa:"=STOCKHISTORY(\"MSFT\",\"2026/01/01\")",
+ exen:"=STOCKHISTORY(\"MSFT\",\"2026-01-01\")"},
+{n:"IMAGE",c:"web",s:"=IMAGE(source, [alt_text], [sizing], [height], [width])",
+ fa:"یک تصویر را از یک آدرس URL مستقیماً داخل سلول نمایش می‌دهد.",
+ en:"Displays an image from a given URL directly inside a cell.",
+ exfa:"=IMAGE(\"https://example.com/logo.png\")",
+ exen:"=IMAGE(\"https://example.com/logo.png\")"},
+{n:"UNIQUE+SORT",c:"web",s:"=SORT(UNIQUE(range))",
+ fa:"ترکیب دو تابع پویا برای دریافت لیست یکتا و مرتب‌شده از داده‌ها.",
+ en:"Combines two dynamic array functions to get a sorted, unique list.",
+ exfa:"=SORT(UNIQUE(A2:A100))",
+ exen:"=SORT(UNIQUE(A2:A100))"},
+{n:"ARRAYTOTEXT",c:"web",s:"=ARRAYTOTEXT(array, [format])",
+ fa:"محتویات یک آرایه را به یک رشته متنی واحد تبدیل می‌کند.",
+ en:"Converts the contents of an array into a single text string.",
+ exfa:"=ARRAYTOTEXT(A1:A3) → مقدار۱, مقدار۲, مقدار۳",
+ exen:"=ARRAYTOTEXT(A1:A3) → value1, value2, value3"},
+{n:"VSTACK",c:"array",s:"=VSTACK(array1, [array2], ...)",
+ fa:"چند آرایه یا محدوده را به‌صورت عمودی روی هم قرار می‌دهد.",
+ en:"Stacks arrays or ranges vertically into one array.",
+ exfa:"=VSTACK(A1:B3,D1:E3)",
+ exen:"=VSTACK(A1:B3,D1:E3)"},
+{n:"HSTACK",c:"array",s:"=HSTACK(array1, [array2], ...)",
+ fa:"چند آرایه یا محدوده را به‌صورت افقی کنار هم قرار می‌دهد.",
+ en:"Stacks arrays or ranges horizontally into one array.",
+ exfa:"=HSTACK(A1:A3,C1:C3)",
+ exen:"=HSTACK(A1:A3,C1:C3)"},
+{n:"TAKE",c:"array",s:"=TAKE(array, rows, [columns])",
+ fa:"تعداد مشخصی سطر یا ستون از ابتدا یا انتهای یک آرایه استخراج می‌کند.",
+ en:"Extracts a given number of rows/columns from the start or end of an array.",
+ exfa:"=TAKE(A1:D10,3) → سه سطر اول",
+ exen:"=TAKE(A1:D10,3) → first 3 rows"},
+{n:"DROP",c:"array",s:"=DROP(array, rows, [columns])",
+ fa:"تعداد مشخصی سطر یا ستون از ابتدا یا انتهای یک آرایه حذف می‌کند.",
+ en:"Excludes a given number of rows/columns from the start or end of an array.",
+ exfa:"=DROP(A1:D10,1) → حذف سطر اول",
+ exen:"=DROP(A1:D10,1) → removes first row"},
+{n:"EXPAND",c:"array",s:"=EXPAND(array, rows, [columns], [pad_with])",
+ fa:"ابعاد یک آرایه را به اندازه مشخص گسترش می‌دهد و خانه‌های اضافه را پر می‌کند.",
+ en:"Expands an array to specified dimensions, filling extra cells.",
+ exfa:"=EXPAND(A1:B2,4,4,0)",
+ exen:"=EXPAND(A1:B2,4,4,0)"},
+{n:"WRAPROWS",c:"array",s:"=WRAPROWS(vector, wrap_count, [pad_with])",
+ fa:"یک آرایه تک‌بعدی را پس از تعداد مشخصی عنصر به سطر بعد می‌شکند.",
+ en:"Wraps a one-dimensional array into rows after a set count.",
+ exfa:"=WRAPROWS(A1:A9,3)",
+ exen:"=WRAPROWS(A1:A9,3)"},
+{n:"WRAPCOLS",c:"array",s:"=WRAPCOLS(vector, wrap_count, [pad_with])",
+ fa:"یک آرایه تک‌بعدی را پس از تعداد مشخصی عنصر به ستون بعد می‌شکند.",
+ en:"Wraps a one-dimensional array into columns after a set count.",
+ exfa:"=WRAPCOLS(A1:A9,3)",
+ exen:"=WRAPCOLS(A1:A9,3)"},
+{n:"TOROW",c:"array",s:"=TOROW(array, [ignore], [scan_by_column])",
+ fa:"یک آرایه دوبعدی را به یک سطر تبدیل می‌کند.",
+ en:"Converts a two-dimensional array into a single row.",
+ exfa:"=TOROW(A1:C3)",
+ exen:"=TOROW(A1:C3)"},
+{n:"TOCOL",c:"array",s:"=TOCOL(array, [ignore], [scan_by_column])",
+ fa:"یک آرایه دوبعدی را به یک ستون تبدیل می‌کند.",
+ en:"Converts a two-dimensional array into a single column.",
+ exfa:"=TOCOL(A1:C3)",
+ exen:"=TOCOL(A1:C3)"},
+{n:"GROUPBY",c:"array",s:"=GROUPBY(row_fields, values, function, ...)",
+ fa:"داده‌ها را گروه‌بندی کرده و یک تابع تجمیعی روی هر گروه اعمال می‌کند.",
+ en:"Groups data and applies an aggregate function to each group.",
+ exfa:"=GROUPBY(A2:A100,B2:B100,SUM)",
+ exen:"=GROUPBY(A2:A100,B2:B100,SUM)"},
+
+// ---------------- MORE MATH ----------------
+{n:"SUMSQ",c:"math",s:"=SUMSQ(number1, [number2], ...)",
+ fa:"مجموع مجذورهای اعداد داده‌شده را محاسبه می‌کند.",
+ en:"Returns the sum of the squares of given numbers.",
+ exfa:"=SUMSQ(3,4) → 25", exen:"=SUMSQ(3,4) → 25"},
+{n:"SUMX2MY2",c:"math",s:"=SUMX2MY2(array_x, array_y)",
+ fa:"مجموع اختلاف مجذورهای دو آرایه متناظر را محاسبه می‌کند.",
+ en:"Returns the sum of the differences of squares of two arrays.",
+ exfa:"=SUMX2MY2(A1:A3,B1:B3)", exen:"=SUMX2MY2(A1:A3,B1:B3)"},
+{n:"SUMX2PY2",c:"math",s:"=SUMX2PY2(array_x, array_y)",
+ fa:"مجموع مجموع مجذورهای دو آرایه متناظر را محاسبه می‌کند.",
+ en:"Returns the sum of the sum of squares of two arrays.",
+ exfa:"=SUMX2PY2(A1:A3,B1:B3)", exen:"=SUMX2PY2(A1:A3,B1:B3)"},
+{n:"SUMXMY2",c:"math",s:"=SUMXMY2(array_x, array_y)",
+ fa:"مجموع مجذور اختلاف بین اجزای متناظر دو آرایه را محاسبه می‌کند.",
+ en:"Returns the sum of squares of differences between two arrays.",
+ exfa:"=SUMXMY2(A1:A3,B1:B3)", exen:"=SUMXMY2(A1:A3,B1:B3)"},
+{n:"ASIN",c:"math",s:"=ASIN(number)",
+ fa:"آرک‌سینوس (معکوس سینوس) یک عدد را بر حسب رادیان برمی‌گرداند.",
+ en:"Returns the arcsine of a number, in radians.",
+ exfa:"=ASIN(1) → 1.5708", exen:"=ASIN(1) → 1.5708"},
+{n:"ACOS",c:"math",s:"=ACOS(number)",
+ fa:"آرک‌کسینوس (معکوس کسینوس) یک عدد را بر حسب رادیان برمی‌گرداند.",
+ en:"Returns the arccosine of a number, in radians.",
+ exfa:"=ACOS(0) → 1.5708", exen:"=ACOS(0) → 1.5708"},
+{n:"ATAN",c:"math",s:"=ATAN(number)",
+ fa:"آرک‌تانژانت (معکوس تانژانت) یک عدد را بر حسب رادیان برمی‌گرداند.",
+ en:"Returns the arctangent of a number, in radians.",
+ exfa:"=ATAN(1) → 0.7854", exen:"=ATAN(1) → 0.7854"},
+{n:"ATAN2",c:"math",s:"=ATAN2(x_num, y_num)",
+ fa:"آرک‌تانژانت مختصات x و y را بر حسب رادیان محاسبه می‌کند.",
+ en:"Returns the arctangent from x and y coordinates, in radians.",
+ exfa:"=ATAN2(1,1) → 0.7854", exen:"=ATAN2(1,1) → 0.7854"},
+{n:"SINH",c:"math",s:"=SINH(number)",
+ fa:"سینوس هذلولی (هایپربولیک) یک عدد را محاسبه می‌کند.",
+ en:"Returns the hyperbolic sine of a number.",
+ exfa:"=SINH(1) → 1.1752", exen:"=SINH(1) → 1.1752"},
+{n:"COSH",c:"math",s:"=COSH(number)",
+ fa:"کسینوس هذلولی (هایپربولیک) یک عدد را محاسبه می‌کند.",
+ en:"Returns the hyperbolic cosine of a number.",
+ exfa:"=COSH(1) → 1.5431", exen:"=COSH(1) → 1.5431"},
+{n:"TANH",c:"math",s:"=TANH(number)",
+ fa:"تانژانت هذلولی (هایپربولیک) یک عدد را محاسبه می‌کند.",
+ en:"Returns the hyperbolic tangent of a number.",
+ exfa:"=TANH(1) → 0.7616", exen:"=TANH(1) → 0.7616"},
+{n:"COMBIN",c:"math",s:"=COMBIN(number, number_chosen)",
+ fa:"تعداد حالت‌های ترکیب (بدون توجه به ترتیب) را محاسبه می‌کند.",
+ en:"Returns the number of combinations for a given number of items.",
+ exfa:"=COMBIN(5,2) → 10", exen:"=COMBIN(5,2) → 10"},
+{n:"COMBINA",c:"math",s:"=COMBINA(number, number_chosen)",
+ fa:"تعداد ترکیب‌ها را با امکان تکرار محاسبه می‌کند.",
+ en:"Returns combinations with repetitions allowed.",
+ exfa:"=COMBINA(4,2) → 10", exen:"=COMBINA(4,2) → 10"},
+{n:"PERMUT",c:"math",s:"=PERMUT(number, number_chosen)",
+ fa:"تعداد جایگشت‌ها (با توجه به ترتیب) را محاسبه می‌کند.",
+ en:"Returns the number of permutations for a given number of items.",
+ exfa:"=PERMUT(5,2) → 20", exen:"=PERMUT(5,2) → 20"},
+{n:"PERMUTATIONA",c:"math",s:"=PERMUTATIONA(number, number_chosen)",
+ fa:"تعداد جایگشت‌ها را با امکان تکرار محاسبه می‌کند.",
+ en:"Returns permutations with repetitions allowed.",
+ exfa:"=PERMUTATIONA(3,2) → 9", exen:"=PERMUTATIONA(3,2) → 9"},
+{n:"FACTDOUBLE",c:"math",s:"=FACTDOUBLE(number)",
+ fa:"فاکتوریل دوگانه یک عدد را محاسبه می‌کند.",
+ en:"Returns the double factorial of a number.",
+ exfa:"=FACTDOUBLE(6) → 48", exen:"=FACTDOUBLE(6) → 48"},
+{n:"MULTINOMIAL",c:"math",s:"=MULTINOMIAL(number1, [number2], ...)",
+ fa:"نسبت فاکتوریل مجموع اعداد به حاصل‌ضرب فاکتوریل‌های تک‌تک را محاسبه می‌کند.",
+ en:"Returns the ratio of the factorial of a sum to the product of factorials.",
+ exfa:"=MULTINOMIAL(2,3)", exen:"=MULTINOMIAL(2,3)"},
+{n:"ODD",c:"math",s:"=ODD(number)",
+ fa:"عدد را به نزدیک‌ترین عدد فرد گرد می‌کند.",
+ en:"Rounds a number up to the nearest odd integer.",
+ exfa:"=ODD(4) → 5", exen:"=ODD(4) → 5"},
+{n:"EVEN",c:"math",s:"=EVEN(number)",
+ fa:"عدد را به نزدیک‌ترین عدد زوج گرد می‌کند.",
+ en:"Rounds a number up to the nearest even integer.",
+ exfa:"=EVEN(3) → 4", exen:"=EVEN(3) → 4"},
+{n:"CEILING.MATH",c:"math",s:"=CEILING.MATH(number, [significance], [mode])",
+ fa:"نسخه پیشرفته CEILING با کنترل بیشتر روی اعداد منفی.",
+ en:"Advanced version of CEILING with more control over negative numbers.",
+ exfa:"=CEILING.MATH(-5.5,1) → -5", exen:"=CEILING.MATH(-5.5,1) → -5"},
+{n:"FLOOR.MATH",c:"math",s:"=FLOOR.MATH(number, [significance], [mode])",
+ fa:"نسخه پیشرفته FLOOR با کنترل بیشتر روی اعداد منفی.",
+ en:"Advanced version of FLOOR with more control over negative numbers.",
+ exfa:"=FLOOR.MATH(-5.5,1) → -6", exen:"=FLOOR.MATH(-5.5,1) → -6"},
+{n:"BASE",c:"math",s:"=BASE(number, radix, [min_length])",
+ fa:"عدد را به یک مبنای عددی دلخواه (تا ۳۶) تبدیل می‌کند.",
+ en:"Converts a number to text in a given base (radix), up to 36.",
+ exfa:"=BASE(15,2) → 1111", exen:"=BASE(15,2) → 1111"},
+{n:"DECIMAL",c:"math",s:"=DECIMAL(text, radix)",
+ fa:"عدد متنی در یک مبنای دلخواه را به عدد دهدهی تبدیل می‌کند.",
+ en:"Converts text in a given base to a decimal number.",
+ exfa:"=DECIMAL(\"1111\",2) → 15", exen:"=DECIMAL(\"1111\",2) → 15"},
+
+// ---------------- MORE TEXT/LOGICAL ----------------
+{n:"ISOMITTED",c:"logical",s:"=ISOMITTED(argument)",
+ fa:"در توابع LAMBDA بررسی می‌کند که آیا یک آرگومان اختیاری حذف شده است.",
+ en:"Checks whether an optional LAMBDA argument was omitted.",
+ exfa:"=ISOMITTED(x)", exen:"=ISOMITTED(x)"},
+{n:"PHONETIC",c:"text",s:"=PHONETIC(reference)",
+ fa:"متن راهنمای تلفظ (فوریگانا) در فایل‌های ژاپنی را استخراج می‌کند.",
+ en:"Extracts phonetic (furigana) text from Japanese characters.",
+ exfa:"=PHONETIC(A1)", exen:"=PHONETIC(A1)"},
+{n:"ASC",c:"text",s:"=ASC(text)",
+ fa:"کاراکترهای عریض (تمام‌عرض) را در متون شرق‌آسیایی به کاراکتر نیم‌عرض تبدیل می‌کند.",
+ en:"Changes full-width characters to half-width in East Asian text.",
+ exfa:"=ASC(text)", exen:"=ASC(text)"},
+{n:"DBCS",c:"text",s:"=DBCS(text)",
+ fa:"کاراکترهای نیم‌عرض را به کاراکتر تمام‌عرض در متون شرق‌آسیایی تبدیل می‌کند.",
+ en:"Changes half-width characters to full-width in East Asian text.",
+ exfa:"=DBCS(text)", exen:"=DBCS(text)"},
+
+// ---------------- MORE LOOKUP ----------------
+{n:"RTD",c:"lookup",s:"=RTD(prog_id, server, topic1, ...)",
+ fa:"داده‌های بلادرنگ (Real-Time) را از یک برنامه پشتیبان دریافت می‌کند.",
+ en:"Retrieves real-time data from a program that supports COM automation.",
+ exfa:"=RTD(\"prog.id\",,\"topic\")", exen:"=RTD(\"prog.id\",,\"topic\")"},
+
+// ---------------- MORE STATISTICAL ----------------
+{n:"AVEDEV",c:"stat",s:"=AVEDEV(number1, [number2], ...)",
+ fa:"میانگین قدرمطلق انحرافات داده‌ها از میانگین را محاسبه می‌کند.",
+ en:"Returns the average of absolute deviations from the mean.",
+ exfa:"=AVEDEV(A1:A10)", exen:"=AVEDEV(A1:A10)"},
+{n:"DEVSQ",c:"stat",s:"=DEVSQ(number1, [number2], ...)",
+ fa:"مجموع مجذور انحرافات داده‌ها از میانگین را محاسبه می‌کند.",
+ en:"Returns the sum of squared deviations from the mean.",
+ exfa:"=DEVSQ(A1:A10)", exen:"=DEVSQ(A1:A10)"},
+{n:"STANDARDIZE",c:"stat",s:"=STANDARDIZE(x, mean, standard_dev)",
+ fa:"مقدار استاندارد شده (z-score) یک عدد را محاسبه می‌کند.",
+ en:"Returns a normalized value (z-score) for a number.",
+ exfa:"=STANDARDIZE(70,60,10) → 1", exen:"=STANDARDIZE(70,60,10) → 1"},
+{n:"COVARIANCE.P",c:"stat",s:"=COVARIANCE.P(array1, array2)",
+ fa:"کوواریانس جامعه بین دو مجموعه داده را محاسبه می‌کند.",
+ en:"Returns population covariance between two data sets.",
+ exfa:"=COVARIANCE.P(A1:A10,B1:B10)", exen:"=COVARIANCE.P(A1:A10,B1:B10)"},
+{n:"COVARIANCE.S",c:"stat",s:"=COVARIANCE.S(array1, array2)",
+ fa:"کوواریانس نمونه بین دو مجموعه داده را محاسبه می‌کند.",
+ en:"Returns sample covariance between two data sets.",
+ exfa:"=COVARIANCE.S(A1:A10,B1:B10)", exen:"=COVARIANCE.S(A1:A10,B1:B10)"},
+{n:"SLOPE",c:"stat",s:"=SLOPE(known_ys, known_xs)",
+ fa:"شیب خط رگرسیون خطی را محاسبه می‌کند.",
+ en:"Returns the slope of the linear regression line.",
+ exfa:"=SLOPE(B2:B10,A2:A10)", exen:"=SLOPE(B2:B10,A2:A10)"},
+{n:"INTERCEPT",c:"stat",s:"=INTERCEPT(known_ys, known_xs)",
+ fa:"عرض از مبدأ خط رگرسیون خطی را محاسبه می‌کند.",
+ en:"Returns the intercept of the linear regression line.",
+ exfa:"=INTERCEPT(B2:B10,A2:A10)", exen:"=INTERCEPT(B2:B10,A2:A10)"},
+{n:"RSQ",c:"stat",s:"=RSQ(known_ys, known_xs)",
+ fa:"ضریب تعیین (R²) رگرسیون خطی را محاسبه می‌کند.",
+ en:"Returns the square of the Pearson correlation coefficient (R²).",
+ exfa:"=RSQ(B2:B10,A2:A10)", exen:"=RSQ(B2:B10,A2:A10)"},
+{n:"LINEST",c:"stat",s:"=LINEST(known_ys, [known_xs], [const], [stats])",
+ fa:"پارامترهای خط رگرسیون خطی چندگانه را محاسبه می‌کند (فرمول آرایه‌ای).",
+ en:"Returns statistics for a linear regression line (array formula).",
+ exfa:"=LINEST(B2:B10,A2:A10)", exen:"=LINEST(B2:B10,A2:A10)"},
+{n:"LOGEST",c:"stat",s:"=LOGEST(known_ys, [known_xs], [const], [stats])",
+ fa:"پارامترهای منحنی نمایی برازش‌شده بر داده‌ها را محاسبه می‌کند.",
+ en:"Returns statistics for an exponential curve fit to data.",
+ exfa:"=LOGEST(B2:B10,A2:A10)", exen:"=LOGEST(B2:B10,A2:A10)"},
+{n:"GROWTH",c:"stat",s:"=GROWTH(known_ys, [known_xs], [new_xs], [const])",
+ fa:"مقادیر رشد نمایی را بر اساس داده‌های موجود پیش‌بینی می‌کند.",
+ en:"Predicts exponential growth values based on existing data.",
+ exfa:"=GROWTH(B2:B10,A2:A10,A11)", exen:"=GROWTH(B2:B10,A2:A10,A11)"},
+{n:"FREQUENCY",c:"stat",s:"=FREQUENCY(data_array, bins_array)",
+ fa:"توزیع فراوانی داده‌ها را در بازه‌های مشخص محاسبه می‌کند (فرمول آرایه‌ای).",
+ en:"Calculates how often values occur within specified ranges (array formula).",
+ exfa:"=FREQUENCY(A2:A100,B2:B5)", exen:"=FREQUENCY(A2:A100,B2:B5)"},
+{n:"PERCENTRANK.INC",c:"stat",s:"=PERCENTRANK.INC(array, x, [significance])",
+ fa:"رتبه درصدی یک مقدار در یک مجموعه داده را محاسبه می‌کند.",
+ en:"Returns the percentage rank of a value in a data set.",
+ exfa:"=PERCENTRANK.INC(A1:A10,7)", exen:"=PERCENTRANK.INC(A1:A10,7)"},
+{n:"EXPON.DIST",c:"stat",s:"=EXPON.DIST(x, lambda, cumulative)",
+ fa:"مقدار توزیع نمایی را محاسبه می‌کند.",
+ en:"Returns the exponential distribution value.",
+ exfa:"=EXPON.DIST(0.5,2,TRUE)", exen:"=EXPON.DIST(0.5,2,TRUE)"},
+{n:"F.DIST",c:"stat",s:"=F.DIST(x, deg_freedom1, deg_freedom2, cumulative)",
+ fa:"مقدار توزیع احتمال F را محاسبه می‌کند.",
+ en:"Returns the F probability distribution value.",
+ exfa:"=F.DIST(5,1,10,TRUE)", exen:"=F.DIST(5,1,10,TRUE)"},
+{n:"GAMMA.DIST",c:"stat",s:"=GAMMA.DIST(x, alpha, beta, cumulative)",
+ fa:"مقدار توزیع گاما را محاسبه می‌کند.",
+ en:"Returns the gamma distribution value.",
+ exfa:"=GAMMA.DIST(2,3,1,TRUE)", exen:"=GAMMA.DIST(2,3,1,TRUE)"},
+{n:"HYPGEOM.DIST",c:"stat",s:"=HYPGEOM.DIST(sample_s, number_sample, population_s, number_pop, cumulative)",
+ fa:"احتمال توزیع فوق‌هندسی را محاسبه می‌کند.",
+ en:"Returns the hypergeometric distribution probability.",
+ exfa:"=HYPGEOM.DIST(1,4,8,20,FALSE)", exen:"=HYPGEOM.DIST(1,4,8,20,FALSE)"},
+{n:"WEIBULL.DIST",c:"stat",s:"=WEIBULL.DIST(x, alpha, beta, cumulative)",
+ fa:"مقدار توزیع وایبل را محاسبه می‌کند (کاربرد در تحلیل قابلیت اطمینان).",
+ en:"Returns the Weibull distribution value (used in reliability analysis).",
+ exfa:"=WEIBULL.DIST(100,2,500,TRUE)", exen:"=WEIBULL.DIST(100,2,500,TRUE)"},
+{n:"LOGNORM.DIST",c:"stat",s:"=LOGNORM.DIST(x, mean, standard_dev, cumulative)",
+ fa:"مقدار توزیع لگ‌نرمال را محاسبه می‌کند.",
+ en:"Returns the lognormal distribution value.",
+ exfa:"=LOGNORM.DIST(4,1,0.5,TRUE)", exen:"=LOGNORM.DIST(4,1,0.5,TRUE)"},
+{n:"Z.TEST",c:"stat",s:"=Z.TEST(array, x, [sigma])",
+ fa:"مقدار احتمال آزمون z (یک‌دنباله) را محاسبه می‌کند.",
+ en:"Returns the one-tailed probability value of a z-test.",
+ exfa:"=Z.TEST(A1:A10,5)", exen:"=Z.TEST(A1:A10,5)"},
+{n:"F.TEST",c:"stat",s:"=F.TEST(array1, array2)",
+ fa:"نتیجه آزمون F (بررسی برابری واریانس دو جامعه) را محاسبه می‌کند.",
+ en:"Returns the result of an F-test comparing two variances.",
+ exfa:"=F.TEST(A1:A10,B1:B10)", exen:"=F.TEST(A1:A10,B1:B10)"},
+
+// ---------------- MORE FINANCIAL ----------------
+{n:"ACCRINT",c:"financial",s:"=ACCRINT(issue, first_interest, settlement, rate, par, frequency, [basis])",
+ fa:"بهره تعلق‌گرفته به یک اوراق بهادار با پرداخت دوره‌ای را محاسبه می‌کند.",
+ en:"Calculates accrued interest for a security that pays periodic interest.",
+ exfa:"=ACCRINT(...)", exen:"=ACCRINT(...)"},
+{n:"COUPDAYS",c:"financial",s:"=COUPDAYS(settlement, maturity, frequency, [basis])",
+ fa:"تعداد روزهای دوره کوپن که تسویه در آن قرار دارد را محاسبه می‌کند.",
+ en:"Returns the number of days in the coupon period containing settlement.",
+ exfa:"=COUPDAYS(...)", exen:"=COUPDAYS(...)"},
+{n:"DISC",c:"financial",s:"=DISC(settlement, maturity, pr, redemption, [basis])",
+ fa:"نرخ تنزیل یک اوراق بهادار را محاسبه می‌کند.",
+ en:"Returns the discount rate for a security.",
+ exfa:"=DISC(...)", exen:"=DISC(...)"},
+{n:"PRICE",c:"financial",s:"=PRICE(settlement, maturity, rate, yld, redemption, frequency, [basis])",
+ fa:"قیمت اوراق بهادار با پرداخت بهره دوره‌ای را به ازای ۱۰۰ واحد ارزش اسمی محاسبه می‌کند.",
+ en:"Returns the price per $100 face value of a security paying periodic interest.",
+ exfa:"=PRICE(...)", exen:"=PRICE(...)"},
+{n:"YIELD",c:"financial",s:"=YIELD(settlement, maturity, rate, pr, redemption, frequency, [basis])",
+ fa:"بازده اوراق بهادار با پرداخت بهره دوره‌ای را محاسبه می‌کند.",
+ en:"Returns the yield on a security that pays periodic interest.",
+ exfa:"=YIELD(...)", exen:"=YIELD(...)"},
+{n:"TBILLYIELD",c:"financial",s:"=TBILLYIELD(settlement, maturity, pr)",
+ fa:"بازده یک اسناد خزانه (T-Bill) را محاسبه می‌کند.",
+ en:"Returns the yield for a Treasury bill.",
+ exfa:"=TBILLYIELD(...)", exen:"=TBILLYIELD(...)"},
+{n:"TBILLPRICE",c:"financial",s:"=TBILLPRICE(settlement, maturity, discount)",
+ fa:"قیمت به ازای ۱۰۰ واحد ارزش اسمی یک اسناد خزانه را محاسبه می‌کند.",
+ en:"Returns the price per $100 face value for a Treasury bill.",
+ exfa:"=TBILLPRICE(...)", exen:"=TBILLPRICE(...)"},
+{n:"FVSCHEDULE",c:"financial",s:"=FVSCHEDULE(principal, schedule)",
+ fa:"ارزش آتی اصل پول را با اعمال یک سری نرخ بهره متغیر محاسبه می‌کند.",
+ en:"Returns the future value of principal after applying a series of interest rates.",
+ exfa:"=FVSCHEDULE(1000,{0.05,0.06})", exen:"=FVSCHEDULE(1000,{0.05,0.06})"},
+{n:"MIRR",c:"financial",s:"=MIRR(values, finance_rate, reinvest_rate)",
+ fa:"نرخ بازده داخلی تعدیل‌شده با در نظر گرفتن نرخ‌های سرمایه‌گذاری مجدد را محاسبه می‌کند.",
+ en:"Returns the modified internal rate of return considering reinvestment rate.",
+ exfa:"=MIRR(A1:A5,8%,10%)", exen:"=MIRR(A1:A5,8%,10%)"},
+{n:"RRI",c:"financial",s:"=RRI(nper, pv, fv)",
+ fa:"نرخ رشد معادل برای یک سرمایه‌گذاری در طول یک بازه زمانی را محاسبه می‌کند.",
+ en:"Returns an equivalent interest rate for the growth of an investment.",
+ exfa:"=RRI(10,1000,2000)", exen:"=RRI(10,1000,2000)"},
+{n:"ISPMT",c:"financial",s:"=ISPMT(rate, per, nper, pv)",
+ fa:"بهره پرداختی برای یک دوره مشخص از یک سرمایه‌گذاری با پرداخت ثابت را محاسبه می‌کند.",
+ en:"Calculates the interest paid for a specific period of an investment.",
+ exfa:"=ISPMT(5%/12,1,60,100000)", exen:"=ISPMT(5%/12,1,60,100000)"},
+
+// ---------------- CUBE FUNCTIONS ----------------
+{n:"CUBEVALUE",c:"database",s:"=CUBEVALUE(connection, [member1], ...)",
+ fa:"یک مقدار تجمیعی را از یک مکعب داده (Cube) در انبار داده استخراج می‌کند.",
+ en:"Returns an aggregated value from a data cube in a data warehouse.",
+ exfa:"=CUBEVALUE(\"Sales\",\"[Measures].[Total]\")", exen:"=CUBEVALUE(\"Sales\",\"[Measures].[Total]\")"},
+{n:"CUBEMEMBER",c:"database",s:"=CUBEMEMBER(connection, member_expression, [caption])",
+ fa:"یک عضو یا تاپل از یک مکعب داده را برمی‌گرداند.",
+ en:"Returns a member or tuple from a cube in a data warehouse.",
+ exfa:"=CUBEMEMBER(\"Sales\",\"[Product].[Category]\")", exen:"=CUBEMEMBER(\"Sales\",\"[Product].[Category]\")"},
+{n:"CUBESET",c:"database",s:"=CUBESET(connection, set_expression, [caption], [sort_order])",
+ fa:"مجموعه‌ای از اعضای یک مکعب داده را تعریف می‌کند.",
+ en:"Defines a calculated set of members from a data cube.",
+ exfa:"=CUBESET(\"Sales\",\"[Product].Children\")", exen:"=CUBESET(\"Sales\",\"[Product].Children\")"},
+{n:"CUBESETCOUNT",c:"database",s:"=CUBESETCOUNT(set)",
+ fa:"تعداد اعضای موجود در یک مجموعه Cube را برمی‌گرداند.",
+ en:"Returns the number of items in a cube set.",
+ exfa:"=CUBESETCOUNT(A1)", exen:"=CUBESETCOUNT(A1)"},
+{n:"CUBERANKEDMEMBER",c:"database",s:"=CUBERANKEDMEMBER(connection, set_expression, rank, [caption])",
+ fa:"عضو nام از یک مجموعه Cube را برمی‌گرداند.",
+ en:"Returns the n-th ranked member from a cube set.",
+ exfa:"=CUBERANKEDMEMBER(\"Sales\",A1,1)", exen:"=CUBERANKEDMEMBER(\"Sales\",A1,1)"},
+{n:"CUBEKPIMEMBER",c:"database",s:"=CUBEKPIMEMBER(connection, kpi_name, kpi_property, [caption])",
+ fa:"یک ویژگی شاخص عملکرد کلیدی (KPI) را از یک مکعب داده برمی‌گرداند.",
+ en:"Returns a Key Performance Indicator (KPI) property from a cube.",
+ exfa:"=CUBEKPIMEMBER(\"Sales\",\"Growth\",1)", exen:"=CUBEKPIMEMBER(\"Sales\",\"Growth\",1)"},
+
+// ---------------- MORE ENGINEERING ----------------
+{n:"IMPRODUCT",c:"engineering",s:"=IMPRODUCT(inumber1, [inumber2], ...)",
+ fa:"حاصل‌ضرب چند عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the product of complex numbers.",
+ exfa:"=IMPRODUCT(\"3+4i\",\"1-2i\")", exen:"=IMPRODUCT(\"3+4i\",\"1-2i\")"},
+{n:"IMREAL",c:"engineering",s:"=IMREAL(inumber)",
+ fa:"بخش حقیقی یک عدد مختلط را برمی‌گرداند.",
+ en:"Returns the real coefficient of a complex number.",
+ exfa:"=IMREAL(\"3+4i\") → 3", exen:"=IMREAL(\"3+4i\") → 3"},
+{n:"IMAGINARY",c:"engineering",s:"=IMAGINARY(inumber)",
+ fa:"بخش موهومی یک عدد مختلط را برمی‌گرداند.",
+ en:"Returns the imaginary coefficient of a complex number.",
+ exfa:"=IMAGINARY(\"3+4i\") → 4", exen:"=IMAGINARY(\"3+4i\") → 4"},
+{n:"IMCONJUGATE",c:"engineering",s:"=IMCONJUGATE(inumber)",
+ fa:"مزدوج مختلط یک عدد مختلط را برمی‌گرداند.",
+ en:"Returns the complex conjugate of a complex number.",
+ exfa:"=IMCONJUGATE(\"3+4i\") → 3-4i", exen:"=IMCONJUGATE(\"3+4i\") → 3-4i"},
+{n:"IMDIV",c:"engineering",s:"=IMDIV(inumber1, inumber2)",
+ fa:"خارج‌قسمت تقسیم دو عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the quotient of two complex numbers.",
+ exfa:"=IMDIV(\"5+2i\",\"1+1i\")", exen:"=IMDIV(\"5+2i\",\"1+1i\")"},
+{n:"IMEXP",c:"engineering",s:"=IMEXP(inumber)",
+ fa:"توان نمایی یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the exponential of a complex number.",
+ exfa:"=IMEXP(\"1+1i\")", exen:"=IMEXP(\"1+1i\")"},
+{n:"BIN2HEX",c:"engineering",s:"=BIN2HEX(number, [places])",
+ fa:"عدد باینری را به هگزادسیمال تبدیل می‌کند.",
+ en:"Converts a binary number to hexadecimal.",
+ exfa:"=BIN2HEX(1111) → F", exen:"=BIN2HEX(1111) → F"},
+{n:"HEX2BIN",c:"engineering",s:"=HEX2BIN(number, [places])",
+ fa:"عدد هگزادسیمال را به باینری تبدیل می‌کند.",
+ en:"Converts a hexadecimal number to binary.",
+ exfa:"=HEX2BIN(\"F\") → 1111", exen:"=HEX2BIN(\"F\") → 1111"},
+{n:"OCT2BIN",c:"engineering",s:"=OCT2BIN(number, [places])",
+ fa:"عدد اکتال را به باینری تبدیل می‌کند.",
+ en:"Converts an octal number to binary.",
+ exfa:"=OCT2BIN(10) → 1000", exen:"=OCT2BIN(10) → 1000"},
+{n:"BITLSHIFT",c:"engineering",s:"=BITLSHIFT(number, shift_amount)",
+ fa:"بیت‌های یک عدد را به سمت چپ جابه‌جا می‌کند.",
+ en:"Shifts the bits of a number to the left.",
+ exfa:"=BITLSHIFT(4,2) → 16", exen:"=BITLSHIFT(4,2) → 16"},
+{n:"BITRSHIFT",c:"engineering",s:"=BITRSHIFT(number, shift_amount)",
+ fa:"بیت‌های یک عدد را به سمت راست جابه‌جا می‌کند.",
+ en:"Shifts the bits of a number to the right.",
+ exfa:"=BITRSHIFT(16,2) → 4", exen:"=BITRSHIFT(16,2) → 4"},
+
+
+// ---------------- ADDITIONAL FUNCTIONS ----------------
+{n:"ACOSH",c:"math",s:"=ACOSH(number)",
+ fa:"کسینوس هایپربولیک معکوس یک عدد را برمی‌گرداند.",
+ en:"Returns the inverse hyperbolic cosine of a number.",
+ exfa:"=ACOSH(1) → 0", exen:"=ACOSH(1) → 0"},
+{n:"ACOT",c:"math",s:"=ACOT(number)",
+ fa:"آرک‌کتانژانت (کتانژانت معکوس) یک عدد را بر حسب رادیان برمی‌گرداند.",
+ en:"Returns the arccotangent of a number, in radians.",
+ exfa:"=ACOT(1) → 0.7854", exen:"=ACOT(1) → 0.7854"},
+{n:"ACOTH",c:"math",s:"=ACOTH(number)",
+ fa:"کتانژانت هایپربولیک معکوس یک عدد را برمی‌گرداند.",
+ en:"Returns the inverse hyperbolic cotangent of a number.",
+ exfa:"=ACOTH(2) → 0.5493", exen:"=ACOTH(2) → 0.5493"},
+{n:"ACSC",c:"math",s:"=ACSC(number)",
+ fa:"آرک‌کوسکانت (کوسکانت معکوس) یک عدد را بر حسب رادیان برمی‌گرداند.",
+ en:"Returns the arccosecant of a number, in radians.",
+ exfa:"=ACSC(2) → 0.5236", exen:"=ACSC(2) → 0.5236"},
+{n:"ACSCH",c:"math",s:"=ACSCH(number)",
+ fa:"کوسکانت هایپربولیک معکوس یک عدد را برمی‌گرداند.",
+ en:"Returns the inverse hyperbolic cosecant of a number.",
+ exfa:"=ACSCH(2) → 0.4812", exen:"=ACSCH(2) → 0.4812"},
+{n:"ASEC",c:"math",s:"=ASEC(number)",
+ fa:"آرک‌سکانت (سکانت معکوس) یک عدد را بر حسب رادیان برمی‌گرداند.",
+ en:"Returns the arcsecant of a number, in radians.",
+ exfa:"=ASEC(2) → 1.0472", exen:"=ASEC(2) → 1.0472"},
+{n:"ASECH",c:"math",s:"=ASECH(number)",
+ fa:"سکانت هایپربولیک معکوس یک عدد را برمی‌گرداند.",
+ en:"Returns the inverse hyperbolic secant of a number.",
+ exfa:"=ASECH(0.5) → 1.3170", exen:"=ASECH(0.5) → 1.3170"},
+{n:"ASINH",c:"math",s:"=ASINH(number)",
+ fa:"سینوس هایپربولیک معکوس یک عدد را برمی‌گرداند.",
+ en:"Returns the inverse hyperbolic sine of a number.",
+ exfa:"=ASINH(1) → 0.8814", exen:"=ASINH(1) → 0.8814"},
+{n:"ATANH",c:"math",s:"=ATANH(number)",
+ fa:"تانژانت هایپربولیک معکوس یک عدد را برمی‌گرداند.",
+ en:"Returns the inverse hyperbolic tangent of a number.",
+ exfa:"=ATANH(0.5) → 0.5493", exen:"=ATANH(0.5) → 0.5493"},
+{n:"COT",c:"math",s:"=COT(number)",
+ fa:"کتانژانت زاویه (بر حسب رادیان) را محاسبه می‌کند.",
+ en:"Returns the cotangent of an angle given in radians.",
+ exfa:"=COT(1) → 0.6421", exen:"=COT(1) → 0.6421"},
+{n:"COTH",c:"math",s:"=COTH(number)",
+ fa:"کتانژانت هایپربولیک یک عدد را برمی‌گرداند.",
+ en:"Returns the hyperbolic cotangent of a number.",
+ exfa:"=COTH(2) → 1.0373", exen:"=COTH(2) → 1.0373"},
+{n:"CSC",c:"math",s:"=CSC(number)",
+ fa:"کوسکانت زاویه (بر حسب رادیان) را محاسبه می‌کند.",
+ en:"Returns the cosecant of an angle given in radians.",
+ exfa:"=CSC(1) → 1.1884", exen:"=CSC(1) → 1.1884"},
+{n:"CSCH",c:"math",s:"=CSCH(number)",
+ fa:"کوسکانت هایپربولیک یک عدد را برمی‌گرداند.",
+ en:"Returns the hyperbolic cosecant of a number.",
+ exfa:"=CSCH(2) → 0.2757", exen:"=CSCH(2) → 0.2757"},
+{n:"SEC",c:"math",s:"=SEC(number)",
+ fa:"سکانت زاویه (بر حسب رادیان) را محاسبه می‌کند.",
+ en:"Returns the secant of an angle given in radians.",
+ exfa:"=SEC(1) → 1.8508", exen:"=SEC(1) → 1.8508"},
+{n:"SECH",c:"math",s:"=SECH(number)",
+ fa:"سکانت هایپربولیک یک عدد را برمی‌گرداند.",
+ en:"Returns the hyperbolic secant of a number.",
+ exfa:"=SECH(1) → 0.6481", exen:"=SECH(1) → 0.6481"},
+{n:"GESTEP",c:"math",s:"=GESTEP(number, [step])",
+ fa:"بررسی می‌کند آیا یک عدد بزرگتر یا مساوی مقدار آستانه است (۱ یا ۰ برمی‌گرداند).",
+ en:"Tests whether a number is greater than or equal to a threshold value.",
+ exfa:"=GESTEP(5,4) → 1", exen:"=GESTEP(5,4) → 1"},
+{n:"DELTA",c:"math",s:"=DELTA(number1, [number2])",
+ fa:"بررسی می‌کند آیا دو عدد دقیقاً برابرند (۱ یا ۰ برمی‌گرداند).",
+ en:"Tests whether two values are exactly equal.",
+ exfa:"=DELTA(5,5) → 1", exen:"=DELTA(5,5) → 1"},
+{n:"GAMMA",c:"math",s:"=GAMMA(number)",
+ fa:"مقدار تابع گاما را برای یک عدد محاسبه می‌کند.",
+ en:"Returns the Gamma function value.",
+ exfa:"=GAMMA(5) → 24", exen:"=GAMMA(5) → 24"},
+{n:"GAMMALN",c:"math",s:"=GAMMALN(x)",
+ fa:"لگاریتم طبیعی تابع گاما را محاسبه می‌کند.",
+ en:"Returns the natural logarithm of the gamma function.",
+ exfa:"=GAMMALN(4) → 1.7918", exen:"=GAMMALN(4) → 1.7918"},
+{n:"GAMMALN.PRECISE",c:"math",s:"=GAMMALN.PRECISE(x)",
+ fa:"لگاریتم طبیعی تابع گاما را با دقت بالا محاسبه می‌کند.",
+ en:"Returns a highly precise natural logarithm of the gamma function.",
+ exfa:"=GAMMALN.PRECISE(4) → 1.7918", exen:"=GAMMALN.PRECISE(4) → 1.7918"},
+{n:"SQRTPI",c:"math",s:"=SQRTPI(number)",
+ fa:"جذر حاصل‌ضرب عدد در پی (π) را برمی‌گرداند.",
+ en:"Returns the square root of (number × π).",
+ exfa:"=SQRTPI(1) → 1.7725", exen:"=SQRTPI(1) → 1.7725"},
+{n:"ISO.CEILING",c:"math",s:"=ISO.CEILING(number, [significance])",
+ fa:"عدد را طبق استاندارد ISO به بالاترین مضرب مشخص‌شده گرد می‌کند.",
+ en:"Rounds a number up to the nearest integer or multiple, per ISO standard.",
+ exfa:"=ISO.CEILING(4.2,1) → 5", exen:"=ISO.CEILING(4.2,1) → 5"},
+{n:"CEILING.PRECISE",c:"math",s:"=CEILING.PRECISE(number, [significance])",
+ fa:"عدد را بدون توجه به علامت، به بالاترین مضرب مشخص‌شده گرد می‌کند.",
+ en:"Rounds a number up to the nearest integer or multiple, regardless of sign.",
+ exfa:"=CEILING.PRECISE(-4.2,2) → -4", exen:"=CEILING.PRECISE(-4.2,2) → -4"},
+{n:"FLOOR.PRECISE",c:"math",s:"=FLOOR.PRECISE(number, [significance])",
+ fa:"عدد را بدون توجه به علامت، به پایین‌ترین مضرب مشخص‌شده گرد می‌کند.",
+ en:"Rounds a number down to the nearest integer or multiple, regardless of sign.",
+ exfa:"=FLOOR.PRECISE(-4.2,2) → -6", exen:"=FLOOR.PRECISE(-4.2,2) → -6"},
+{n:"AVERAGEA",c:"stat",s:"=AVERAGEA(value1, [value2], ...)",
+ fa:"میانگین مقادیر را محاسبه می‌کند، شامل متن و مقادیر منطقی نیز می‌شود.",
+ en:"Averages values, including text and logical values (as 0 and 1).",
+ exfa:"=AVERAGEA(A1:A5) → میانگین با احتساب TRUE/FALSE", exen:"=AVERAGEA(A1:A5) → average including TRUE/FALSE"},
+{n:"BETA.DIST",c:"stat",s:"=BETA.DIST(x, alpha, beta, cumulative, [A], [B])",
+ fa:"تابع توزیع احتمال بتا را محاسبه می‌کند.",
+ en:"Returns the beta probability distribution function.",
+ exfa:"=BETA.DIST(0.5,2,3,TRUE) → 0.6875", exen:"=BETA.DIST(0.5,2,3,TRUE) → 0.6875"},
+{n:"BETA.INV",c:"stat",s:"=BETA.INV(probability, alpha, beta, [A], [B])",
+ fa:"معکوس تابع توزیع احتمال تجمعی بتا را محاسبه می‌کند.",
+ en:"Returns the inverse of the beta cumulative distribution function.",
+ exfa:"=BETA.INV(0.6875,2,3) → 0.5", exen:"=BETA.INV(0.6875,2,3) → 0.5"},
+{n:"BETADIST",c:"stat",s:"=BETADIST(x, alpha, beta, [A], [B])",
+ fa:"نسخه سازگاری قدیمی تابع توزیع احتمال بتا (مشابه BETA.DIST).",
+ en:"Legacy compatibility version of the beta distribution function.",
+ exfa:"=BETADIST(0.5,2,3)", exen:"=BETADIST(0.5,2,3)"},
+{n:"BETAINV",c:"stat",s:"=BETAINV(probability, alpha, beta, [A], [B])",
+ fa:"نسخه سازگاری قدیمی معکوس تابع توزیع بتا (مشابه BETA.INV).",
+ en:"Legacy compatibility version of the inverse beta distribution.",
+ exfa:"=BETAINV(0.6875,2,3)", exen:"=BETAINV(0.6875,2,3)"},
+{n:"BINOM.DIST.RANGE",c:"stat",s:"=BINOM.DIST.RANGE(trials, probability_s, number_s, [number_s2])",
+ fa:"احتمال یک نتیجه آزمایشی با استفاده از توزیع دوجمله‌ای را محاسبه می‌کند.",
+ en:"Returns the probability of a trial result using a binomial distribution.",
+ exfa:"=BINOM.DIST.RANGE(10,0.5,4,6) → احتمال ۴ تا ۶ موفقیت", exen:"=BINOM.DIST.RANGE(10,0.5,4,6) → probability of 4 to 6 successes"},
+{n:"BINOM.INV",c:"stat",s:"=BINOM.INV(trials, probability_s, alpha)",
+ fa:"کوچکترین مقداری که توزیع دوجمله‌ای تجمعی از آن بزرگتر یا مساوی معیار است را می‌یابد.",
+ en:"Returns the smallest value for which the cumulative binomial distribution is greater than or equal to a criterion.",
+ exfa:"=BINOM.INV(10,0.5,0.75) → 6", exen:"=BINOM.INV(10,0.5,0.75) → 6"},
+{n:"BINOMDIST",c:"stat",s:"=BINOMDIST(number_s, trials, probability_s, cumulative)",
+ fa:"نسخه سازگاری قدیمی محاسبه توزیع دوجمله‌ای (مشابه BINOM.DIST).",
+ en:"Legacy compatibility version of the binomial distribution function.",
+ exfa:"=BINOMDIST(4,10,0.5,FALSE)", exen:"=BINOMDIST(4,10,0.5,FALSE)"},
+{n:"CHIDIST",c:"stat",s:"=CHIDIST(x, degrees_freedom)",
+ fa:"نسخه سازگاری قدیمی احتمال یک‌طرفه توزیع خی‌دو (مشابه CHISQ.DIST.RT).",
+ en:"Legacy compatibility version of the one-tailed chi-squared distribution.",
+ exfa:"=CHIDIST(3,2)", exen:"=CHIDIST(3,2)"},
+{n:"CHIINV",c:"stat",s:"=CHIINV(probability, degrees_freedom)",
+ fa:"نسخه سازگاری قدیمی معکوس توزیع خی‌دو یک‌طرفه (مشابه CHISQ.INV.RT).",
+ en:"Legacy compatibility version of the inverse one-tailed chi-squared distribution.",
+ exfa:"=CHIINV(0.05,2)", exen:"=CHIINV(0.05,2)"},
+{n:"CHISQ.DIST",c:"stat",s:"=CHISQ.DIST(x, degrees_freedom, cumulative)",
+ fa:"احتمال چپ‌دنباله توزیع خی‌دو را محاسبه می‌کند.",
+ en:"Returns the left-tailed probability of the chi-squared distribution.",
+ exfa:"=CHISQ.DIST(3,2,TRUE) → 0.7769", exen:"=CHISQ.DIST(3,2,TRUE) → 0.7769"},
+{n:"CHISQ.DIST.RT",c:"stat",s:"=CHISQ.DIST.RT(x, degrees_freedom)",
+ fa:"احتمال راست‌دنباله توزیع خی‌دو را محاسبه می‌کند.",
+ en:"Returns the right-tailed probability of the chi-squared distribution.",
+ exfa:"=CHISQ.DIST.RT(3,2) → 0.2231", exen:"=CHISQ.DIST.RT(3,2) → 0.2231"},
+{n:"CHISQ.INV",c:"stat",s:"=CHISQ.INV(probability, degrees_freedom)",
+ fa:"معکوس چپ‌دنباله توزیع خی‌دو را محاسبه می‌کند.",
+ en:"Returns the inverse of the left-tailed chi-squared distribution.",
+ exfa:"=CHISQ.INV(0.95,2) → 5.99", exen:"=CHISQ.INV(0.95,2) → 5.99"},
+{n:"CHISQ.INV.RT",c:"stat",s:"=CHISQ.INV.RT(probability, degrees_freedom)",
+ fa:"معکوس راست‌دنباله توزیع خی‌دو را محاسبه می‌کند.",
+ en:"Returns the inverse of the right-tailed chi-squared distribution.",
+ exfa:"=CHISQ.INV.RT(0.05,2) → 5.99", exen:"=CHISQ.INV.RT(0.05,2) → 5.99"},
+{n:"CHITEST",c:"stat",s:"=CHITEST(actual_range, expected_range)",
+ fa:"نسخه سازگاری قدیمی آزمون استقلال خی‌دو (مشابه CHISQ.TEST).",
+ en:"Legacy compatibility version of the chi-squared test.",
+ exfa:"=CHITEST(A1:A5,B1:B5)", exen:"=CHITEST(A1:A5,B1:B5)"},
+{n:"CONFIDENCE",c:"stat",s:"=CONFIDENCE(alpha, standard_dev, size)",
+ fa:"نسخه سازگاری قدیمی محاسبه بازه اطمینان با توزیع نرمال (مشابه CONFIDENCE.NORM).",
+ en:"Legacy compatibility version of the normal confidence interval function.",
+ exfa:"=CONFIDENCE(0.05,2.5,50)", exen:"=CONFIDENCE(0.05,2.5,50)"},
+{n:"CONFIDENCE.T",c:"stat",s:"=CONFIDENCE.T(alpha, standard_dev, size)",
+ fa:"بازه اطمینان یک میانگین جامعه را با استفاده از توزیع t محاسبه می‌کند.",
+ en:"Returns the confidence interval for a population mean using a Student's t-distribution.",
+ exfa:"=CONFIDENCE.T(0.05,2.5,10) → بازه اطمینان", exen:"=CONFIDENCE.T(0.05,2.5,10) → confidence interval"},
+{n:"COVAR",c:"stat",s:"=COVAR(array1, array2)",
+ fa:"نسخه سازگاری قدیمی محاسبه کوواریانس جامعه (مشابه COVARIANCE.P).",
+ en:"Legacy compatibility version of population covariance.",
+ exfa:"=COVAR(A1:A10,B1:B10)", exen:"=COVAR(A1:A10,B1:B10)"},
+{n:"CRITBINOM",c:"stat",s:"=CRITBINOM(trials, probability_s, alpha)",
+ fa:"نسخه سازگاری قدیمی معکوس توزیع دوجمله‌ای (مشابه BINOM.INV).",
+ en:"Legacy compatibility version of the inverse binomial distribution.",
+ exfa:"=CRITBINOM(10,0.5,0.75)", exen:"=CRITBINOM(10,0.5,0.75)"},
+{n:"EXPONDIST",c:"stat",s:"=EXPONDIST(x, lambda, cumulative)",
+ fa:"نسخه سازگاری قدیمی توزیع نمایی (مشابه EXPON.DIST).",
+ en:"Legacy compatibility version of the exponential distribution.",
+ exfa:"=EXPONDIST(0.5,2,TRUE)", exen:"=EXPONDIST(0.5,2,TRUE)"},
+{n:"F.DIST.RT",c:"stat",s:"=F.DIST.RT(x, deg_freedom1, deg_freedom2)",
+ fa:"احتمال راست‌دنباله توزیع F را محاسبه می‌کند.",
+ en:"Returns the right-tailed F probability distribution.",
+ exfa:"=F.DIST.RT(4,3,6) → 0.0665", exen:"=F.DIST.RT(4,3,6) → 0.0665"},
+{n:"F.INV",c:"stat",s:"=F.INV(probability, deg_freedom1, deg_freedom2)",
+ fa:"معکوس چپ‌دنباله توزیع احتمال F را محاسبه می‌کند.",
+ en:"Returns the inverse of the left-tailed F probability distribution.",
+ exfa:"=F.INV(0.9,3,6) → 3.29", exen:"=F.INV(0.9,3,6) → 3.29"},
+{n:"F.INV.RT",c:"stat",s:"=F.INV.RT(probability, deg_freedom1, deg_freedom2)",
+ fa:"معکوس راست‌دنباله توزیع احتمال F را محاسبه می‌کند.",
+ en:"Returns the inverse of the right-tailed F probability distribution.",
+ exfa:"=F.INV.RT(0.1,3,6) → 3.29", exen:"=F.INV.RT(0.1,3,6) → 3.29"},
+{n:"FDIST",c:"stat",s:"=FDIST(x, deg_freedom1, deg_freedom2)",
+ fa:"نسخه سازگاری قدیمی توزیع احتمال F (مشابه F.DIST.RT).",
+ en:"Legacy compatibility version of the F probability distribution.",
+ exfa:"=FDIST(4,3,6)", exen:"=FDIST(4,3,6)"},
+{n:"FINV",c:"stat",s:"=FINV(probability, deg_freedom1, deg_freedom2)",
+ fa:"نسخه سازگاری قدیمی معکوس توزیع F (مشابه F.INV.RT).",
+ en:"Legacy compatibility version of the inverse F distribution.",
+ exfa:"=FINV(0.1,3,6)", exen:"=FINV(0.1,3,6)"},
+{n:"FISHER",c:"stat",s:"=FISHER(x)",
+ fa:"تبدیل فیشر را برای یک مقدار محاسبه می‌کند.",
+ en:"Returns the Fisher transformation of a value.",
+ exfa:"=FISHER(0.5) → 0.5493", exen:"=FISHER(0.5) → 0.5493"},
+{n:"FISHERINV",c:"stat",s:"=FISHERINV(y)",
+ fa:"معکوس تبدیل فیشر را محاسبه می‌کند.",
+ en:"Returns the inverse of the Fisher transformation.",
+ exfa:"=FISHERINV(0.5493) → 0.5", exen:"=FISHERINV(0.5493) → 0.5"},
+{n:"FORECAST",c:"stat",s:"=FORECAST(x, known_ys, known_xs)",
+ fa:"نسخه سازگاری قدیمی پیش‌بینی مقدار خطی (مشابه FORECAST.LINEAR).",
+ en:"Legacy compatibility version of linear forecasting.",
+ exfa:"=FORECAST(30,B1:B10,A1:A10)", exen:"=FORECAST(30,B1:B10,A1:A10)"},
+{n:"FORECAST.ETS",c:"stat",s:"=FORECAST.ETS(target_date, values, timeline, [seasonality], [data_completion], [aggregation])",
+ fa:"مقدار آینده را بر اساس الگوریتم هموارسازی نمایی پیش‌بینی می‌کند.",
+ en:"Returns a future value based on exponential smoothing forecasting.",
+ exfa:"=FORECAST.ETS(DATE(2026,1,1),B1:B24,A1:A24)", exen:"=FORECAST.ETS(DATE(2026,1,1),B1:B24,A1:A24)"},
+{n:"FORECAST.ETS.CONFINT",c:"stat",s:"=FORECAST.ETS.CONFINT(target_date, values, timeline, [confidence_level], ...)",
+ fa:"بازه اطمینان پیش‌بینی FORECAST.ETS را محاسبه می‌کند.",
+ en:"Returns a confidence interval for the forecast value at a target date.",
+ exfa:"=FORECAST.ETS.CONFINT(DATE(2026,1,1),B1:B24,A1:A24,0.95)", exen:"=FORECAST.ETS.CONFINT(DATE(2026,1,1),B1:B24,A1:A24,0.95)"},
+{n:"FORECAST.ETS.SEASONALITY",c:"stat",s:"=FORECAST.ETS.SEASONALITY(values, timeline, ...)",
+ fa:"طول الگوی فصلی تکرارشونده در یک سری زمانی را برمی‌گرداند.",
+ en:"Returns the length of the repetitive pattern detected in a time series.",
+ exfa:"=FORECAST.ETS.SEASONALITY(B1:B24,A1:A24) → 12", exen:"=FORECAST.ETS.SEASONALITY(B1:B24,A1:A24) → 12"},
+{n:"FORECAST.ETS.STAT",c:"stat",s:"=FORECAST.ETS.STAT(values, timeline, statistic_type, ...)",
+ fa:"آماره‌های آماری مربوط به پیش‌بینی FORECAST.ETS را برمی‌گرداند.",
+ en:"Returns requested statistics for a time-series forecast.",
+ exfa:"=FORECAST.ETS.STAT(B1:B24,A1:A24,1)", exen:"=FORECAST.ETS.STAT(B1:B24,A1:A24,1)"},
+{n:"FTEST",c:"stat",s:"=FTEST(array1, array2)",
+ fa:"نسخه سازگاری قدیمی آزمون F برای مقایسه واریانس‌ها (مشابه F.TEST).",
+ en:"Legacy compatibility version of the F-test.",
+ exfa:"=FTEST(A1:A10,B1:B10)", exen:"=FTEST(A1:A10,B1:B10)"},
+{n:"GAMMA.INV",c:"stat",s:"=GAMMA.INV(probability, alpha, beta)",
+ fa:"معکوس تابع توزیع تجمعی گاما را محاسبه می‌کند.",
+ en:"Returns the inverse of the gamma cumulative distribution.",
+ exfa:"=GAMMA.INV(0.5,2,1) → 1.6783", exen:"=GAMMA.INV(0.5,2,1) → 1.6783"},
+{n:"GAMMADIST",c:"stat",s:"=GAMMADIST(x, alpha, beta, cumulative)",
+ fa:"نسخه سازگاری قدیمی توزیع گاما (مشابه GAMMA.DIST).",
+ en:"Legacy compatibility version of the gamma distribution.",
+ exfa:"=GAMMADIST(2,2,1,TRUE)", exen:"=GAMMADIST(2,2,1,TRUE)"},
+{n:"GAMMAINV",c:"stat",s:"=GAMMAINV(probability, alpha, beta)",
+ fa:"نسخه سازگاری قدیمی معکوس توزیع گاما (مشابه GAMMA.INV).",
+ en:"Legacy compatibility version of the inverse gamma distribution.",
+ exfa:"=GAMMAINV(0.5,2,1)", exen:"=GAMMAINV(0.5,2,1)"},
+{n:"HYPGEOMDIST",c:"stat",s:"=HYPGEOMDIST(sample_s, number_sample, population_s, number_pop)",
+ fa:"نسخه سازگاری قدیمی توزیع فرا هندسی (مشابه HYPGEOM.DIST).",
+ en:"Legacy compatibility version of the hypergeometric distribution.",
+ exfa:"=HYPGEOMDIST(1,4,8,20)", exen:"=HYPGEOMDIST(1,4,8,20)"},
+{n:"LOGINV",c:"stat",s:"=LOGINV(probability, mean, standard_dev)",
+ fa:"نسخه سازگاری قدیمی معکوس توزیع لگ‌نرمال (مشابه LOGNORM.INV).",
+ en:"Legacy compatibility version of the inverse lognormal distribution.",
+ exfa:"=LOGINV(0.5,3,1)", exen:"=LOGINV(0.5,3,1)"},
+{n:"LOGNORM.INV",c:"stat",s:"=LOGNORM.INV(probability, mean, standard_dev)",
+ fa:"معکوس تابع توزیع تجمعی لگ‌نرمال را محاسبه می‌کند.",
+ en:"Returns the inverse of the lognormal cumulative distribution function.",
+ exfa:"=LOGNORM.INV(0.5,3,1) → 20.09", exen:"=LOGNORM.INV(0.5,3,1) → 20.09"},
+{n:"LOGNORMDIST",c:"stat",s:"=LOGNORMDIST(x, mean, standard_dev)",
+ fa:"نسخه سازگاری قدیمی توزیع لگ‌نرمال (مشابه LOGNORM.DIST).",
+ en:"Legacy compatibility version of the lognormal distribution.",
+ exfa:"=LOGNORMDIST(20,3,1)", exen:"=LOGNORMDIST(20,3,1)"},
+{n:"MAXA",c:"stat",s:"=MAXA(value1, [value2], ...)",
+ fa:"بزرگترین مقدار را با احتساب مقادیر متنی و منطقی برمی‌گرداند.",
+ en:"Returns the largest value, including text and logical values.",
+ exfa:"=MAXA(A1:A5) → بیشینه با TRUE=1", exen:"=MAXA(A1:A5) → max counting TRUE as 1"},
+{n:"MINA",c:"stat",s:"=MINA(value1, [value2], ...)",
+ fa:"کوچکترین مقدار را با احتساب مقادیر متنی و منطقی برمی‌گرداند.",
+ en:"Returns the smallest value, including text and logical values.",
+ exfa:"=MINA(A1:A5) → کمینه با FALSE=0", exen:"=MINA(A1:A5) → min counting FALSE as 0"},
+{n:"MODE",c:"stat",s:"=MODE(number1, [number2], ...)",
+ fa:"نسخه سازگاری قدیمی محاسبه پرتکرارترین مقدار (مشابه MODE.SNGL).",
+ en:"Legacy compatibility version of the mode function.",
+ exfa:"=MODE(A1:A10)", exen:"=MODE(A1:A10)"},
+{n:"MODE.MULT",c:"stat",s:"=MODE.MULT(number1, [number2], ...)",
+ fa:"آرایه‌ای از پرتکرارترین مقادیر در یک محدوده را برمی‌گرداند.",
+ en:"Returns a vertical array of the most frequently occurring values.",
+ exfa:"=MODE.MULT(A1:A10) → آرایه مقادیر مد", exen:"=MODE.MULT(A1:A10) → array of mode values"},
+{n:"NEGBINOM.DIST",c:"stat",s:"=NEGBINOM.DIST(number_f, number_s, probability_s, cumulative)",
+ fa:"احتمال توزیع دوجمله‌ای منفی را محاسبه می‌کند.",
+ en:"Returns the negative binomial distribution probability.",
+ exfa:"=NEGBINOM.DIST(2,5,0.5,FALSE) → 0.1094", exen:"=NEGBINOM.DIST(2,5,0.5,FALSE) → 0.1094"},
+{n:"NEGBINOMDIST",c:"stat",s:"=NEGBINOMDIST(number_f, number_s, probability_s)",
+ fa:"نسخه سازگاری قدیمی توزیع دوجمله‌ای منفی (مشابه NEGBINOM.DIST).",
+ en:"Legacy compatibility version of the negative binomial distribution.",
+ exfa:"=NEGBINOMDIST(2,5,0.5)", exen:"=NEGBINOMDIST(2,5,0.5)"},
+{n:"NORM.S.DIST",c:"stat",s:"=NORM.S.DIST(z, cumulative)",
+ fa:"تابع توزیع نرمال استاندارد (میانگین صفر، انحراف معیار یک) را محاسبه می‌کند.",
+ en:"Returns the standard normal distribution (mean 0, standard deviation 1).",
+ exfa:"=NORM.S.DIST(1,TRUE) → 0.8413", exen:"=NORM.S.DIST(1,TRUE) → 0.8413"},
+{n:"NORM.S.INV",c:"stat",s:"=NORM.S.INV(probability)",
+ fa:"معکوس تابع توزیع تجمعی نرمال استاندارد را محاسبه می‌کند.",
+ en:"Returns the inverse of the standard normal cumulative distribution.",
+ exfa:"=NORM.S.INV(0.8413) → 1", exen:"=NORM.S.INV(0.8413) → 1"},
+{n:"NORMINV",c:"stat",s:"=NORMINV(probability, mean, standard_dev)",
+ fa:"نسخه سازگاری قدیمی معکوس توزیع نرمال (مشابه NORM.INV).",
+ en:"Legacy compatibility version of the inverse normal distribution.",
+ exfa:"=NORMINV(0.9,60,10)", exen:"=NORMINV(0.9,60,10)"},
+{n:"NORMSDIST",c:"stat",s:"=NORMSDIST(z)",
+ fa:"نسخه سازگاری قدیمی توزیع نرمال استاندارد (مشابه NORM.S.DIST).",
+ en:"Legacy compatibility version of the standard normal distribution.",
+ exfa:"=NORMSDIST(1)", exen:"=NORMSDIST(1)"},
+{n:"NORMSINV",c:"stat",s:"=NORMSINV(probability)",
+ fa:"نسخه سازگاری قدیمی معکوس توزیع نرمال استاندارد (مشابه NORM.S.INV).",
+ en:"Legacy compatibility version of the inverse standard normal distribution.",
+ exfa:"=NORMSINV(0.8413)", exen:"=NORMSINV(0.8413)"},
+{n:"PEARSON",c:"stat",s:"=PEARSON(array1, array2)",
+ fa:"ضریب همبستگی پیرسون بین دو مجموعه داده را محاسبه می‌کند.",
+ en:"Returns the Pearson product-moment correlation coefficient.",
+ exfa:"=PEARSON(A1:A10,B1:B10) → همبستگی", exen:"=PEARSON(A1:A10,B1:B10) → correlation coefficient"},
+{n:"PERCENTILE.EXC",c:"stat",s:"=PERCENTILE.EXC(array, k)",
+ fa:"صدک را با استثنا کردن ۰ و ۱ محاسبه می‌کند.",
+ en:"Returns the k-th percentile of values, excluding 0 and 1.",
+ exfa:"=PERCENTILE.EXC(A1:A10,0.5)", exen:"=PERCENTILE.EXC(A1:A10,0.5)"},
+{n:"PERCENTRANK",c:"stat",s:"=PERCENTRANK(array, x, [significance])",
+ fa:"نسخه سازگاری قدیمی رتبه درصدی یک مقدار (مشابه PERCENTRANK.INC).",
+ en:"Legacy compatibility version of the percentage rank function.",
+ exfa:"=PERCENTRANK(A1:A10,7)", exen:"=PERCENTRANK(A1:A10,7)"},
+{n:"PERCENTRANK.EXC",c:"stat",s:"=PERCENTRANK.EXC(array, x, [significance])",
+ fa:"رتبه درصدی یک مقدار را با استثنا کردن ۰ و ۱ محاسبه می‌کند.",
+ en:"Returns the rank of a value, as a percentage, excluding 0 and 1.",
+ exfa:"=PERCENTRANK.EXC(A1:A10,7)", exen:"=PERCENTRANK.EXC(A1:A10,7)"},
+{n:"PHI",c:"stat",s:"=PHI(x)",
+ fa:"مقدار تابع چگالی توزیع نرمال استاندارد را محاسبه می‌کند.",
+ en:"Returns the value of the density function for a standard normal distribution.",
+ exfa:"=PHI(0.75) → 0.301", exen:"=PHI(0.75) → 0.301"},
+{n:"POISSON",c:"stat",s:"=POISSON(x, mean, cumulative)",
+ fa:"نسخه سازگاری قدیمی توزیع پواسون (مشابه POISSON.DIST).",
+ en:"Legacy compatibility version of the Poisson distribution.",
+ exfa:"=POISSON(2,5,FALSE)", exen:"=POISSON(2,5,FALSE)"},
+{n:"PROB",c:"stat",s:"=PROB(x_range, prob_range, lower_limit, [upper_limit])",
+ fa:"احتمال قرار گرفتن مقادیر در یک بازه را با احتمال‌های مشخص‌شده محاسبه می‌کند.",
+ en:"Returns the probability that values in a range are between two limits.",
+ exfa:"=PROB(A1:A5,B1:B5,3,5)", exen:"=PROB(A1:A5,B1:B5,3,5)"},
+{n:"QUARTILE.EXC",c:"stat",s:"=QUARTILE.EXC(array, quart)",
+ fa:"چارک را با استثنا کردن ۰ و ۴ محاسبه می‌کند.",
+ en:"Returns the quartile of a data set, excluding 0 and 4.",
+ exfa:"=QUARTILE.EXC(A1:A10,1)", exen:"=QUARTILE.EXC(A1:A10,1)"},
+{n:"RANK.AVG",c:"stat",s:"=RANK.AVG(number, ref, [order])",
+ fa:"رتبه یک عدد را در یک لیست برمی‌گرداند و در صورت تکراری بودن، میانگین رتبه را می‌دهد.",
+ en:"Returns the rank of a number, averaging tied ranks.",
+ exfa:"=RANK.AVG(A2,A2:A10)", exen:"=RANK.AVG(A2,A2:A10)"},
+{n:"SKEW.P",c:"stat",s:"=SKEW.P(number1, [number2], ...)",
+ fa:"چولگی توزیع را بر اساس کل جامعه محاسبه می‌کند.",
+ en:"Returns the skewness of a distribution based on a population.",
+ exfa:"=SKEW.P(A1:A10)", exen:"=SKEW.P(A1:A10)"},
+{n:"STDEVA",c:"stat",s:"=STDEVA(value1, [value2], ...)",
+ fa:"انحراف معیار نمونه را با احتساب مقادیر متنی و منطقی محاسبه می‌کند.",
+ en:"Estimates standard deviation based on a sample, including text and logicals.",
+ exfa:"=STDEVA(A1:A10)", exen:"=STDEVA(A1:A10)"},
+{n:"STDEVP",c:"stat",s:"=STDEVP(number1, [number2], ...)",
+ fa:"نسخه سازگاری قدیمی انحراف معیار جامعه (مشابه STDEV.P).",
+ en:"Legacy compatibility version of population standard deviation.",
+ exfa:"=STDEVP(A1:A10)", exen:"=STDEVP(A1:A10)"},
+{n:"STDEVPA",c:"stat",s:"=STDEVPA(value1, [value2], ...)",
+ fa:"انحراف معیار جامعه را با احتساب مقادیر متنی و منطقی محاسبه می‌کند.",
+ en:"Calculates standard deviation based on the entire population, including text and logicals.",
+ exfa:"=STDEVPA(A1:A10)", exen:"=STDEVPA(A1:A10)"},
+{n:"STEYX",c:"stat",s:"=STEYX(known_ys, known_xs)",
+ fa:"خطای معیار مقدار پیش‌بینی‌شده y برای هر x در یک رگرسیون را محاسبه می‌کند.",
+ en:"Returns the standard error of the predicted y-value for each x in a regression.",
+ exfa:"=STEYX(B1:B10,A1:A10)", exen:"=STEYX(B1:B10,A1:A10)"},
+{n:"T.DIST",c:"stat",s:"=T.DIST(x, degrees_freedom, cumulative)",
+ fa:"توزیع t استیودنت چپ‌دنباله را محاسبه می‌کند.",
+ en:"Returns the left-tailed Student's t-distribution.",
+ exfa:"=T.DIST(1,10,TRUE) → 0.8296", exen:"=T.DIST(1,10,TRUE) → 0.8296"},
+{n:"T.DIST.2T",c:"stat",s:"=T.DIST.2T(x, degrees_freedom)",
+ fa:"توزیع t استیودنت دو‌دنباله را محاسبه می‌کند.",
+ en:"Returns the two-tailed Student's t-distribution.",
+ exfa:"=T.DIST.2T(1,10) → 0.3408", exen:"=T.DIST.2T(1,10) → 0.3408"},
+{n:"T.DIST.RT",c:"stat",s:"=T.DIST.RT(x, degrees_freedom)",
+ fa:"توزیع t استیودنت راست‌دنباله را محاسبه می‌کند.",
+ en:"Returns the right-tailed Student's t-distribution.",
+ exfa:"=T.DIST.RT(1,10) → 0.1704", exen:"=T.DIST.RT(1,10) → 0.1704"},
+{n:"T.INV",c:"stat",s:"=T.INV(probability, degrees_freedom)",
+ fa:"معکوس چپ‌دنباله توزیع t استیودنت را محاسبه می‌کند.",
+ en:"Returns the left-tailed inverse of the Student's t-distribution.",
+ exfa:"=T.INV(0.9,10) → 1.372", exen:"=T.INV(0.9,10) → 1.372"},
+{n:"T.INV.2T",c:"stat",s:"=T.INV.2T(probability, degrees_freedom)",
+ fa:"معکوس دو‌دنباله توزیع t استیودنت را محاسبه می‌کند.",
+ en:"Returns the two-tailed inverse of the Student's t-distribution.",
+ exfa:"=T.INV.2T(0.1,10) → 1.812", exen:"=T.INV.2T(0.1,10) → 1.812"},
+{n:"TDIST",c:"stat",s:"=TDIST(x, degrees_freedom, tails)",
+ fa:"نسخه سازگاری قدیمی توزیع t استیودنت (مشابه T.DIST.2T یا T.DIST.RT).",
+ en:"Legacy compatibility version of the Student's t-distribution.",
+ exfa:"=TDIST(1,10,2)", exen:"=TDIST(1,10,2)"},
+{n:"TINV",c:"stat",s:"=TINV(probability, degrees_freedom)",
+ fa:"نسخه سازگاری قدیمی معکوس دو‌دنباله توزیع t (مشابه T.INV.2T).",
+ en:"Legacy compatibility version of the two-tailed inverse t-distribution.",
+ exfa:"=TINV(0.1,10)", exen:"=TINV(0.1,10)"},
+{n:"TRIMMEAN",c:"stat",s:"=TRIMMEAN(array, percent)",
+ fa:"میانگین بخش داخلی مجموعه داده را پس از حذف درصدی از مقادیر حدی محاسبه می‌کند.",
+ en:"Returns the mean of the interior of a data set, after trimming outliers.",
+ exfa:"=TRIMMEAN(A1:A20,0.2) → میانگین بدون ۲۰٪ حدی", exen:"=TRIMMEAN(A1:A20,0.2) → mean after trimming 20%"},
+{n:"VARA",c:"stat",s:"=VARA(value1, [value2], ...)",
+ fa:"واریانس نمونه را با احتساب مقادیر متنی و منطقی محاسبه می‌کند.",
+ en:"Estimates variance based on a sample, including text and logical values.",
+ exfa:"=VARA(A1:A10)", exen:"=VARA(A1:A10)"},
+{n:"VARP",c:"stat",s:"=VARP(number1, [number2], ...)",
+ fa:"نسخه سازگاری قدیمی واریانس جامعه (مشابه VAR.P).",
+ en:"Legacy compatibility version of population variance.",
+ exfa:"=VARP(A1:A10)", exen:"=VARP(A1:A10)"},
+{n:"VARPA",c:"stat",s:"=VARPA(value1, [value2], ...)",
+ fa:"واریانس جامعه را با احتساب مقادیر متنی و منطقی محاسبه می‌کند.",
+ en:"Calculates variance based on the entire population, including text and logicals.",
+ exfa:"=VARPA(A1:A10)", exen:"=VARPA(A1:A10)"},
+{n:"WEIBULL",c:"stat",s:"=WEIBULL(x, alpha, beta, cumulative)",
+ fa:"نسخه سازگاری قدیمی توزیع وایبول (مشابه WEIBULL.DIST).",
+ en:"Legacy compatibility version of the Weibull distribution.",
+ exfa:"=WEIBULL(3,2,4,TRUE)", exen:"=WEIBULL(3,2,4,TRUE)"},
+{n:"ZTEST",c:"stat",s:"=ZTEST(array, x, [sigma])",
+ fa:"نسخه سازگاری قدیمی مقدار احتمال یک‌طرفه آزمون z (مشابه Z.TEST).",
+ en:"Legacy compatibility version of the one-tailed P-value of a z-test.",
+ exfa:"=ZTEST(A1:A10,5)", exen:"=ZTEST(A1:A10,5)"},
+{n:"GAUSS",c:"stat",s:"=GAUSS(z)",
+ fa:"احتمال کمتر بودن یک متغیر تصادفی از انحراف استاندارد z را برمی‌گرداند.",
+ en:"Returns the probability that a member of a standard normal population falls within z standard deviations of the mean.",
+ exfa:"=GAUSS(2) → 0.4772", exen:"=GAUSS(2) → 0.4772"},
+{n:"ACCRINTM",c:"financial",s:"=ACCRINTM(issue, settlement, rate, par, [basis])",
+ fa:"بهره تعلق‌گرفته اوراق بهاداری که بهره آن در سررسید پرداخت می‌شود را محاسبه می‌کند.",
+ en:"Returns the accrued interest for a security that pays interest at maturity.",
+ exfa:"=ACCRINTM(DATE(2025,1,1),DATE(2026,1,1),0.05,1000)", exen:"=ACCRINTM(DATE(2025,1,1),DATE(2026,1,1),0.05,1000)"},
+{n:"AMORDEGRC",c:"financial",s:"=AMORDEGRC(cost, date_purchased, first_period, salvage, period, rate, [basis])",
+ fa:"استهلاک نزولی هر دوره حسابداری را با ضریب استهلاک محاسبه می‌کند.",
+ en:"Returns the depreciation for each accounting period using a depreciation coefficient.",
+ exfa:"=AMORDEGRC(2400,DATE(2025,1,1),DATE(2025,6,1),300,1,0.15)", exen:"=AMORDEGRC(2400,DATE(2025,1,1),DATE(2025,6,1),300,1,0.15)"},
+{n:"AMORLINC",c:"financial",s:"=AMORLINC(cost, date_purchased, first_period, salvage, period, rate, [basis])",
+ fa:"استهلاک خطی هر دوره حسابداری یک دارایی را محاسبه می‌کند.",
+ en:"Returns the linear depreciation for each accounting period.",
+ exfa:"=AMORLINC(2400,DATE(2025,1,1),DATE(2025,6,1),300,1,0.15)", exen:"=AMORLINC(2400,DATE(2025,1,1),DATE(2025,6,1),300,1,0.15)"},
+{n:"COUPDAYBS",c:"financial",s:"=COUPDAYBS(settlement, maturity, frequency, [basis])",
+ fa:"تعداد روزهای بین شروع دوره کوپن و تاریخ تسویه را محاسبه می‌کند.",
+ en:"Returns the number of days from the beginning of the coupon period to the settlement date.",
+ exfa:"=COUPDAYBS(DATE(2026,2,1),DATE(2030,1,1),2)", exen:"=COUPDAYBS(DATE(2026,2,1),DATE(2030,1,1),2)"},
+{n:"COUPDAYSNC",c:"financial",s:"=COUPDAYSNC(settlement, maturity, frequency, [basis])",
+ fa:"تعداد روزهای بین تاریخ تسویه و کوپن بعدی را محاسبه می‌کند.",
+ en:"Returns the number of days from the settlement date to the next coupon date.",
+ exfa:"=COUPDAYSNC(DATE(2026,2,1),DATE(2030,1,1),2)", exen:"=COUPDAYSNC(DATE(2026,2,1),DATE(2030,1,1),2)"},
+{n:"COUPNCD",c:"financial",s:"=COUPNCD(settlement, maturity, frequency, [basis])",
+ fa:"تاریخ کوپن بعدی پس از تاریخ تسویه را برمی‌گرداند.",
+ en:"Returns the next coupon date after the settlement date.",
+ exfa:"=COUPNCD(DATE(2026,2,1),DATE(2030,1,1),2)", exen:"=COUPNCD(DATE(2026,2,1),DATE(2030,1,1),2)"},
+{n:"COUPNUM",c:"financial",s:"=COUPNUM(settlement, maturity, frequency, [basis])",
+ fa:"تعداد کوپن‌های قابل پرداخت بین تاریخ تسویه و سررسید را محاسبه می‌کند.",
+ en:"Returns the number of coupons payable between the settlement and maturity dates.",
+ exfa:"=COUPNUM(DATE(2026,2,1),DATE(2030,1,1),2) → 8", exen:"=COUPNUM(DATE(2026,2,1),DATE(2030,1,1),2) → 8"},
+{n:"COUPPCD",c:"financial",s:"=COUPPCD(settlement, maturity, frequency, [basis])",
+ fa:"تاریخ کوپن قبلی پیش از تاریخ تسویه را برمی‌گرداند.",
+ en:"Returns the previous coupon date before the settlement date.",
+ exfa:"=COUPPCD(DATE(2026,2,1),DATE(2030,1,1),2)", exen:"=COUPPCD(DATE(2026,2,1),DATE(2030,1,1),2)"},
+{n:"DOLLARDE",c:"financial",s:"=DOLLARDE(fractional_dollar, fraction)",
+ fa:"قیمت دلاری بیان‌شده به‌صورت کسری را به عدد اعشاری تبدیل می‌کند.",
+ en:"Converts a dollar price expressed as a fraction into a decimal number.",
+ exfa:"=DOLLARDE(1.02,16) → 1.125", exen:"=DOLLARDE(1.02,16) → 1.125"},
+{n:"DOLLARFR",c:"financial",s:"=DOLLARFR(decimal_dollar, fraction)",
+ fa:"قیمت دلاری اعشاری را به‌صورت کسری تبدیل می‌کند.",
+ en:"Converts a dollar price expressed as a decimal into a fraction.",
+ exfa:"=DOLLARFR(1.125,16) → 1.02", exen:"=DOLLARFR(1.125,16) → 1.02"},
+{n:"DSTDEVP",c:"database",s:"=DSTDEVP(database, field, criteria)",
+ fa:"انحراف معیار جامعه را از ستون منتخب یک پایگاه‌داده بر اساس شرط محاسبه می‌کند.",
+ en:"Calculates population standard deviation from a database column that matches criteria.",
+ exfa:"=DSTDEVP(A1:D10,\"فروش\",F1:F2)", exen:"=DSTDEVP(A1:D10,\"Sales\",F1:F2)"},
+{n:"DURATION",c:"financial",s:"=DURATION(settlement, maturity, coupon, yld, frequency, [basis])",
+ fa:"دیرش سالانه اوراق بهادار با پرداخت بهره دوره‌ای را محاسبه می‌کند.",
+ en:"Returns the annual duration of a security with periodic interest payments.",
+ exfa:"=DURATION(DATE(2026,1,1),DATE(2030,1,1),0.05,0.06,2)", exen:"=DURATION(DATE(2026,1,1),DATE(2030,1,1),0.05,0.06,2)"},
+{n:"DVARP",c:"database",s:"=DVARP(database, field, criteria)",
+ fa:"واریانس جامعه را از ستون منتخب یک پایگاه‌داده بر اساس شرط محاسبه می‌کند.",
+ en:"Calculates population variance from a database column that matches criteria.",
+ exfa:"=DVARP(A1:D10,\"فروش\",F1:F2)", exen:"=DVARP(A1:D10,\"Sales\",F1:F2)"},
+{n:"ERF.PRECISE",c:"math",s:"=ERF.PRECISE(x)",
+ fa:"تابع خطای گاوسی را با دقت بالا محاسبه می‌کند.",
+ en:"Returns a highly precise error function.",
+ exfa:"=ERF.PRECISE(1) → 0.8427", exen:"=ERF.PRECISE(1) → 0.8427"},
+{n:"ERFC",c:"math",s:"=ERFC(x)",
+ fa:"تابع خطای مکمل گاوسی را محاسبه می‌کند.",
+ en:"Returns the complementary error function.",
+ exfa:"=ERFC(1) → 0.1573", exen:"=ERFC(1) → 0.1573"},
+{n:"ERFC.PRECISE",c:"math",s:"=ERFC.PRECISE(x)",
+ fa:"تابع خطای مکمل گاوسی را با دقت بالا محاسبه می‌کند.",
+ en:"Returns a highly precise complementary error function.",
+ exfa:"=ERFC.PRECISE(1) → 0.1573", exen:"=ERFC.PRECISE(1) → 0.1573"},
+{n:"EUROCONVERT",c:"financial",s:"=EUROCONVERT(number, source, target)",
+ fa:"عدد را بین یورو و واحد پول کشورهای عضو یورو تبدیل می‌کند (نیازمند افزونه).",
+ en:"Converts a number between euro and EU member currencies (requires the Euro Currency Tools add-in).",
+ exfa:"=EUROCONVERT(100,\"USD\",\"EUR\")", exen:"=EUROCONVERT(100,\"USD\",\"EUR\")"},
+{n:"INTRATE",c:"financial",s:"=INTRATE(settlement, maturity, investment, redemption, [basis])",
+ fa:"نرخ بهره یک اوراق بهادار به‌طور کامل سرمایه‌گذاری‌شده را محاسبه می‌کند.",
+ en:"Returns the interest rate for a fully invested security.",
+ exfa:"=INTRATE(DATE(2026,1,1),DATE(2026,7,1),1000,1050)", exen:"=INTRATE(DATE(2026,1,1),DATE(2026,7,1),1000,1050)"},
+{n:"MDURATION",c:"financial",s:"=MDURATION(settlement, maturity, coupon, yld, frequency, [basis])",
+ fa:"دیرش اصلاح‌شده مک‌آلی برای اوراق بهادار با ارزش اسمی فرضی ۱۰۰ دلار را محاسبه می‌کند.",
+ en:"Returns the modified Macauley duration for a security with an assumed par value of $100.",
+ exfa:"=MDURATION(DATE(2026,1,1),DATE(2030,1,1),0.05,0.06,2)", exen:"=MDURATION(DATE(2026,1,1),DATE(2030,1,1),0.05,0.06,2)"},
+{n:"ODDFPRICE",c:"financial",s:"=ODDFPRICE(settlement, maturity, issue, first_coupon, rate, yld, redemption, frequency, [basis])",
+ fa:"قیمت هر ۱۰۰ دلار ارزش اسمی اوراق بهادار با دوره اول نامنظم را محاسبه می‌کند.",
+ en:"Returns the price per $100 face value of a security with an odd first period.",
+ exfa:"=ODDFPRICE(DATE(2026,2,1),DATE(2030,1,1),DATE(2026,1,1),DATE(2026,7,1),0.05,0.06,100,2)", exen:"=ODDFPRICE(DATE(2026,2,1),DATE(2030,1,1),DATE(2026,1,1),DATE(2026,7,1),0.05,0.06,100,2)"},
+{n:"ODDFYIELD",c:"financial",s:"=ODDFYIELD(settlement, maturity, issue, first_coupon, rate, pr, redemption, frequency, [basis])",
+ fa:"بازده اوراق بهادار با دوره اول نامنظم را محاسبه می‌کند.",
+ en:"Returns the yield of a security with an odd first period.",
+ exfa:"=ODDFYIELD(DATE(2026,2,1),DATE(2030,1,1),DATE(2026,1,1),DATE(2026,7,1),0.05,99,100,2)", exen:"=ODDFYIELD(DATE(2026,2,1),DATE(2030,1,1),DATE(2026,1,1),DATE(2026,7,1),0.05,99,100,2)"},
+{n:"ODDLPRICE",c:"financial",s:"=ODDLPRICE(settlement, maturity, last_interest, rate, yld, redemption, frequency, [basis])",
+ fa:"قیمت هر ۱۰۰ دلار ارزش اسمی اوراق بهادار با دوره آخر نامنظم را محاسبه می‌کند.",
+ en:"Returns the price per $100 face value of a security with an odd last period.",
+ exfa:"=ODDLPRICE(DATE(2029,6,1),DATE(2030,1,1),DATE(2029,1,1),0.05,0.06,100,2)", exen:"=ODDLPRICE(DATE(2029,6,1),DATE(2030,1,1),DATE(2029,1,1),0.05,0.06,100,2)"},
+{n:"ODDLYIELD",c:"financial",s:"=ODDLYIELD(settlement, maturity, last_interest, rate, pr, redemption, frequency, [basis])",
+ fa:"بازده اوراق بهادار با دوره آخر نامنظم را محاسبه می‌کند.",
+ en:"Returns the yield of a security with an odd last period.",
+ exfa:"=ODDLYIELD(DATE(2029,6,1),DATE(2030,1,1),DATE(2029,1,1),0.05,99,100,2)", exen:"=ODDLYIELD(DATE(2029,6,1),DATE(2030,1,1),DATE(2029,1,1),0.05,99,100,2)"},
+{n:"PDURATION",c:"financial",s:"=PDURATION(rate, present_value, future_value)",
+ fa:"تعداد دوره‌های لازم برای رسیدن سرمایه‌گذاری به یک مقدار مشخص را محاسبه می‌کند.",
+ en:"Returns the number of periods required for an investment to reach a specified value.",
+ exfa:"=PDURATION(0.06,1000,2000) → 11.9", exen:"=PDURATION(0.06,1000,2000) → 11.9"},
+{n:"PRICEDISC",c:"financial",s:"=PRICEDISC(settlement, maturity, discount, redemption, [basis])",
+ fa:"قیمت هر ۱۰۰ دلار ارزش اسمی یک اوراق بهادار تنزیل‌شده را محاسبه می‌کند.",
+ en:"Returns the price per $100 face value of a discounted security.",
+ exfa:"=PRICEDISC(DATE(2026,2,1),DATE(2026,8,1),0.05,100)", exen:"=PRICEDISC(DATE(2026,2,1),DATE(2026,8,1),0.05,100)"},
+{n:"PRICEMAT",c:"financial",s:"=PRICEMAT(settlement, maturity, issue, rate, yld, [basis])",
+ fa:"قیمت هر ۱۰۰ دلار ارزش اسمی اوراق بهاداری که بهره آن در سررسید پرداخت می‌شود را محاسبه می‌کند.",
+ en:"Returns the price per $100 face value of a security that pays interest at maturity.",
+ exfa:"=PRICEMAT(DATE(2026,2,1),DATE(2026,8,1),DATE(2026,1,1),0.05,0.06)", exen:"=PRICEMAT(DATE(2026,2,1),DATE(2026,8,1),DATE(2026,1,1),0.05,0.06)"},
+{n:"RECEIVED",c:"financial",s:"=RECEIVED(settlement, maturity, investment, discount, [basis])",
+ fa:"مبلغ دریافتی در سررسید یک اوراق بهادار به‌طور کامل سرمایه‌گذاری‌شده را محاسبه می‌کند.",
+ en:"Returns the amount received at maturity for a fully invested security.",
+ exfa:"=RECEIVED(DATE(2026,1,1),DATE(2026,7,1),1000,0.05)", exen:"=RECEIVED(DATE(2026,1,1),DATE(2026,7,1),1000,0.05)"},
+{n:"TBILLEQ",c:"financial",s:"=TBILLEQ(settlement, maturity, discount)",
+ fa:"بازده معادل اوراق قرضه یک اسناد خزانه را محاسبه می‌کند.",
+ en:"Returns the bond-equivalent yield for a Treasury bill.",
+ exfa:"=TBILLEQ(DATE(2026,1,1),DATE(2026,6,1),0.05)", exen:"=TBILLEQ(DATE(2026,1,1),DATE(2026,6,1),0.05)"},
+{n:"VDB",c:"financial",s:"=VDB(cost, salvage, life, start_period, end_period, [factor], [no_switch])",
+ fa:"استهلاک یک دارایی را با روش نزولی مضاعف یا روش دیگر بین دو دوره محاسبه می‌کند.",
+ en:"Returns the depreciation of an asset using the double-declining balance method for a specified period.",
+ exfa:"=VDB(10000,1000,5,0,1)", exen:"=VDB(10000,1000,5,0,1)"},
+{n:"YIELDDISC",c:"financial",s:"=YIELDDISC(settlement, maturity, pr, redemption, [basis])",
+ fa:"بازده سالانه یک اوراق بهادار تنزیل‌شده را محاسبه می‌کند.",
+ en:"Returns the annual yield for a discounted security.",
+ exfa:"=YIELDDISC(DATE(2026,2,1),DATE(2026,8,1),97,100)", exen:"=YIELDDISC(DATE(2026,2,1),DATE(2026,8,1),97,100)"},
+{n:"YIELDMAT",c:"financial",s:"=YIELDMAT(settlement, maturity, issue, rate, pr, [basis])",
+ fa:"بازده سالانه اوراق بهاداری که بهره آن در سررسید پرداخت می‌شود را محاسبه می‌کند.",
+ en:"Returns the annual yield of a security that pays interest at maturity.",
+ exfa:"=YIELDMAT(DATE(2026,2,1),DATE(2026,8,1),DATE(2026,1,1),0.05,99)", exen:"=YIELDMAT(DATE(2026,2,1),DATE(2026,8,1),DATE(2026,1,1),0.05,99)"},
+{n:"BESSELI",c:"engineering",s:"=BESSELI(x, n)",
+ fa:"تابع بسل اصلاح‌شده In(x) را محاسبه می‌کند.",
+ en:"Returns the modified Bessel function In(x).",
+ exfa:"=BESSELI(1.5,1) → 0.9817", exen:"=BESSELI(1.5,1) → 0.9817"},
+{n:"BESSELK",c:"engineering",s:"=BESSELK(x, n)",
+ fa:"تابع بسل اصلاح‌شده Kn(x) را محاسبه می‌کند.",
+ en:"Returns the modified Bessel function Kn(x).",
+ exfa:"=BESSELK(1.5,1) → 0.2774", exen:"=BESSELK(1.5,1) → 0.2774"},
+{n:"BESSELY",c:"engineering",s:"=BESSELY(x, n)",
+ fa:"تابع بسل Yn(x) را محاسبه می‌کند.",
+ en:"Returns the Bessel function Yn(x).",
+ exfa:"=BESSELY(1.5,1) → -0.4123", exen:"=BESSELY(1.5,1) → -0.4123"},
+{n:"BIN2OCT",c:"engineering",s:"=BIN2OCT(number, [places])",
+ fa:"عدد دودویی را به هشت‌هشتی تبدیل می‌کند.",
+ en:"Converts a binary number to octal.",
+ exfa:"=BIN2OCT(1001) → 11", exen:"=BIN2OCT(1001) → 11"},
+{n:"HEX2OCT",c:"engineering",s:"=HEX2OCT(number, [places])",
+ fa:"عدد شانزده‌شانزدهی را به هشت‌هشتی تبدیل می‌کند.",
+ en:"Converts a hexadecimal number to octal.",
+ exfa:"=HEX2OCT(\"F\") → 17", exen:"=HEX2OCT(\"F\") → 17"},
+{n:"IMARGUMENT",c:"engineering",s:"=IMARGUMENT(inumber)",
+ fa:"آرگومان تتا، زاویه بر حسب رادیان یک عدد مختلط را برمی‌گرداند.",
+ en:"Returns the argument theta, the angle in radians, of a complex number.",
+ exfa:"=IMARGUMENT(\"3+4i\") → 0.9273", exen:"=IMARGUMENT(\"3+4i\") → 0.9273"},
+{n:"IMCOS",c:"engineering",s:"=IMCOS(inumber)",
+ fa:"کسینوس یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the cosine of a complex number.",
+ exfa:"=IMCOS(\"1+2i\")", exen:"=IMCOS(\"1+2i\")"},
+{n:"IMCOSH",c:"engineering",s:"=IMCOSH(inumber)",
+ fa:"کسینوس هایپربولیک یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the hyperbolic cosine of a complex number.",
+ exfa:"=IMCOSH(\"1+2i\")", exen:"=IMCOSH(\"1+2i\")"},
+{n:"IMCOT",c:"engineering",s:"=IMCOT(inumber)",
+ fa:"کتانژانت یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the cotangent of a complex number.",
+ exfa:"=IMCOT(\"1+2i\")", exen:"=IMCOT(\"1+2i\")"},
+{n:"IMCSC",c:"engineering",s:"=IMCSC(inumber)",
+ fa:"کوسکانت یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the cosecant of a complex number.",
+ exfa:"=IMCSC(\"1+2i\")", exen:"=IMCSC(\"1+2i\")"},
+{n:"IMCSCH",c:"engineering",s:"=IMCSCH(inumber)",
+ fa:"کوسکانت هایپربولیک یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the hyperbolic cosecant of a complex number.",
+ exfa:"=IMCSCH(\"1+2i\")", exen:"=IMCSCH(\"1+2i\")"},
+{n:"IMLN",c:"engineering",s:"=IMLN(inumber)",
+ fa:"لگاریتم طبیعی یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the natural logarithm of a complex number.",
+ exfa:"=IMLN(\"3+4i\") → 1.6094+0.9273i", exen:"=IMLN(\"3+4i\") → 1.6094+0.9273i"},
+{n:"IMLOG10",c:"engineering",s:"=IMLOG10(inumber)",
+ fa:"لگاریتم پایه ۱۰ یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the base-10 logarithm of a complex number.",
+ exfa:"=IMLOG10(\"3+4i\")", exen:"=IMLOG10(\"3+4i\")"},
+{n:"IMLOG2",c:"engineering",s:"=IMLOG2(inumber)",
+ fa:"لگاریتم پایه ۲ یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the base-2 logarithm of a complex number.",
+ exfa:"=IMLOG2(\"3+4i\")", exen:"=IMLOG2(\"3+4i\")"},
+{n:"IMPOWER",c:"engineering",s:"=IMPOWER(inumber, number)",
+ fa:"یک عدد مختلط را به توان صحیح می‌رساند.",
+ en:"Returns a complex number raised to an integer power.",
+ exfa:"=IMPOWER(\"2+3i\",2) → -5+12i", exen:"=IMPOWER(\"2+3i\",2) → -5+12i"},
+{n:"IMSEC",c:"engineering",s:"=IMSEC(inumber)",
+ fa:"سکانت یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the secant of a complex number.",
+ exfa:"=IMSEC(\"1+2i\")", exen:"=IMSEC(\"1+2i\")"},
+{n:"IMSECH",c:"engineering",s:"=IMSECH(inumber)",
+ fa:"سکانت هایپربولیک یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the hyperbolic secant of a complex number.",
+ exfa:"=IMSECH(\"1+2i\")", exen:"=IMSECH(\"1+2i\")"},
+{n:"IMSIN",c:"engineering",s:"=IMSIN(inumber)",
+ fa:"سینوس یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the sine of a complex number.",
+ exfa:"=IMSIN(\"1+2i\")", exen:"=IMSIN(\"1+2i\")"},
+{n:"IMSINH",c:"engineering",s:"=IMSINH(inumber)",
+ fa:"سینوس هایپربولیک یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the hyperbolic sine of a complex number.",
+ exfa:"=IMSINH(\"1+2i\")", exen:"=IMSINH(\"1+2i\")"},
+{n:"IMSQRT",c:"engineering",s:"=IMSQRT(inumber)",
+ fa:"جذر یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the square root of a complex number.",
+ exfa:"=IMSQRT(\"4i\") → 1.4142+1.4142i", exen:"=IMSQRT(\"4i\") → 1.4142+1.4142i"},
+{n:"IMSUB",c:"engineering",s:"=IMSUB(inumber1, inumber2)",
+ fa:"تفاضل دو عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the difference between two complex numbers.",
+ exfa:"=IMSUB(\"5+3i\",\"2+1i\") → 3+2i", exen:"=IMSUB(\"5+3i\",\"2+1i\") → 3+2i"},
+{n:"IMTAN",c:"engineering",s:"=IMTAN(inumber)",
+ fa:"تانژانت یک عدد مختلط را محاسبه می‌کند.",
+ en:"Returns the tangent of a complex number.",
+ exfa:"=IMTAN(\"1+2i\")", exen:"=IMTAN(\"1+2i\")"},
+{n:"CALL",c:"info",s:"=CALL(module_text, procedure, [type_text], ...)",
+ fa:"یک روال را در کتابخانه پیوند پویا یا منبع کد فراخوانی می‌کند (پیشرفته/قدیمی).",
+ en:"Calls a procedure in a dynamic link library or code resource (advanced/legacy).",
+ exfa:"=CALL(...)", exen:"=CALL(...)"},
+{n:"INFO",c:"info",s:"=INFO(type_text)",
+ fa:"اطلاعاتی درباره محیط عملیاتی فعلی برنمی‌گرداند.",
+ en:"Returns information about the current operating environment.",
+ exfa:"=INFO(\"osversion\")", exen:"=INFO(\"osversion\")"},
+{n:"ISERR",c:"info",s:"=ISERR(value)",
+ fa:"بررسی می‌کند آیا مقدار یک خطا (غیر از #N/A) است.",
+ en:"Checks whether a value is any error except #N/A.",
+ exfa:"=ISERR(1/0) → TRUE", exen:"=ISERR(1/0) → TRUE"},
+{n:"ISNONTEXT",c:"info",s:"=ISNONTEXT(value)",
+ fa:"بررسی می‌کند آیا مقدار متن نیست.",
+ en:"Checks whether a value is not text.",
+ exfa:"=ISNONTEXT(5) → TRUE", exen:"=ISNONTEXT(5) → TRUE"},
+{n:"REGISTER.ID",c:"info",s:"=REGISTER.ID(module_text, procedure, type_text)",
+ fa:"شناسه ثبت یک کتابخانه پیوند پویا یا منبع کد را برمی‌گرداند (پیشرفته/قدیمی).",
+ en:"Returns the register ID of a specified dynamic link library (advanced/legacy).",
+ exfa:"=REGISTER.ID(...)", exen:"=REGISTER.ID(...)"},
+{n:"FINDB",c:"text",s:"=FINDB(find_text, within_text, [start_num])",
+ fa:"موقعیت یک رشته را در متن دیگر بر اساس بایت پیدا می‌کند (برای زبان‌های دوبایتی).",
+ en:"Locates one text string within another, counting each character as bytes.",
+ exfa:"=FINDB(\"ب\",\"سلام\")", exen:"=FINDB(\"a\",\"banana\") → 1"},
+{n:"LEFTB",c:"text",s:"=LEFTB(text, num_bytes)",
+ fa:"تعداد مشخصی بایت از ابتدای یک رشته متنی برمی‌گرداند (برای زبان‌های دوبایتی).",
+ en:"Returns the first characters in a text string, based on bytes.",
+ exfa:"=LEFTB(\"سلام\",4)", exen:"=LEFTB(\"Hello\",2) → He"},
+{n:"LENB",c:"text",s:"=LENB(text)",
+ fa:"تعداد بایت‌های استفاده‌شده برای نمایش کاراکترهای یک متن را برمی‌گرداند.",
+ en:"Returns the number of bytes used to represent the characters in a text string.",
+ exfa:"=LENB(\"سلام\")", exen:"=LENB(\"Hi\") → 2"},
+{n:"REPLACEB",c:"text",s:"=REPLACEB(old_text, start_num, num_bytes, new_text)",
+ fa:"بخشی از یک رشته متنی را بر اساس بایت با متن دیگری جایگزین می‌کند.",
+ en:"Replaces part of a text string, based on bytes, with a different text string.",
+ exfa:"=REPLACEB(\"سلام\",1,2,\"های\")", exen:"=REPLACEB(\"Hello\",1,2,\"Ye\") → Yello"},
+{n:"RIGHTB",c:"text",s:"=RIGHTB(text, num_bytes)",
+ fa:"تعداد مشخصی بایت از انتهای یک رشته متنی برمی‌گرداند (برای زبان‌های دوبایتی).",
+ en:"Returns the last characters in a text string, based on bytes.",
+ exfa:"=RIGHTB(\"سلام\",4)", exen:"=RIGHTB(\"Hello\",2) → lo"},
+{n:"SEARCHB",c:"text",s:"=SEARCHB(find_text, within_text, [start_num])",
+ fa:"موقعیت یک رشته را در متن دیگر بر اساس بایت پیدا می‌کند، بدون حساسیت به بزرگی/کوچکی حروف.",
+ en:"Finds one text string within another based on bytes, case-insensitive.",
+ exfa:"=SEARCHB(\"a\",\"Banana\") → 2", exen:"=SEARCHB(\"a\",\"Banana\") → 2"},
+{n:"VALUETOTEXT",c:"text",s:"=VALUETOTEXT(value, [format])",
+ fa:"هر مقدار را به متن قابل نمایش تبدیل می‌کند.",
+ en:"Returns text from any specified value.",
+ exfa:"=VALUETOTEXT(1234) → \"1234\"", exen:"=VALUETOTEXT(1234) → \"1234\""},
+{n:"BYCOL",c:"array",s:"=BYCOL(array, lambda(column))",
+ fa:"یک تابع LAMBDA را روی هر ستون یک آرایه اعمال کرده و نتایج را در یک سطر برمی‌گرداند.",
+ en:"Applies a LAMBDA to each column of an array and returns an array of the results.",
+ exfa:"=BYCOL(A1:C10,LAMBDA(c,SUM(c)))", exen:"=BYCOL(A1:C10,LAMBDA(c,SUM(c)))"},
+{n:"BYROW",c:"array",s:"=BYROW(array, lambda(row))",
+ fa:"یک تابع LAMBDA را روی هر سطر یک آرایه اعمال کرده و نتایج را در یک ستون برمی‌گرداند.",
+ en:"Applies a LAMBDA to each row of an array and returns an array of the results.",
+ exfa:"=BYROW(A1:C10,LAMBDA(r,SUM(r)))", exen:"=BYROW(A1:C10,LAMBDA(r,SUM(r)))"},
+{n:"CHOOSECOLS",c:"array",s:"=CHOOSECOLS(array, col_num1, [col_num2], ...)",
+ fa:"ستون‌های مشخص‌شده از یک آرایه یا محدوده را برمی‌گرداند.",
+ en:"Returns the specified columns from an array.",
+ exfa:"=CHOOSECOLS(A1:D10,1,3)", exen:"=CHOOSECOLS(A1:D10,1,3)"},
+{n:"CHOOSEROWS",c:"array",s:"=CHOOSEROWS(array, row_num1, [row_num2], ...)",
+ fa:"سطرهای مشخص‌شده از یک آرایه یا محدوده را برمی‌گرداند.",
+ en:"Returns the specified rows from an array.",
+ exfa:"=CHOOSEROWS(A1:D10,1,3)", exen:"=CHOOSEROWS(A1:D10,1,3)"},
+{n:"MAKEARRAY",c:"array",s:"=MAKEARRAY(rows, cols, lambda(row, col))",
+ fa:"یک آرایه با ابعاد مشخص را با اجرای یک تابع LAMBDA برای هر سلول تولید می‌کند.",
+ en:"Returns a calculated array of a specified row and column size, by applying a LAMBDA.",
+ exfa:"=MAKEARRAY(3,3,LAMBDA(r,c,r*c))", exen:"=MAKEARRAY(3,3,LAMBDA(r,c,r*c))"},
+{n:"MAP",c:"array",s:"=MAP(array1, lambda(value1))",
+ fa:"یک آرایه جدید با اعمال یک تابع LAMBDA روی هر عنصر آرایه ورودی تولید می‌کند.",
+ en:"Returns an array formed by mapping each value in the array to a new value via a LAMBDA.",
+ exfa:"=MAP(A1:A10,LAMBDA(x,x*2))", exen:"=MAP(A1:A10,LAMBDA(x,x*2))"},
+{n:"MDETERM",c:"array",s:"=MDETERM(array)",
+ fa:"دترمینان یک ماتریس (آرایه) را محاسبه می‌کند.",
+ en:"Returns the matrix determinant of an array.",
+ exfa:"=MDETERM(A1:B2)", exen:"=MDETERM(A1:B2)"},
+{n:"MMULT",c:"array",s:"=MMULT(array1, array2)",
+ fa:"حاصل‌ضرب ماتریسی دو آرایه را محاسبه می‌کند.",
+ en:"Returns the matrix product of two arrays.",
+ exfa:"=MMULT(A1:B2,D1:E2)", exen:"=MMULT(A1:B2,D1:E2)"},
+{n:"MUNIT",c:"array",s:"=MUNIT(dimension)",
+ fa:"ماتریس واحد با ابعاد مشخص‌شده را برمی‌گرداند.",
+ en:"Returns the unit matrix for the specified dimension.",
+ exfa:"=MUNIT(3)", exen:"=MUNIT(3)"},
+{n:"REDUCE",c:"array",s:"=REDUCE([initial_value], array, lambda(accumulator, value))",
+ fa:"یک آرایه را با اعمال یک تابع LAMBDA به یک مقدار انباشته کاهش می‌دهد.",
+ en:"Reduces an array to an accumulated value by applying a LAMBDA to each value.",
+ exfa:"=REDUCE(0,A1:A10,LAMBDA(acc,v,acc+v))", exen:"=REDUCE(0,A1:A10,LAMBDA(acc,v,acc+v))"},
+{n:"SCAN",c:"array",s:"=SCAN([initial_value], array, lambda(accumulator, value))",
+ fa:"یک آرایه را اسکن کرده و مقادیر میانی انباشته را برای هر مرحله برمی‌گرداند.",
+ en:"Scans an array and produces intermediate accumulated values by applying a LAMBDA.",
+ exfa:"=SCAN(0,A1:A10,LAMBDA(acc,v,acc+v))", exen:"=SCAN(0,A1:A10,LAMBDA(acc,v,acc+v))"},
+{n:"CUBEMEMBERPROPERTY",c:"web",s:"=CUBEMEMBERPROPERTY(connection, member_expression, property)",
+ fa:"مقدار ویژگی یک عضو مکعب را برمی‌گرداند.",
+ en:"Returns the value of a member property from a data cube.",
+ exfa:"=CUBEMEMBERPROPERTY(\"Sales\",\"[Product].[Bike]\",\"Color\")", exen:"=CUBEMEMBERPROPERTY(\"Sales\",\"[Product].[Bike]\",\"Color\")"},
+{n:"MIDB",c:"text",s:"=MIDB(text, start_num, num_bytes)",
+ fa:"تعداد مشخصی بایت از وسط یک رشته متنی، از موقعیت مشخص، برمی‌گرداند.",
+ en:"Returns a specific number of characters from a text string, starting at a position you specify, based on bytes.",
+ exfa:"=MIDB(\"سلام\",1,4)", exen:"=MIDB(\"Hello\",2,2) → el"},
+{n:"OCT2HEX",c:"engineering",s:"=OCT2HEX(number, [places])",
+ fa:"عدد هشت‌هشتی را به شانزده‌شانزدهی تبدیل می‌کند.",
+ en:"Converts an octal number to hexadecimal.",
+ exfa:"=OCT2HEX(17) → F", exen:"=OCT2HEX(17) → F"},
+
+// ---------------- LEGACY COMPATIBILITY ----------------
+{n:"STDEV (legacy)",c:"stat",s:"=STDEV(number1, [number2], ...)",
+ fa:"نسخه سازگاری قدیمی محاسبه انحراف معیار نمونه (مشابه STDEV.S).",
+ en:"Legacy compatibility version of sample standard deviation.",
+ exfa:"=STDEV(A1:A10)", exen:"=STDEV(A1:A10)"},
+{n:"VAR (legacy)",c:"stat",s:"=VAR(number1, [number2], ...)",
+ fa:"نسخه سازگاری قدیمی محاسبه واریانس نمونه (مشابه VAR.S).",
+ en:"Legacy compatibility version of sample variance.",
+ exfa:"=VAR(A1:A10)", exen:"=VAR(A1:A10)"},
+{n:"RANK (legacy)",c:"stat",s:"=RANK(number, ref, [order])",
+ fa:"نسخه سازگاری قدیمی محاسبه رتبه (مشابه RANK.EQ).",
+ en:"Legacy compatibility version of the rank function.",
+ exfa:"=RANK(A2,A2:A10)", exen:"=RANK(A2,A2:A10)"},
+{n:"PERCENTILE (legacy)",c:"stat",s:"=PERCENTILE(array, k)",
+ fa:"نسخه سازگاری قدیمی محاسبه صدک (مشابه PERCENTILE.INC).",
+ en:"Legacy compatibility version of the percentile function.",
+ exfa:"=PERCENTILE(A1:A10,0.9)", exen:"=PERCENTILE(A1:A10,0.9)"},
+{n:"QUARTILE (legacy)",c:"stat",s:"=QUARTILE(array, quart)",
+ fa:"نسخه سازگاری قدیمی محاسبه چارک (مشابه QUARTILE.INC).",
+ en:"Legacy compatibility version of the quartile function.",
+ exfa:"=QUARTILE(A1:A10,1)", exen:"=QUARTILE(A1:A10,1)"},
+{n:"NORMDIST (legacy)",c:"stat",s:"=NORMDIST(x, mean, standard_dev, cumulative)",
+ fa:"نسخه سازگاری قدیمی تابع توزیع نرمال (مشابه NORM.DIST).",
+ en:"Legacy compatibility version of the normal distribution function.",
+ exfa:"=NORMDIST(70,60,10,TRUE)", exen:"=NORMDIST(70,60,10,TRUE)"},
+];
+
+/* ================= APP LOGIC ================= */
+let activeCat = "all";
+let langMode = "both";
+let currentItems = [];
+let showFavOnly = false;
+const favorites = new Set();
+
+function catCounts(){
+  const counts = {all: F.length};
+  F.forEach(f=>counts[f.c] = (counts[f.c]||0)+1);
+  return counts;
+}
+
+function renderCats(){
+  const counts = catCounts();
+  const list = document.getElementById('catList');
+  let html = '<h3>دسته‌بندی‌ها / Categories</h3>';
+  html += `<div class="cat-item ${activeCat==='all'?'active':''}" data-cat="all"><span>📁 همه فرمول‌ها</span><span class="count">${counts.all}</span></div>`;
+  Object.keys(CATS).forEach(key=>{
+    html += `<div class="cat-item ${activeCat===key?'active':''}" data-cat="${key}"><span>${CATS[key]}</span><span class="count">${counts[key]||0}</span></div>`;
+  });
+  list.innerHTML = html;
+  list.querySelectorAll('.cat-item').forEach(el=>{
+    el.addEventListener('click', ()=>{ activeCat = el.dataset.cat; renderCats(); renderGrid(); });
+  });
+}
+
+function renderStatBar(filteredCount){
+  const bar = document.getElementById('statBar');
+  const catCount = Object.keys(CATS).length;
+  bar.innerHTML = `
+    <div class="stat-chip">📚 <span>مجموع توابع</span><b>${F.length}</b></div>
+    <div class="stat-chip">🗂️ <span>دسته‌بندی</span><b>${catCount}</b></div>
+    <div class="stat-chip accent">🔎 <span>نمایش داده‌شده</span><b>${filteredCount}</b></div>
+    <div class="stat-chip">⭐ <span>موردعلاقه</span><b>${favorites.size}</b></div>
+  `;
+}
+
+function renderGrid(){
+  const q = document.getElementById('searchBox').value.trim().toLowerCase();
+  let items = F.filter(f=>{
+    if(showFavOnly && !favorites.has(f.n)) return false;
+    const matchCat = activeCat==='all' || f.c===activeCat;
+    if(!matchCat) return false;
+    if(!q) return true;
+    return f.n.toLowerCase().includes(q) || f.fa.includes(q) || f.en.toLowerCase().includes(q) || f.s.toLowerCase().includes(q);
+  });
+
+  document.getElementById('resultInfo').textContent = `${items.length} فرمول یافت شد / ${items.length} formulas found`;
+  renderStatBar(items.length);
+
+  const grid = document.getElementById('grid');
+  if(items.length===0){
+    grid.innerHTML = showFavOnly
+      ? '<div class="no-results">⭐ هنوز فرمولی را به موردعلاقه‌ها اضافه نکرده‌اید.<br>No favorites yet — click the star on any card.</div>'
+      : '<div class="no-results">😕 نتیجه‌ای یافت نشد. جستجوی دیگری امتحان کنید.<br>No results found. Try a different search.</div>';
+    return;
+  }
+
+  currentItems = items;
+
+  grid.innerHTML = items.map((f,idx)=>`
+    <div class="card">
+      <div class="card-head">
+        <div class="fname">${f.n}</div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <button class="icon-btn ${favorites.has(f.n)?'starred':''}" data-fav="${f.n}" title="موردعلاقه / Favorite">${favorites.has(f.n)?'★':'☆'}</button>
+          <button class="icon-btn" data-copy="${idx}" title="کپی فرمول / Copy formula">⧉</button>
+          <button class="icon-btn" data-slide="${idx}" title="ذخیره اسلاید تصویری / Save as image slide">🖼️</button>
+          <button class="xl-slide-btn" data-idx="${idx}" title="نمایش در محیط اکسل / Show in Excel">🖥️</button>
+          <div class="tag">${CATS[f.c].split(' / ')[langMode==='en'?1:0]}</div>
+        </div>
+      </div>
+      <div class="syntax">${f.s}</div>
+      ${langMode!=='en' ? `<div class="lang-block"><div class="lang-title fa">فارسی</div><div class="desc fa">${f.fa}</div></div>` : ''}
+      ${langMode!=='fa' ? `<div class="lang-block"><div class="lang-title">English</div><div class="desc en">${f.en}</div></div>` : ''}
+      <div class="example">
+        ${langMode!=='en' ? `<span class="lbl">مثال (برای کپی فرمول کلیک کنید)<button class="ex-copy-icon" data-copy-idx="${idx}" data-copy-lang="fa" title="کپی فرمول">⧉ کپی</button></span><code class="ex-copy" data-formula="${f.exfa.split('→')[0].trim().replace(/"/g,'&quot;')}" title="برای کپی فرمول کلیک کنید">${f.exfa}</code>` : ''}
+        ${langMode!=='fa' ? `<span class="lbl" style="margin-top:${langMode==='both'?'8px':'0'}">Example (click to copy)<button class="ex-copy-icon" data-copy-idx="${idx}" data-copy-lang="en" title="Copy formula">⧉ copy</button></span><code class="ex-copy" data-formula="${f.exen.split('→')[0].trim().replace(/"/g,'&quot;')}" title="Click to copy formula">${f.exen}</code>` : ''}
+      </div>
+    </div>
+  `).join('');
+
+  grid.querySelectorAll('.xl-slide-btn').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      openSlideshow(parseInt(btn.dataset.idx,10));
+    });
+  });
+
+  grid.querySelectorAll('[data-fav]').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      const name = btn.dataset.fav;
+      if(favorites.has(name)) favorites.delete(name); else favorites.add(name);
+      renderGrid();
+    });
+  });
+
+  grid.querySelectorAll('.example code.ex-copy').forEach(codeEl=>{
+    codeEl.addEventListener('click', async (e)=>{
+      e.stopPropagation();
+      const formulaOnly = codeEl.dataset.formula;
+      const ok = await copyFormula(formulaOnly);
+      if(ok){
+        codeEl.classList.add('copied-flash');
+        setTimeout(()=>{ codeEl.classList.remove('copied-flash'); }, 900);
+      }
+    });
+  });
+
+  grid.querySelectorAll('.ex-copy-icon').forEach(btn=>{
+    btn.addEventListener('click', async (e)=>{
+      e.stopPropagation();
+      const idx = parseInt(btn.dataset.copyIdx,10);
+      const lang = btn.dataset.copyLang;
+      const f = items[idx];
+      const formulaOnly = (lang==='fa'?f.exfa:f.exen).split('→')[0].trim();
+      const ok = await copyFormula(formulaOnly);
+      if(ok){
+        btn.classList.add('copied'); btn.textContent='✓';
+        setTimeout(()=>{ btn.classList.remove('copied'); btn.textContent='⧉'; }, 1200);
+      }
+    });
+  });
+
+  grid.querySelectorAll('[data-copy]').forEach(btn=>{
+    btn.addEventListener('click', async (e)=>{
+      e.stopPropagation();
+      const f = items[parseInt(btn.dataset.copy,10)];
+      const formulaOnly = (langMode==='fa'?f.exfa:f.exen).split('→')[0].trim();
+      const ok = await copyFormula(formulaOnly);
+      if(ok){
+        btn.classList.add('copied'); btn.textContent='✓';
+        setTimeout(()=>{ btn.classList.remove('copied'); btn.textContent='⧉'; }, 1200);
+      }
+    });
+  });
+
+  grid.querySelectorAll('[data-slide]').forEach(btn=>{
+    btn.addEventListener('click', (e)=>{
+      e.stopPropagation();
+      exportFormulaSlide(items[parseInt(btn.dataset.slide,10)], btn);
+    });
+  });
+}
+
+document.getElementById('favToggle').addEventListener('click', (e)=>{
+  showFavOnly = !showFavOnly;
+  e.currentTarget.classList.toggle('active', showFavOnly);
+  renderGrid();
+});
+
+document.getElementById('sidebarToggle').addEventListener('click', ()=>{
+  document.getElementById('catList').classList.toggle('open');
+});
+
+document.addEventListener('keydown', (e)=>{
+  if(e.key==='/' && document.activeElement.id!=='searchBox' && !document.getElementById('xlOverlay').classList.contains('open')){
+    e.preventDefault();
+    document.getElementById('searchBox').focus();
+  }
+});
+
+document.getElementById('searchBox').addEventListener('input', renderGrid);
+
+const langBtn = document.getElementById('langToggle');
+langBtn.addEventListener('click', ()=>{
+  if(langMode==='both'){ langMode='fa'; langBtn.textContent='🇮🇷 فقط فارسی'; }
+  else if(langMode==='fa'){ langMode='en'; langBtn.textContent='🇬🇧 English Only'; }
+  else { langMode='both'; langBtn.textContent='🌐 فارسی+انگلیسی'; }
+  renderGrid();
+});
+
+const themeBtn = document.getElementById('themeToggle');
+themeBtn.addEventListener('click', ()=>{
+  const body = document.body;
+  const isDark = body.getAttribute('data-theme')==='dark';
+  body.setAttribute('data-theme', isDark ? 'light':'dark');
+  themeBtn.textContent = isDark ? '☀️ روشن' : '🌙 تیره';
+});
+
+const exportBtn = document.getElementById('exportBtn');
+exportBtn.addEventListener('click', ()=>{
+  if(typeof XLSX === 'undefined'){
+    alert('کتابخانه اکسل هنوز بارگذاری نشده؛ لطفاً چند لحظه صبر کنید و دوباره تلاش کنید.\nExcel library is still loading; please wait a moment and try again.');
+    return;
+  }
+  const origText = exportBtn.textContent;
+  exportBtn.textContent = '⏳ در حال آماده‌سازی...';
+  exportBtn.disabled = true;
+
+  try{
+    const rows = F.map(f=>({
+      'Function / تابع': f.n,
+      'Category (EN)': CATS[f.c].split(' / ')[1],
+      'دسته‌بندی (FA)': CATS[f.c].split(' / ')[0],
+      'Syntax': f.s,
+      'Description (EN)': f.en,
+      'توضیحات (فارسی)': f.fa,
+      'Example (EN)': f.exen,
+      'مثال (فارسی)': f.exfa
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(rows);
+    ws['!cols'] = [
+      {wch:18},{wch:22},{wch:22},{wch:38},{wch:45},{wch:45},{wch:32},{wch:32}
+    ];
+
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Excel Formulas');
+    XLSX.writeFile(wb, 'excel-formulas-bilingual.xlsx');
+  } catch(err){
+    console.error(err);
+    alert('خطا در ساخت فایل اکسل. لطفاً دوباره تلاش کنید.\nError generating the Excel file. Please try again.');
+  } finally {
+    exportBtn.textContent = origText;
+    exportBtn.disabled = false;
+  }
+});
+
+/* ===== Excel-environment slideshow: renders a mock spreadsheet for each formula's example ===== */
+const XL_COLS = ['A','B','C','D','E','F'];
+const XL_ROWS = 10;
+let slideIndex = 0;
+let slideAutoplay = null;
+
+function seededRand(seed){
+  let h = 0;
+  for(let i=0;i<seed.length;i++){ h = (h*31 + seed.charCodeAt(i)) >>> 0; }
+  return function(){
+    h = (h*1103515245 + 12345) >>> 0;
+    return (h % 1000) / 1000;
+  };
+}
+
+function parseExample(ex){
+  const arrowIdx = ex.indexOf('→');
+  const formula = (arrowIdx>-1 ? ex.slice(0,arrowIdx) : ex).trim();
+  const result = (arrowIdx>-1 ? ex.slice(arrowIdx+1) : '').trim();
+  const hasLetters = /[a-zA-Zء-ی]/.test(result.replace(/TRUE|FALSE/g,''));
+  const isValue = result.length>0 && !hasLetters;
+  return {formula, result, isValue};
+}
+
+function extractRefs(formula){
+  const refs = new Set();
+  const rangeRe = /\b([A-Fa-f])(\d{1,2}):([A-Fa-f])(\d{1,2})\b/g;
+  let m, cleaned = formula;
+  while((m = rangeRe.exec(formula))){
+    const c1 = m[1].toUpperCase(), r1 = parseInt(m[2],10);
+    const c2 = m[3].toUpperCase(), r2 = parseInt(m[4],10);
+    const ci1 = XL_COLS.indexOf(c1), ci2 = XL_COLS.indexOf(c2);
+    if(ci1<0||ci2<0) continue;
+    for(let ci=Math.min(ci1,ci2); ci<=Math.max(ci1,ci2); ci++){
+      for(let r=Math.min(r1,r2); r<=Math.max(r1,r2); r++){
+        if(r<=XL_ROWS) refs.add(XL_COLS[ci]+r);
+      }
+    }
+    cleaned = cleaned.replace(m[0],'');
+  }
+  const singleRe = /\b([A-Fa-f])(\d{1,2})\b/g;
+  while((m = singleRe.exec(cleaned))){
+    const c = m[1].toUpperCase(), r = parseInt(m[2],10);
+    if(XL_COLS.includes(c) && r<=XL_ROWS) refs.add(c+r);
+  }
+  return refs;
+}
+
+/* Detects "range,criteria" pairs used by *IF / *IFS formulas, e.g.
+   SUMIFS(C2:C10,A2:A10,"Tehran",B2:B10,">50") -> [{range:A2:A10, criteria:"Tehran"}, {range:B2:B10, criteria:">50"}]
+   This lets the mock table place the real criteria text/number inside the correct column
+   instead of filling every referenced range with unrelated random numbers. */
+function extractCriteriaPairs(formula){
+  const pairs = [];
+  const re = /\b([A-Fa-f])(\d{1,2}):([A-Fa-f])(\d{1,2})\s*,\s*"([^"]*)"/g;
+  let m;
+  while((m = re.exec(formula))){
+    const c1 = m[1].toUpperCase(), r1 = parseInt(m[2],10);
+    const c2 = m[3].toUpperCase(), r2 = parseInt(m[4],10);
+    const ci1 = XL_COLS.indexOf(c1), ci2 = XL_COLS.indexOf(c2);
+    if(ci1<0||ci2<0) continue;
+    const cellAddrs = [];
+    for(let ci=Math.min(ci1,ci2); ci<=Math.max(ci1,ci2); ci++){
+      for(let r=Math.min(r1,r2); r<=Math.max(r1,r2); r++){
+        if(r<=XL_ROWS) cellAddrs.push(XL_COLS[ci]+r);
+      }
+    }
+    pairs.push({ cells: cellAddrs, criteria: m[5] });
+  }
+  return pairs;
+}
+
+const TEXT_POOLS = {
+  fa: ['تهران','مشهد','اصفهان','شیراز','تبریز','اهواز'],
+  en: ['Tehran','Mashhad','Isfahan','Shiraz','Tabriz','Ahvaz']
+};
+
+function isComparisonCriteria(c){
+  return /^(<>|<=|>=|<|>|=)/.test(c.trim()) || /^-?\d+(\.\d+)?$/.test(c.trim());
+}
+
+function pickTarget(refs){
+  let maxCol = -1, minRow = XL_ROWS+1;
+  refs.forEach(addr=>{
+    const col = XL_COLS.indexOf(addr[0]);
+    const row = parseInt(addr.slice(1),10);
+    if(col>maxCol) maxCol = col;
+    if(row<minRow) minRow = row;
+  });
+  let targetCol = maxCol>=0 ? Math.min(maxCol+2, XL_COLS.length-1) : 2;
+  let targetRow = minRow<=XL_ROWS ? minRow : 2;
+  let addr = XL_COLS[targetCol]+targetRow;
+  let guard=0;
+  while(refs.has(addr) && guard<20){ targetRow++; if(targetRow>XL_ROWS) targetRow=1; addr = XL_COLS[targetCol]+targetRow; guard++; }
+  return addr;
+}
+
+function buildExcelMock(f){
+  const langEx = langMode==='fa' ? f.exfa : f.exen;
+  const {formula, result, isValue} = parseExample(langMode==='fa' ? f.exfa : f.exen);
+  const refs = extractRefs(formula);
+  const target = pickTarget(refs);
+  const rand = seededRand(f.n + formula);
+  const pool = TEXT_POOLS[langMode==='fa' ? 'fa' : 'en'];
+
+  // Map each cell to how it should be filled: plain number, or governed by a criteria pair (text/comparison)
+  const criteriaPairs = extractCriteriaPairs(formula);
+  const cellCriteria = {}; // addr -> criteria pair
+  criteriaPairs.forEach(pair=>{ pair.cells.forEach(addr=>{ cellCriteria[addr] = pair; }); });
+
+  const refValues = {}, refClasses = {};
+  refs.forEach(addr=>{
+    const pair = cellCriteria[addr];
+    if(pair && isComparisonCriteria(pair.criteria)){
+      // numeric criteria range, e.g. ">50": mix values above/below the threshold
+      const num = parseFloat(pair.criteria.replace(/[^0-9.\-]/g,'')) || 50;
+      const above = rand() > 0.45;
+      const val = above ? Math.round(num + rand()*40 + 5) : Math.max(1, Math.round(num - rand()*30 - 5));
+      refValues[addr] = val;
+      const jsExpr = pair.criteria.trim().replace(/^<>/,'!=').replace(/^=/,'==');
+      try{ if(eval(`${val} ${jsExpr}`)) refClasses[addr] = 'xl-crit'; }catch(e){}
+    } else if(pair){
+      // text criteria range, e.g. "Tehran": most cells other categories, some cells match exactly
+      const matches = rand() > 0.5;
+      let val;
+      if(matches){ val = pair.criteria; refClasses[addr] = 'xl-crit'; }
+      else { val = pool[Math.floor(rand()*pool.length)]; if(val===pair.criteria) val = pool[(pool.indexOf(val)+1)%pool.length]; }
+      refValues[addr] = val;
+    } else {
+      refValues[addr] = Math.round(rand()*90 + 10 + rand()*100)/1 - Math.round(rand()*5);
+    }
+  });
+  // Guarantee at least one exact text match per text-criteria column so the criteria value is always visible
+  criteriaPairs.forEach(pair=>{
+    if(!isComparisonCriteria(pair.criteria) && pair.cells.length){
+      const hasMatch = pair.cells.some(addr=> refValues[addr]===pair.criteria);
+      if(!hasMatch){ const addr = pair.cells[0]; refValues[addr] = pair.criteria; refClasses[addr] = 'xl-crit'; }
+    }
+  });
+
+  let table = '<tr><th></th>';
+  XL_COLS.forEach(c=> table += `<th>${c}</th>`);
+  table += '</tr>';
+  for(let r=1;r<=XL_ROWS;r++){
+    table += `<tr><td class="rownum">${r}</td>`;
+    XL_COLS.forEach(c=>{
+      const addr = c+r;
+      let cls = '', content = '';
+      if(addr===target){
+        cls = 'xl-target';
+        content = result || formula.replace(/^=/,'');
+      } else if(refs.has(addr)){
+        cls = refClasses[addr] || 'xl-ref';
+        content = String(refValues[addr]);
+      }
+      table += `<td class="${cls}">${content}</td>`;
+    });
+    table += '</tr>';
+  }
+
+  const hasCriteria = criteriaPairs.length>0;
+  const captionFa = `فرمول <b>${f.n}</b> در سلول <b>${target}</b> وارد شده است. ${refs.size? 'سلول‌های آبی، محدوده مرجع فرمول' + (hasCriteria? '، سلول‌های زرد مقادیر منطبق با شرط فرمول' : '') + ' و سلول سبز، نتیجه محاسبه‌شده را نشان می‌دهند.' : 'سلول سبز نتیجه یا خروجی فرمول را نمایش می‌دهد.'}`;
+  const captionEn = `The <b>${f.n}</b> formula is entered in cell <b>${target}</b>. ${refs.size? 'Blue cells are the referenced range' + (hasCriteria? ', amber cells match the formula\'s condition,' : '') + ' and the green cell shows the calculated result.' : 'The green cell shows the formula\'s result.'}`;
+
+  return {
+    table,
+    formulaText: formula,
+    targetCell: target,
+    caption: langMode==='fa' ? captionFa : (langMode==='en' ? captionEn : (captionFa + '<br>' + captionEn))
+  };
+}
+
+function renderSlide(){
+  if(currentItems.length===0) return;
+  slideIndex = ((slideIndex % currentItems.length) + currentItems.length) % currentItems.length;
+  const f = currentItems[slideIndex];
+  const mock = buildExcelMock(f);
+
+  document.getElementById('xlTitle').textContent = f.n;
+  document.getElementById('xlWinTitle').textContent = `${f.n}.xlsx - Excel`;
+  document.getElementById('xlCellRef').textContent = mock.targetCell;
+  document.getElementById('xlFormulaText').textContent = mock.formulaText;
+  document.getElementById('xlTable').innerHTML = mock.table;
+  document.getElementById('xlCaption').innerHTML = mock.caption;
+  document.getElementById('xlSyntaxMini').textContent = f.s;
+  document.getElementById('xlCounter').textContent = `${slideIndex+1} / ${currentItems.length}`;
+}
+
+function openSlideshow(startIdx){
+  if(currentItems.length===0) return;
+  slideIndex = startIdx || 0;
+  document.getElementById('xlOverlay').classList.add('open');
+  renderSlide();
+}
+
+function closeSlideshow(){
+  document.getElementById('xlOverlay').classList.remove('open');
+  stopAutoplay();
+}
+
+function stopAutoplay(){
+  if(slideAutoplay){ clearInterval(slideAutoplay); slideAutoplay=null; }
+  document.getElementById('xlAutoplay').textContent = '▶️ خودکار';
+}
+
+document.getElementById('slideshowBtn').addEventListener('click', ()=>{ renderGrid(); openSlideshow(0); });
+document.getElementById('xlClose').addEventListener('click', closeSlideshow);
+document.getElementById('xlOverlay').addEventListener('click', (e)=>{ if(e.target.id==='xlOverlay') closeSlideshow(); });
+document.getElementById('xlPrev').addEventListener('click', ()=>{ slideIndex--; renderSlide(); });
+document.getElementById('xlNext').addEventListener('click', ()=>{ slideIndex++; renderSlide(); });
+document.getElementById('xlAutoplay').addEventListener('click', ()=>{
+  if(slideAutoplay){ stopAutoplay(); }
+  else {
+    document.getElementById('xlAutoplay').textContent = '⏸ توقف';
+    slideAutoplay = setInterval(()=>{ slideIndex++; renderSlide(); }, 3000);
+  }
+});
+document.addEventListener('keydown', (e)=>{
+  if(!document.getElementById('xlOverlay').classList.contains('open')) return;
+  if(e.key==='Escape') closeSlideshow();
+  else if(e.key==='ArrowLeft'){ slideIndex++; renderSlide(); }
+  else if(e.key==='ArrowRight'){ slideIndex--; renderSlide(); }
+});
+
+/* ===== Save a bilingual, branded image slide of a formula to the device ===== */
+let toastTimer = null;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.opacity = '1';
+  t.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>{
+    t.style.opacity = '0';
+    t.style.transform = 'translateX(-50%) translateY(20px)';
+  }, 2600);
+}
+
+/* ===== Copy formula to clipboard, with a fallback for browsers/contexts where
+   navigator.clipboard is unavailable or blocked (common on some mobile browsers) ===== */
+async function copyFormula(text){
+  let ok = false;
+
+  if(navigator.clipboard && window.isSecureContext){
+    try{
+      await navigator.clipboard.writeText(text);
+      ok = true;
+    }catch(err){ ok = false; }
+  }
+
+  if(!ok){
+    try{
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly','');
+      ta.style.position = 'fixed';
+      ta.style.top = '-9999px';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      ta.setSelectionRange(0, text.length);
+      ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+    }catch(err){ ok = false; }
+  }
+
+  if(ok){
+    showToast(`✅ فرمول کپی شد / Formula copied: ${text}`);
+  } else {
+    showToast(`❌ کپی خودکار ممکن نشد؛ لطفاً فرمول را انتخاب و کپی کنید. / Auto-copy failed — please select and copy manually.`);
+  }
+  return ok;
+}
+
+const H2C_SOURCES = [
+  'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',
+  'https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js',
+  'https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js'
+];
+let h2cLoadingPromise = null;
+function ensureHtml2Canvas(){
+  if(typeof html2canvas !== 'undefined') return Promise.resolve();
+  if(h2cLoadingPromise) return h2cLoadingPromise;
+
+  h2cLoadingPromise = (async ()=>{
+    for(const src of H2C_SOURCES){
+      try{
+        await new Promise((resolve, reject)=>{
+          const s = document.createElement('script');
+          s.src = src;
+          s.onload = resolve;
+          s.onerror = ()=>{ s.remove(); reject(new Error('failed: '+src)); };
+          document.head.appendChild(s);
+        });
+        if(typeof html2canvas !== 'undefined') return;
+      }catch(err){ console.warn(err.message); }
+    }
+    throw new Error('all-sources-failed');
+  })();
+  return h2cLoadingPromise;
+}
+
+async function exportFormulaSlide(f, triggerBtn){
+  const origLabel = triggerBtn ? triggerBtn.textContent : null;
+  if(triggerBtn){ triggerBtn.textContent = '⏳'; triggerBtn.disabled = true; }
+
+  try{
+    if(typeof html2canvas === 'undefined'){
+      showToast('⏳ در حال آماده‌سازی ابزار تصویرسازی... / Preparing image tool...');
+      await ensureHtml2Canvas();
+    }
+
+    document.getElementById('fxCat').textContent = CATS[f.c];
+    document.getElementById('fxName').textContent = f.n;
+    document.getElementById('fxSyntax').textContent = f.s;
+    document.getElementById('fxDescFa').textContent = f.fa;
+    document.getElementById('fxDescEn').textContent = f.en;
+    document.getElementById('fxExFa').textContent = f.exfa;
+    document.getElementById('fxExEn').textContent = f.exen;
+
+    const node = document.getElementById('fxSlide');
+    // Let the browser lay out the (fixed, off-screen) slide and finish loading fonts before capturing
+    if(document.fonts && document.fonts.ready){ try{ await document.fonts.ready; }catch(e){} }
+    await new Promise(r=>setTimeout(r, 50));
+    node.style.minHeight = 'auto';
+    const canvas = await html2canvas(node, {backgroundColor:'#0a0c11', scale:2, useCORS:true, width:1080});
+
+    canvas.toBlob((blob)=>{
+      if(!blob){ showToast('❌ خطا در ساخت تصویر / Failed to generate image'); return; }
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ExcelLand-${f.n}.png`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url), 4000);
+      showToast(`✅ اسلاید «${f.n}» ذخیره شد / Slide saved`);
+    }, 'image/png');
+  } catch(err){
+    console.error(err);
+    if(err && err.message === 'all-sources-failed'){
+      showToast('❌ اتصال به ابزار تصویرسازی برقرار نشد؛ اینترنت یا مسدودکننده‌ی تبلیغات را بررسی کنید. / Could not load the image tool — check your connection or ad-blocker.');
+    } else {
+      showToast('❌ خطا در ذخیره اسلاید. لطفاً دوباره تلاش کنید. / Could not save the slide.');
+    }
+  } finally {
+    if(triggerBtn){ triggerBtn.textContent = origLabel; triggerBtn.disabled = false; }
+  }
+}
+
+document.getElementById('xlSaveSlide').addEventListener('click', (e)=>{
+  if(currentItems.length===0) return;
+  exportFormulaSlide(currentItems[slideIndex], e.currentTarget);
+});
+
+renderCats();
+renderGrid();
+</script>
+</body>
+</html>
